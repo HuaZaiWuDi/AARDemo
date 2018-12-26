@@ -1,1 +1,1 @@
-include ':app', ':RxTools-library'
+include ':app', ':dynamic_feature', ':base', ':base', ':instantapp', ':mylibrary',':RxTools-Library'

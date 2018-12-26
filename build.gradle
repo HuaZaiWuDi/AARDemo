@@ -22,7 +22,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://dl.bintray.com/zchu/maven/' }
         //maven { url "https://raw.githubusercontent.com/GitHub用户名/仓库项目名/master" }
-//        maven { url "https://raw.githubusercontent.com/yanwanhua/Android_WeFit/master" }
+        maven { url "https://raw.githubusercontent.com/HuaZaiWuDi/AARDemo/master" }
     }
 }
 

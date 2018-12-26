@@ -15,6 +15,8 @@ import android.widget.QuickContactBadge;
 import com.vondear.rxtools.utils.RxUtils;
 import com.vondear.rxtools.view.RxToast;
 
+import io.reactivex.Observable;
+
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -29,8 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         RxUtils.init(this.getApplication());
 
         RxToast.normal("开始");
-
-
 
 
         Chronometer ch_timer = findViewById(R.id.ch_timer);
