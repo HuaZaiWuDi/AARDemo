@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progress"
+            style="@style/Base.Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <Chronometer
+            android:id="@+id/ch_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:navigationIcon="@mipmap/ic_launcher_round"
+
+            app:title="TITLE">
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <QuickContactBadge
+            android:id="@+id/contact"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <TextClock
+            android:id="@+id/dataView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:format12Hour="yyyy.MM.dd HH:mm:ss\nEE     a"
+            android:format24Hour="yyyy.MM.dd HH:mm:ss\nEE     a"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21sp"/>
+
+
+        <TextSwitcher
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:onClick="toggle"
+            android:text="开关"
+            android:textOff="关"
+            android:textOn="开"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+    <include
+        app:layout_constraintBottom_toBottomOf="parent"
+        layout="@layout/bottom_sheet"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
