@@ -1,4 +1,4 @@
-package com.vondear.rxtools.abstracts;
+package com.vondear.rxtools.interfaces;
 
 import android.text.Editable;
 import android.text.TextWatcher;

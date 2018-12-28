@@ -8,7 +8,7 @@ import com.vondear.rxtools.view.layout.helper.RxBaseHelper;
 import com.vondear.rxtools.view.layout.iface.RxHelper;
 
 /**
- * RRelativeLayout
+ * RxRelativeLayout
  *
  * @author ZhongDaFeng
  */

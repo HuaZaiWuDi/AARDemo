@@ -429,7 +429,6 @@ public class RxUtils {
         return false;
     }
 
-
     private static int indexOfViewInParent(View view, ViewGroup parent) {
         int index;
         for (index = 0; index < parent.getChildCount(); index++) {

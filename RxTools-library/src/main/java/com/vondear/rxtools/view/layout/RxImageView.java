@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import com.vondear.rxtools.view.layout.helper.RxImageViewHelper;
 
 /**
- * RImageView
+ * RxImageView
  *
  * @author ZhongDaFeng
  */

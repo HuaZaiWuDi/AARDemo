@@ -8,7 +8,7 @@ import com.vondear.rxtools.view.layout.helper.RxTextViewHelper;
 import com.vondear.rxtools.view.layout.iface.RxHelper;
 
 /**
- * RTextView
+ * RxTextView
  *
  * @author ZhongDaFeng
  */
