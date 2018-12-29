@@ -13,8 +13,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by vondear on 2016/1/24.
- */
+*@date on 2018/12/29
+*@author Jack
+*@version
+*@describe TODO日志工具类
+*@org 智裳科技
+*/
 public class RxLogUtils {
 
     private static Boolean LOG_SWITCH = true; // 日志文件总开关

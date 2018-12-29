@@ -16,13 +16,12 @@ import android.widget.FrameLayout;
 import java.lang.reflect.Field;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/02
- *     desc  : utils about keyboard
- * </pre>
- */
+*@date on 2018/12/29
+*@author Jack
+*@version
+*@describe TODO输入法工具
+*@org 智裳科技
+*/
 public final class RxKeyboardUtils {
 
     private static int sDecorViewInvisibleHeightPre;

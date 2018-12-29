@@ -17,6 +17,8 @@ public class RxIntentUtils {
 
     /**
      * 获取安装App(支持7.0)的意图
+     * 8.0需要添加 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>吊起安装界面
+     *
      * @param context
      * @param filePath
      * @param fileProvide

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.vondear.rxtools.R;
 import com.vondear.rxtools.utils.RxPermissionsUtils;
-import com.vondear.rxtools.utils.RxPhotoUtils;
+import com.vondear.rxtools.utils.bitmap.RxPhotoUtils;
 import com.vondear.rxtools.interfaces.onRequestPermissionsListener;
 import com.vondear.rxtools.view.RxToast;
 

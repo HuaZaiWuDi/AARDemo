@@ -32,6 +32,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
+import com.vondear.rxtools.utils.bitmap.RxPhotoUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

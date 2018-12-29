@@ -10,8 +10,10 @@ import static android.hardware.Camera.Parameters.FLASH_MODE_OFF;
 import static android.hardware.Camera.Parameters.FLASH_MODE_TORCH;
 
 /**
- * detail: 手电筒工具类
- * Created by Ttt
+ * @author Jack
+ * @date on 2018/12/29
+ * @describe TODO闪光灯工具类，需要相机权限
+ * @org 智裳科技
  */
 public final class RxFlashlightUtils {
 
@@ -35,6 +37,7 @@ public final class RxFlashlightUtils {
 
     /**
      * 注册摄像头
+     *
      * @return
      */
     public boolean register() {
@@ -95,6 +98,7 @@ public final class RxFlashlightUtils {
 
     /**
      * 是否打开闪光灯
+     *
      * @return
      */
     public boolean isFlashlightOn() {
@@ -107,6 +111,7 @@ public final class RxFlashlightUtils {
 
     /**
      * 是否支持手机闪光灯
+     *
      * @return
      */
     public static boolean isFlashlightEnable() {
@@ -117,6 +122,7 @@ public final class RxFlashlightUtils {
 
     /**
      * 打开闪光灯
+     *
      * @param camera
      */
     public void setFlashlightOn(Camera camera) {
@@ -125,14 +131,15 @@ public final class RxFlashlightUtils {
                 Camera.Parameters parameter = camera.getParameters();
                 parameter.setFlashMode(FLASH_MODE_TORCH);
                 camera.setParameters(parameter);
-            } catch (Exception e){
-               RxLogUtils.e(e);
+            } catch (Exception e) {
+                RxLogUtils.e(e);
             }
         }
     }
 
     /**
      * 关闭闪光灯
+     *
      * @param camera
      */
     public void setFlashlightOff(Camera camera) {
@@ -141,14 +148,15 @@ public final class RxFlashlightUtils {
                 Camera.Parameters parameter = camera.getParameters();
                 parameter.setFlashMode(FLASH_MODE_OFF);
                 camera.setParameters(parameter);
-            } catch (Exception e){
-               RxLogUtils.e(e);
+            } catch (Exception e) {
+                RxLogUtils.e(e);
             }
         }
     }
 
     /**
      * 是否打开了摄像头
+     *
      * @param camera
      * @return
      */
@@ -159,7 +167,7 @@ public final class RxFlashlightUtils {
         try {
             Camera.Parameters parameters = camera.getParameters();
             return FLASH_MODE_TORCH.equals(parameters.getFlashMode());
-        } catch (Exception e){
+        } catch (Exception e) {
             RxLogUtils.e(e);
         }
         return false;

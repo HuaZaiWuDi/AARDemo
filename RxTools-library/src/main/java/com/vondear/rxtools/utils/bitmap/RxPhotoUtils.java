@@ -1,4 +1,4 @@
-package com.vondear.rxtools.utils;
+package com.vondear.rxtools.utils.bitmap;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -19,7 +19,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.utils.RxFileUtils;
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -152,7 +153,7 @@ public class RxPhotoUtils {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             imageFilePath[0] = Uri.parse("");
-            RxToast.error("请先获取写入SDCard权限");
+            RxLogUtils.e("请先获取写入SDCard权限");
         } else {
             String status = Environment.getExternalStorageState();
             SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
