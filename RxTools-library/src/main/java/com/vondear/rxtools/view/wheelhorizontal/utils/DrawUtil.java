@@ -14,12 +14,13 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
@@ -121,7 +122,7 @@ public class DrawUtil {
                 }
                 getStatusBarHeight(context);
             } catch (Error e) {
-                Log.i("DrawUtil", "resetDensity has error" + e.getMessage());
+                RxLogUtils.i("DrawUtil", "resetDensity has error" + e.getMessage());
             }
             sStatusBar = getStatusBarHeight(context);
 
@@ -377,17 +378,17 @@ public class DrawUtil {
     }
 
     public static void setNoTranslucentStatusBar(Window window) {
-        Log.i("zou", "DrawUtil setNoTranslucentStatusBar");
+        RxLogUtils.i("zou", "DrawUtil setNoTranslucentStatusBar");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.i("zou", "DrawUtil setNoTranslucentStatusBar1111");
+            RxLogUtils.i("zou", "DrawUtil setNoTranslucentStatusBar1111");
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.BLACK);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Log.i("zou", "DrawUtil setNoTranslucentStatusBar2222");
+            RxLogUtils.i("zou", "DrawUtil setNoTranslucentStatusBar2222");
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 

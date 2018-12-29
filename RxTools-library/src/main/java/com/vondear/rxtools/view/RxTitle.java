@@ -107,22 +107,18 @@ public class RxTitle extends FrameLayout {
             mTitleColor = a.getColor(R.styleable.RxTitle_titleColor, getResources().getColor(R.color.white));//标题颜色
             mTitleSize = a.getDimensionPixelSize(R.styleable.RxTitle_titleSize, 60);//标题字体大小
             //TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics())
-            mTitleVisibility = a.getBoolean(R.styleable.RxTitle_titleVisibility, true);
 
             mLeftIcon = a.getResourceId(R.styleable.RxTitle_leftIcon, R.drawable.previous_icon);//左边图标
-            mRightIcon = a.getResourceId(R.styleable.RxTitle_rightIcon, R.drawable.set);//右边图标
+            mRightIcon = a.getResourceId(R.styleable.RxTitle_rightIcon, 0);//右边图标
             mLeftIconVisibility = a.getBoolean(R.styleable.RxTitle_leftIconVisibility, true);//左边图标是否显示
-            mRightIconVisibility = a.getBoolean(R.styleable.RxTitle_rightIconVisibility, false);//右边图标是否显示
 
             mLeftText = a.getString(R.styleable.RxTitle_leftText);
             mLeftTextColor = a.getColor(R.styleable.RxTitle_leftTextColor, getResources().getColor(R.color.white));//左边字体颜色
             mLeftTextSize = a.getDimensionPixelSize(R.styleable.RxTitle_leftTextSize, 48);//标题字体大小
-            mLeftTextVisibility = a.getBoolean(R.styleable.RxTitle_leftTextVisibility, false);
 
             mRightText = a.getString(R.styleable.RxTitle_rightText);
             mRightTextColor = a.getColor(R.styleable.RxTitle_rightTextColor, getResources().getColor(R.color.white));//右边字体颜色
             mRightTextSize = a.getDimensionPixelSize(R.styleable.RxTitle_rightTextSize, 48);//标题字体大小
-            mRightTextVisibility = a.getBoolean(R.styleable.RxTitle_rightTextVisibility, false);
 
         } finally {
             //回收这个对象
@@ -130,47 +126,50 @@ public class RxTitle extends FrameLayout {
         }
 
         //******************************************************************************************以下属性初始化
-        if (!RxDataUtils.isNullString(mTitle)) {
+
+        //title
+        mTitleVisibility = !RxDataUtils.isNullString(mTitle);
+
+        if (mTitleVisibility) {
             setTitle(mTitle);
-        }
-
-        if (mTitleColor != 0) {
             setTitleColor(mTitleColor);
-        }
-
-        if (mTitleSize != 0) {
             setTitleSize(mTitleSize);
         }
-
-        if (mLeftIcon != 0) {
-            setLeftIcon(mLeftIcon);
-        }
-
-        if (mRightIcon != 0) {
-            setRightIcon(mRightIcon);
-        }
-
         setTitleVisibility(mTitleVisibility);
 
-        setLeftText(mLeftText);
 
-        setLeftTextColor(mLeftTextColor);
-
-        setLeftTextSize(mLeftTextSize);
-
-        setLeftTextVisibility(mLeftTextVisibility);
-
-        setRightText(mRightText);
-
-        setRightTextColor(mRightTextColor);
-
-        setRightTextSize(mRightTextSize);
-
-        setRightTextVisibility(mRightTextVisibility);
-
+//        leftIcon
+        if (mLeftIconVisibility) {
+            setLeftIcon(mLeftIcon);
+        }
         setLeftIconVisibility(mLeftIconVisibility);
 
+//        rightIcon
+        mRightIconVisibility = mRightIcon != 0;
+
+        if (mRightIconVisibility) {
+            setRightIcon(mRightIcon);
+        }
         setRightIconVisibility(mRightIconVisibility);
+
+
+//        leftText
+        mLeftTextVisibility = !RxDataUtils.isNullString(mLeftText);
+        if (mLeftTextVisibility) {
+            setLeftText(mLeftText);
+            setLeftTextColor(mLeftTextColor);
+            setLeftTextSize(mLeftTextSize);
+        }
+        setLeftTextVisibility(mLeftTextVisibility);
+
+//        rightText
+        mRightTextVisibility = !RxDataUtils.isNullString(mRightText);
+        if (mRightTextVisibility) {
+            setRightText(mRightText);
+            setRightTextColor(mRightTextColor);
+            setRightTextSize(mRightTextSize);
+        }
+        setRightTextVisibility(mRightTextVisibility);
 
 
         initAutoFitEditText();
@@ -302,151 +301,169 @@ public class RxTitle extends FrameLayout {
 
     //**********************************************************************************************以下为set方法
 
-    public void setLeftFinish(final Activity activity) {
+    public RxTitle setLeftFinish(final Activity activity) {
         mLlLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.finish();
             }
         });
+        return this;
     }
 
 
-    public void setLeftOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setLeftOnClickListener(OnClickListener onClickListener) {
         mLlLeft.setOnClickListener(onClickListener);
+        return this;
     }
 
-    public void setRightOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setRightOnClickListener(OnClickListener onClickListener) {
         mLlRight.setOnClickListener(onClickListener);
+        return this;
     }
 
-    public void setLeftTextOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setLeftTextOnClickListener(OnClickListener onClickListener) {
         mTvLeft.setOnClickListener(onClickListener);
+        return this;
     }
 
-    public void setRightTextOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setRightTextOnClickListener(OnClickListener onClickListener) {
         mTvRight.setOnClickListener(onClickListener);
+        return this;
     }
 
-    public void setLeftIconOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setLeftIconOnClickListener(OnClickListener onClickListener) {
         mIvLeft.setOnClickListener(onClickListener);
+        return this;
     }
 
-    public void setRightIconOnClickListener(OnClickListener onClickListener) {
+    public RxTitle setRightIconOnClickListener(OnClickListener onClickListener) {
         mIvRight.setOnClickListener(onClickListener);
+        return this;
     }
 
     //**********************************************************************************************以下为Title相关方法
-    public void setTitle(String title) {
+    public RxTitle setTitle(String title) {
         mTitle = title;
         mTvTitle.setText(mTitle);
+        return this;
     }
 
-    public void setTitleColor(int titleColor) {
+    public RxTitle setTitleColor(int titleColor) {
         mTitleColor = titleColor;
         mTvTitle.setTextColor(mTitleColor);
+        return this;
     }
 
-    public void setTitleSize(int titleSize) {
+    public RxTitle setTitleSize(int titleSize) {
         mTitleSize = titleSize;
         mTvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTitleSize);
+        return this;
     }
 
-    public void setTitleVisibility(boolean titleVisibility) {
+    public RxTitle setTitleVisibility(boolean titleVisibility) {
         mTitleVisibility = titleVisibility;
         if (mTitleVisibility) {
             mTvTitle.setVisibility(VISIBLE);
         } else {
             mTvTitle.setVisibility(GONE);
         }
+        return this;
     }
     //==============================================================================================以上为  Title  相关方法
 
 
     //**********************************************************************************************以下为  左边文字  相关方法
-    public void setLeftText(String leftText) {
+    public RxTitle setLeftText(String leftText) {
         mLeftText = leftText;
         mTvLeft.setText(mLeftText);
-
+        return this;
     }
 
-    public void setLeftTextColor(int leftTextColor) {
+    public RxTitle setLeftTextColor(int leftTextColor) {
         mLeftTextColor = leftTextColor;
         mTvLeft.setTextColor(mLeftTextColor);
+        return this;
     }
 
-    public void setLeftTextSize(int leftTextSize) {
+    public RxTitle setLeftTextSize(int leftTextSize) {
         mLeftTextSize = leftTextSize;
         mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
+        return this;
     }
 
-    public void setLeftTextVisibility(boolean leftTextVisibility) {
+    public RxTitle setLeftTextVisibility(boolean leftTextVisibility) {
         mLeftTextVisibility = leftTextVisibility;
         if (mLeftTextVisibility) {
             mTvLeft.setVisibility(VISIBLE);
         } else {
             mTvLeft.setVisibility(GONE);
         }
+        return this;
     }
     //==============================================================================================以上为  左边文字  相关方法
 
     //**********************************************************************************************以下为  右边文字  相关方法
-    public void setRightText(String rightText) {
+    public RxTitle setRightText(String rightText) {
         mRightText = rightText;
         mTvRight.setText(mRightText);
-
+        return this;
     }
 
-    public void setRightTextColor(int rightTextColor) {
+    public RxTitle setRightTextColor(int rightTextColor) {
         mRightTextColor = rightTextColor;
         mTvRight.setTextColor(mRightTextColor);
+        return this;
     }
 
-    public void setRightTextSize(int rightTextSize) {
+    public RxTitle setRightTextSize(int rightTextSize) {
         mRightTextSize = rightTextSize;
         mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, mRightTextSize);
+        return this;
     }
 
-    public void setRightTextVisibility(boolean rightTextVisibility) {
+    public RxTitle setRightTextVisibility(boolean rightTextVisibility) {
         mRightTextVisibility = rightTextVisibility;
         if (mRightTextVisibility) {
             mTvRight.setVisibility(VISIBLE);
-            if (isRightIconVisibility()) {
-                mTvRight.setPadding(0, 0, 0, 0);
-            }
         } else {
             mTvRight.setVisibility(GONE);
         }
+        return this;
     }
     //==============================================================================================以上为  右边文字  相关方法
 
 
-    public void setLeftIcon(int leftIcon) {
+    public RxTitle setLeftIcon(int leftIcon) {
         mLeftIcon = leftIcon;
         mIvLeft.setImageResource(mLeftIcon);
+        return this;
     }
 
-    public void setLeftIconVisibility(boolean leftIconVisibility) {
+    public RxTitle setLeftIconVisibility(boolean leftIconVisibility) {
         mLeftIconVisibility = leftIconVisibility;
         if (mLeftIconVisibility) {
             mIvLeft.setVisibility(VISIBLE);
         } else {
             mIvLeft.setVisibility(GONE);
         }
+        return this;
     }
 
-    public void setRightIcon(int rightIcon) {
+    public RxTitle setRightIcon(int rightIcon) {
         mRightIcon = rightIcon;
         mIvRight.setImageResource(mRightIcon);
+        return this;
     }
 
-    public void setRightIconVisibility(boolean rightIconVisibility) {
+    public RxTitle setRightIconVisibility(boolean rightIconVisibility) {
         mRightIconVisibility = rightIconVisibility;
         if (mRightIconVisibility) {
             mIvRight.setVisibility(VISIBLE);
         } else {
             mIvRight.setVisibility(GONE);
         }
+        return this;
     }
     //==============================================================================================以上为set方法
 

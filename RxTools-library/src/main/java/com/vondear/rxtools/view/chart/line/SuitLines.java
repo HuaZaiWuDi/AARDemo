@@ -30,7 +30,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -38,6 +37,7 @@ import android.view.ViewConfiguration;
 import android.widget.Scroller;
 
 import com.vondear.rxtools.utils.RxDataUtils;
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,7 +334,7 @@ public class SuitLines extends View {
         int click = clickIndexs[0];
 
         clickIndexs[0] = (Math.round(Math.abs(offset) * 1.0f / realBetween));
-//        Log.e(TAG, "正在滑动changeMoveAndValue: " + clickIndexs[0]);
+//        RxLogUtils.e(TAG, "正在滑动changeMoveAndValue: " + clickIndexs[0]);
         if (click != clickIndexs[0]) {
             notifyValueChange();
         }
@@ -357,12 +357,12 @@ public class SuitLines extends View {
         offset -= mMove;
         if (offset <= maxOffset) {
             offset = maxOffset;
-            Log.d("测试：", "滑动到右边");
+            RxLogUtils.d("测试：", "滑动到右边");
             if (mLineChartScrollEdgeListener != null)
                 mLineChartScrollEdgeListener.rightEdge();
         } else if (offset >= 0) {
             offset = 0;
-            Log.d("测试：", "滑动到左边");
+            RxLogUtils.d("测试：", "滑动到左边");
             if (mLineChartScrollEdgeListener != null)
                 mLineChartScrollEdgeListener.leftEdge();
         }
@@ -373,7 +373,7 @@ public class SuitLines extends View {
 
         clickIndexs[0] = (Math.round(Math.abs(offset) * 1.0f / realBetween));
         offset = -clickIndexs[0] * realBetween; // 矫正位置,保证不会停留在两个相邻刻度之间
-        Log.e(TAG, "滑动停止countMoveEnd: " + clickIndexs[0]);
+        RxLogUtils.e(TAG, "滑动停止countMoveEnd: " + clickIndexs[0]);
         notifyValueChange();
         notifyValueStopChange();
         postInvalidate();
@@ -390,10 +390,10 @@ public class SuitLines extends View {
     @Override
     public void computeScroll() {
         if (scroller.computeScrollOffset()) {
-//            Log.d(TAG, "computeScroll--isFinished: " + scroller.isFinished());
-//            Log.d(TAG, "computeScroll--getCurrX: " + scroller.getCurrX());
-//            Log.d(TAG, "computeScroll--getFinalX: " + scroller.getFinalX());
-//            Log.d(TAG, "computeScroll--getStartX: " + scroller.getStartX());
+//            RxLogUtils.d(TAG, "computeScroll--isFinished: " + scroller.isFinished());
+//            RxLogUtils.d(TAG, "computeScroll--getCurrX: " + scroller.getCurrX());
+//            RxLogUtils.d(TAG, "computeScroll--getFinalX: " + scroller.getFinalX());
+//            RxLogUtils.d(TAG, "computeScroll--getStartX: " + scroller.getStartX());
 
             if (scroller.isFinished()) { // over
                 countMoveEnd();
@@ -665,10 +665,10 @@ public class SuitLines extends View {
 
         this.mLineBeans = mLineBeans;
         if (mLineBeans.isEmpty()) {
-            Log.d(TAG, "feedInternal: line is empty");
+            RxLogUtils.d(TAG, "feedInternal: line is empty");
             return;
         } else if (RxDataUtils.isEmpty(mLineBeans.get(0).getUnits())) {
-            Log.d(TAG, "feedInternal: data is empty");
+            RxLogUtils.d(TAG, "feedInternal: data is empty");
             return;
         }
 
@@ -716,12 +716,12 @@ public class SuitLines extends View {
      */
     public void addDataChart(List<List<Unit>> linePoint) {
         if (mLineBeans == null || mLineBeans.isEmpty()) {
-            Log.d(TAG, "feedInternal: line is empty");
+            RxLogUtils.d(TAG, "feedInternal: line is empty");
             return;
         }
 
         if (linePoint == null || linePoint.size() != mLineBeans.size()) {
-            Log.d(TAG, "feedInternal: update is error");
+            RxLogUtils.d(TAG, "feedInternal: update is error");
             return;
         }
 
@@ -788,12 +788,12 @@ public class SuitLines extends View {
             }
         }
 
-        Log.d(TAG, "calcUnitXY666666: maxValueY：" + maxValueY);
+        RxLogUtils.d(TAG, "calcUnitXY666666: maxValueY：" + maxValueY);
 
         minValueY = minValueY * 0.8f;
         maxValueY = maxValueY * 1.1f;
 
-        Log.d(TAG, "calcUnitXY: maxValueY：" + maxValueY);
+        RxLogUtils.d(TAG, "calcUnitXY: maxValueY：" + maxValueY);
 
         for (int i = 0; i < mLineBeans.get(0).getUnits().size(); i++) {
             for (int j = 0; j < mLineBeans.size(); j++) {

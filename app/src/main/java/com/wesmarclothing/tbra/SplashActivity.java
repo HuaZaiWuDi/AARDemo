@@ -15,8 +15,6 @@ import android.widget.QuickContactBadge;
 import com.vondear.rxtools.utils.RxUtils;
 import com.vondear.rxtools.view.RxToast;
 
-import io.reactivex.Observable;
-
 
 public class SplashActivity extends AppCompatActivity {
 

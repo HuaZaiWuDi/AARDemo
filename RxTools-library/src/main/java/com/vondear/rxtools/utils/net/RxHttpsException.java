@@ -72,7 +72,7 @@ public class RxHttpsException {
             msg = "请求网络失败";
         } else if (t instanceof ExplainException) {//返回后台解释性异常码
             ExplainException exception = (ExplainException) t;
-            if (Arrays.toString(Arrays.asList("0006", "-1").toArray()).contains(exception.getCode() + "")) {
+            if (Arrays.asList("0006", "-1").contains(exception.getCode() + "")) {
                 msg = "请求网络失败";
             } else {
                 msg = exception.getMsg();

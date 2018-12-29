@@ -3,7 +3,8 @@ package com.vondear.rxtools.view.chart.line;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
+
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -218,7 +219,7 @@ public class LineBean {
         min = bakUnits_1.get(0).getValue();
 
 
-        Log.d("max", "checkMaxAndMinValue: " + max);
+        RxLogUtils.d("max", "checkMaxAndMinValue: " + max);
 
         setMaxValue(max);
         setMinValue(min);

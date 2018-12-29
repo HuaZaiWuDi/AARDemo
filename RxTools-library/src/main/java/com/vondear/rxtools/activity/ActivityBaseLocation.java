@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 
 import com.vondear.rxtools.utils.RxLocationUtils;
 import com.vondear.rxtools.utils.RxLogUtils;
-import com.vondear.rxtools.utils.RxVibrateUtils;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogGPSCheck;
 
@@ -70,7 +69,6 @@ public abstract class ActivityBaseLocation extends ActivityBase {
                     //GPS状态为服务区外时
                     case LocationProvider.OUT_OF_SERVICE:
                         RxToast.normal("当前GPS信号弱");
-                        RxVibrateUtils.vibrateOnce(mContext, 3000);
                         break;
                     //GPS状态为暂停服务时
                     case LocationProvider.TEMPORARILY_UNAVAILABLE:
@@ -82,13 +80,11 @@ public abstract class ActivityBaseLocation extends ActivityBase {
             @Override
             public void onProviderEnabled(String provider) {
                 RxToast.normal("当前GPS设备已打开");
-                RxVibrateUtils.vibrateOnce(mContext, 800);
             }
 
             @Override
             public void onProviderDisabled(String provider) {
                 RxToast.normal("当前GPS设备已关闭");
-                RxVibrateUtils.vibrateOnce(mContext, 800);
                 gpsCheck();
             }
         };

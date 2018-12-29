@@ -39,5 +39,5 @@
     <item name="webview" type="id"/>
     <item name="about_version_code" type="id"/>
     <item name="split" type="id"/>
-
+    <item name="back" type="id"/>
 </resources>

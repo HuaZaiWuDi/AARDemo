@@ -13,6 +13,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.vondear.rxtools.view.RxTitle
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            app:leftText="左边"
+            app:rightIcon="@drawable/set"
+            app:rightText="右边"
+            app:rightTextColor="@color/white"
+            app:title="RxTitle">
+
+
+        </com.vondear.rxtools.view.RxTitle>
+
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress"
@@ -70,15 +83,12 @@
             android:textOn="开"/>
 
 
-
-
     </LinearLayout>
 
 
-
     <include
-        app:layout_constraintBottom_toBottomOf="parent"
-        layout="@layout/bottom_sheet"/>
+        layout="@layout/bottom_sheet"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -19,6 +19,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
@@ -105,7 +109,7 @@ dependencies {
     api('com.zchu:rxcache:2.3.3') {
         exclude group: 'com.android.support'
     }
-
+    api 'com.kongzue.dialog:dialog:2.2.6.3'
 }
 
 apply plugin: 'maven'

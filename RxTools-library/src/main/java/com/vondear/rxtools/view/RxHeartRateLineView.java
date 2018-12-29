@@ -14,7 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.orhanobut.logger.Logger;
+import com.vondear.rxtools.utils.RxLogUtils;
 
 /**
  * 项目名称：Ali_Sophix
@@ -157,7 +157,7 @@ public class RxHeartRateLineView extends View {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        Logger.d("View : hasWindowFocus----" + hasWindowFocus);
+        RxLogUtils.d("View : hasWindowFocus----" + hasWindowFocus);
         if (hasWindowFocus)
             startAnimation();
     }
@@ -166,7 +166,7 @@ public class RxHeartRateLineView extends View {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         //生命周期结束
-        Logger.d("View : onDetachedFromWindow");
+        RxLogUtils.d("View : onDetachedFromWindow");
         stopAnimation();
     }
 

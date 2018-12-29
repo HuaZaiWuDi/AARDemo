@@ -41,7 +41,6 @@ import android.support.annotation.AnyThread;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -49,6 +48,7 @@ import android.view.View;
 import android.view.ViewParent;
 
 import com.vondear.rxtools.R;
+import com.vondear.rxtools.utils.RxLogUtils;
 import com.vondear.rxtools.view.scaleimage.decoder.CompatDecoderFactory;
 import com.vondear.rxtools.view.scaleimage.decoder.DecoderFactory;
 import com.vondear.rxtools.view.scaleimage.decoder.ImageDecoder;
@@ -275,7 +275,7 @@ public class RxScaleImageView extends View {
     private float[] srcArray = new float[8];
     private float[] dstArray = new float[8];
 
-    //The logical density of the display
+    //The RxLogUtilsical density of the display
     private float density;
 
 
@@ -617,7 +617,7 @@ public class RxScaleImageView extends View {
                 try {
                     anim.listener.onInterruptedByUser();
                 } catch (Exception e) {
-                    Log.w(TAG, "Error thrown by animation listener", e);
+                    RxLogUtils.w(TAG, "Error thrown by animation listener", e);
                 }
             }
             anim = null;
@@ -978,7 +978,7 @@ public class RxScaleImageView extends View {
                     try {
                         anim.listener.onComplete();
                     } catch (Exception e) {
-                        Log.w(TAG, "Error thrown by animation listener", e);
+                        RxLogUtils.w(TAG, "Error thrown by animation listener", e);
                     }
                 }
                 anim = null;
@@ -1615,12 +1615,12 @@ public class RxScaleImageView extends View {
                         if (VALID_ORIENTATIONS.contains(orientation) && orientation != ORIENTATION_USE_EXIF) {
                             exifOrientation = orientation;
                         } else {
-                            Log.w(TAG, "Unsupported orientation: " + orientation);
+                            RxLogUtils.w(TAG, "Unsupported orientation: " + orientation);
                         }
                     }
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Could not get orientation of image from media store");
+                RxLogUtils.w(TAG, "Could not get orientation of image from media store");
             } finally {
                 if (cursor != null) {
                     cursor.close();
@@ -1639,10 +1639,10 @@ public class RxScaleImageView extends View {
                 } else if (orientationAttr == ExifInterface.ORIENTATION_ROTATE_270) {
                     exifOrientation = ORIENTATION_270;
                 } else {
-                    Log.w(TAG, "Unsupported EXIF orientation: " + orientationAttr);
+                    RxLogUtils.w(TAG, "Unsupported EXIF orientation: " + orientationAttr);
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Could not get EXIF orientation of image");
+                RxLogUtils.w(TAG, "Could not get EXIF orientation of image");
             }
         }
         return exifOrientation;
@@ -1657,7 +1657,7 @@ public class RxScaleImageView extends View {
                 executeMethod.invoke(asyncTask, executor, null);
                 return;
             } catch (Exception e) {
-                Log.i(TAG, "Failed to execute AsyncTask on thread pool executor, falling back to single threaded executor", e);
+                RxLogUtils.i(TAG, "Failed to execute AsyncTask on thread pool executor, falling back to single threaded executor", e);
             }
         }
         asyncTask.execute();
@@ -2017,12 +2017,12 @@ public class RxScaleImageView extends View {
     }
 
     /**
-     * Debug logger
+     * Debug RxLogUtilsger
      */
     @AnyThread
     private void debug(String message, Object... args) {
         if (debug) {
-            Log.d(TAG, String.format(message, args));
+            RxLogUtils.d(TAG, String.format(message, args));
         }
     }
 
@@ -2589,7 +2589,7 @@ public class RxScaleImageView extends View {
          * encoding types of supported image formats can result in corrupt or blank images being loaded
          * and displayed with no detectable error. The view will continue to load the full size image.
          *
-         * @param e The exception thrown. This error is logged by the view.
+         * @param e The exception thrown. This error is RxLogUtilsged by the view.
          */
         void onPreviewLoadError(Exception e);
 
@@ -2599,7 +2599,7 @@ public class RxScaleImageView extends View {
          * types of supported image formats can result in corrupt or blank images being loaded and
          * displayed with no detectable error.
          *
-         * @param e The exception thrown. This error is also logged by the view.
+         * @param e The exception thrown. This error is also RxLogUtilsged by the view.
          */
         void onImageLoadError(Exception e);
 
@@ -2609,7 +2609,7 @@ public class RxScaleImageView extends View {
          * and displayed with no detectable error. Most cases where an unsupported file is used will
          * result in an error caught by {@link #onImageLoadError(Exception)}.
          *
-         * @param e The exception thrown. This error is logged by the view.
+         * @param e The exception thrown. This error is RxLogUtilsged by the view.
          */
         void onTileLoadError(Exception e);
 
@@ -2686,7 +2686,7 @@ public class RxScaleImageView extends View {
                     return new int[]{sWidth, sHeight, exifOrientation};
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Failed to initialise bitmap decoder", e);
+                RxLogUtils.e(TAG, "Failed to initialise bitmap decoder", e);
                 this.exception = e;
             }
             return null;
@@ -2741,10 +2741,10 @@ public class RxScaleImageView extends View {
                     tile.loading = false;
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Failed to decode tile", e);
+                RxLogUtils.e(TAG, "Failed to decode tile", e);
                 this.exception = e;
             } catch (OutOfMemoryError e) {
-                Log.e(TAG, "Failed to decode tile - OutOfMemoryError", e);
+                RxLogUtils.e(TAG, "Failed to decode tile - OutOfMemoryError", e);
                 this.exception = new RuntimeException(e);
             }
             return null;
@@ -2799,10 +2799,10 @@ public class RxScaleImageView extends View {
                     return view.getExifOrientation(context, sourceUri);
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Failed to load bitmap", e);
+                RxLogUtils.e(TAG, "Failed to load bitmap", e);
                 this.exception = e;
             } catch (OutOfMemoryError e) {
-                Log.e(TAG, "Failed to load bitmap - OutOfMemoryError", e);
+                RxLogUtils.e(TAG, "Failed to load bitmap - OutOfMemoryError", e);
                 this.exception = new RuntimeException(e);
             }
             return null;
@@ -3050,7 +3050,7 @@ public class RxScaleImageView extends View {
                 try {
                     anim.listener.onInterruptedByNewAnim();
                 } catch (Exception e) {
-                    Log.w(TAG, "Error thrown by animation listener", e);
+                    RxLogUtils.w(TAG, "Error thrown by animation listener", e);
                 }
             }
 

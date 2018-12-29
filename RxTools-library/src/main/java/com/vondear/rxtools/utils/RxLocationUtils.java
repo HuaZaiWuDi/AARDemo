@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.vondear.rxtools.model.Gps;
 import com.vondear.rxtools.view.RxToast;
@@ -441,13 +440,13 @@ public class RxLocationUtils {
             }
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    Log.d("onStatusChanged", "当前GPS状态为可见状态");
+                    RxLogUtils.d("onStatusChanged", "当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    Log.d("onStatusChanged", "当前GPS状态为服务区外状态");
+                    RxLogUtils.d("onStatusChanged", "当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d("onStatusChanged", "当前GPS状态为暂停服务状态");
+                    RxLogUtils.d("onStatusChanged", "当前GPS状态为暂停服务状态");
                     break;
             }
         }

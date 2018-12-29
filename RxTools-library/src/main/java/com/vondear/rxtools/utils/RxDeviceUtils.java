@@ -24,7 +24,6 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Xml;
 import android.view.Surface;
 import android.view.View;
@@ -111,7 +110,7 @@ public class  RxDeviceUtils {
     public static String getUniqueSerialNumber() {
         String phoneName = Build.MODEL;// Galaxy nexus 品牌类型
         String manuFacturer = Build.MANUFACTURER;//samsung 品牌
-        Log.d("详细序列号", manuFacturer + "-" + phoneName + "-" + getSerialNumber());
+        RxLogUtils.d("详细序列号", manuFacturer + "-" + phoneName + "-" + getSerialNumber());
         return manuFacturer + "-" + phoneName + "-" + getSerialNumber();
     }
 
@@ -465,7 +464,7 @@ public class  RxDeviceUtils {
 
 
     /**
-     * 遍历LOG输出HashMap
+     * 遍历RxLogUtils输出HashMap
      *
      * @param res
      */
@@ -475,7 +474,7 @@ public class  RxDeviceUtils {
             Map.Entry entry = (Map.Entry) ite.next();
             Object key = entry.getKey();
             Object value = entry.getValue();
-            Log.d("MSG_AUTH_COMPLETE", (key + "： " + value));
+            RxLogUtils.d("MSG_AUTH_COMPLETE", (key + "： " + value));
         }
     }
 
@@ -702,7 +701,7 @@ public class  RxDeviceUtils {
      * <p>参照以下注释代码</p>
      */
     public static void getContantNum() {
-        Log.i("tips", "U should copy the following code.");
+        RxLogUtils.i("tips", "U should copy the following code.");
         /*
         Intent intent = new Intent();
         intent.setAction("android.intent.action.PICK");
@@ -891,7 +890,7 @@ public class  RxDeviceUtils {
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
-        int statusBarHeight = RxBarUtils.getStatusBarHeight(activity);
+        int statusBarHeight = RxBarUtils.getStatusBarHeight();
         int width = getScreenWidth();
         int height = getScreenHeight();
         Bitmap ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height - statusBarHeight);

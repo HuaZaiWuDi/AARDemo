@@ -1,13 +1,11 @@
 package com.vondear.rxtools.utils.net;
 
+import android.app.Dialog;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.vondear.rxtools.model.lifecycyle.LifeCycleEvent;
-import com.vondear.rxtools.utils.RxLogUtils;
 import com.vondear.rxtools.view.TipDialog;
-import com.zchu.rxcache.utils.LogUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +30,7 @@ import io.reactivex.subjects.BehaviorSubject;
 /**
  * 项目名称：MyProject
  * 类描述：使用方法compose（），此操作符是操作整个流，给我一个observable，还给你一个同样的observable
- * 创建人：oden
+ * 创建人：Jack
  * 创建时间：2018/4/17
  */
 public class RxComposeUtils {
@@ -90,7 +88,6 @@ public class RxComposeUtils {
                                 if (Looper.getMainLooper() == Looper.myLooper())
                                     if (dialog != null)
                                         dialog.show();
-                                RxLogUtils.d("showDialog当前线程：" + Thread.currentThread().getName());
                             }
                         }).doFinally(new Action() {
                             @Override
@@ -98,7 +95,6 @@ public class RxComposeUtils {
                                 if (Looper.getMainLooper() == Looper.myLooper())
                                     if (dialog != null)
                                         dialog.dismiss();
-                                RxLogUtils.d("showDialog当前线程：" + Thread.currentThread().getName());
                             }
                         });
             }
@@ -106,12 +102,41 @@ public class RxComposeUtils {
     }
 
     /**
+     * 统一线程处理
+     *
+     * @param <T> 指定的泛型类型
+     * @return ObservableTransformer
+     */
+    public static <T> ObservableTransformer<T, T> showDialog(final Dialog dialog) {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> observable) {
+                return observable
+                        .doOnSubscribe(new Consumer<Disposable>() {
+                            @Override
+                            public void accept(Disposable disposable) throws Exception {
+                                if (Looper.getMainLooper() == Looper.myLooper() && dialog != null)
+                                    dialog.show();
+                            }
+                        }).doFinally(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                if (Looper.getMainLooper() == Looper.myLooper() && dialog != null)
+                                    dialog.dismiss();
+                            }
+                        });
+            }
+        };
+    }
+
+
+    /**
      * 得到 Observable
      *
      * @param <T> 指定的泛型类型
      * @return Observable
      */
-    public static <T> Observable<T> createData(final T t) {
+    private static <T> Observable<T> createData(final T t) {
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> emitter) throws Exception {
@@ -138,10 +163,8 @@ public class RxComposeUtils {
                 return upstream.flatMap(new Function<T, ObservableSource<T>>() {
                     @Override
                     public ObservableSource<T> apply(T t) throws Exception {
-                        Log.d("handleResult当前线程：", Thread.currentThread().getName());
                         if (t instanceof String) {
                             JSONObject object = null;
-//                            Log.d("返回数据：", (String) t);
                             try {
                                 object = new JSONObject((String) t);
                                 int code = object.getInt("code");
@@ -150,7 +173,7 @@ public class RxComposeUtils {
                                     if (object.has("data")) {
                                         String data = object.getString("data");
                                         if (TextUtils.isEmpty(data)) {
-                                            return Observable.error(new Throwable("数据异常"));
+                                            return Observable.error(new ExplainException(data, -1));
                                         }
                                         return createData((T) data);
                                     } else {
@@ -161,39 +184,16 @@ public class RxComposeUtils {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                return Observable.error(new Throwable("数据异常"));
+                                return Observable.error(new ExplainException("数据异常", -1));
                             }
                         }
-                        return Observable.error(new Throwable("数据异常"));
+                        return Observable.error(new ExplainException("数据异常", -1));
                     }
                 });
             }
         };
     }
 
-
-    /**
-     * 对结果进行预处理
-     *
-     * @param <T>
-     * @return
-     */
-//    public static <T> ObservableTransformer<HttpResult<T>, T> handleResult2() {
-//        return new ObservableTransformer<HttpResult<T>, T>() {
-//            @Override
-//            public ObservableSource<T> apply(Observable<HttpResult<T>> upstream) {
-//                return upstream.map(new Function<HttpResult<T>, T>() {
-//                    @Override
-//                    public T apply(HttpResult<T> tHttpResult) throws Exception {
-//                        if (tHttpResult.getCode() != 0) {
-//                            throw new ExplainException(tHttpResult.getMessage(), tHttpResult.getMessage(), tHttpResult.getCode());
-//                        }
-//                        return tHttpResult.getData();
-//                    }
-//                });
-//            }
-//        };
-//    }
 
     /**
      * 对结果进行预处理
@@ -208,7 +208,6 @@ public class RxComposeUtils {
                 return upstream.flatMap(new Function<HttpResult<T>, ObservableSource<T>>() {
                     @Override
                     public ObservableSource<T> apply(HttpResult<T> t) throws Exception {
-                        LogUtils.debug(t.toString());
                         if (t.getCode() == 0) {
                             return createData(t.getData());
                         } else {

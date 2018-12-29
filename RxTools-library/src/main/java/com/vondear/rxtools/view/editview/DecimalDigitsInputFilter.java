@@ -3,6 +3,12 @@ package com.vondear.rxtools.view.editview;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+/**
+ * @author Jack
+ * @date on 2018/12/29
+ * @describe TODO过滤数字小数点
+ * @org 智裳科技
+ */
 public class DecimalDigitsInputFilter implements InputFilter {
 
     private final int decimalDigits;

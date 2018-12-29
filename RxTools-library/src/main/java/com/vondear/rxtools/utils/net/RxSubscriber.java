@@ -1,6 +1,6 @@
 package com.vondear.rxtools.utils.net;
 
-import android.util.Log;
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -27,7 +27,7 @@ public abstract class RxSubscriber<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        Log.e(TAG, "onError: " + e.getMessage());
+        RxLogUtils.e(TAG, "onError: " + e.getMessage());
     }
 
     @Override
@@ -37,6 +37,7 @@ public abstract class RxSubscriber<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
+        RxLogUtils.i(TAG, "onNext：" + t);
         _onNext(t);
     }
 

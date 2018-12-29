@@ -13,8 +13,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -93,7 +94,7 @@ public class PathView extends View {
     public PathView setMode(@Mode int mode) {
         if ((mAlphaAnimator != null && mAlphaAnimator.isRunning())
                 || (mProgressAnimator != null && mProgressAnimator.isRunning())) {
-            Log.e(TAG, "Failed! Animation has been started!", new IllegalStateException());
+            RxLogUtils.e(TAG, "Failed! Animation has been started!", new IllegalStateException());
             return this;
         }
         mMode = mode;

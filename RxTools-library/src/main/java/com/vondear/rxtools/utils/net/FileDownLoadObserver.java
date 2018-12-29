@@ -10,6 +10,14 @@ import java.io.InputStream;
 import io.reactivex.observers.DefaultObserver;
 import okhttp3.ResponseBody;
 
+
+/**
+*@date on 2018/12/29
+*@author Jack
+*@version
+*@describe 创建文件下载的Rx
+*@org 智裳科技
+*/
 public abstract class FileDownLoadObserver<T> extends DefaultObserver<T> {
 
     @Override

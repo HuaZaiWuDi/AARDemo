@@ -18,7 +18,6 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -27,13 +26,18 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.vondear.rxtools.R;
+import com.vondear.rxtools.utils.RxLogUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by baoyunlong on 16/6/16.
- */
+*@date on 2018/12/29
+*@author Jack
+*@version
+*@describe 电影选座
+*@org 智裳科技
+*/
 public class RxSeatMovie extends View {
     private final boolean DBG = false;
 
@@ -407,12 +411,12 @@ public class RxSeatMovie extends View {
             }
             canvas.drawBitmap(overviewBitmap, 0, 0, null);
             drawOverview(canvas);
-            Log.d("drawTime", "OverviewDrawTime:" + (System.currentTimeMillis() - s));
+            RxLogUtils.d("drawTime", "OverviewDrawTime:" + (System.currentTimeMillis() - s));
         }
 
         if (DBG) {
             long drawTime = System.currentTimeMillis() - startTime;
-            Log.d("drawTime", "totalDrawTime:" + drawTime);
+            RxLogUtils.d("drawTime", "totalDrawTime:" + drawTime);
         }
     }
 
@@ -600,7 +604,7 @@ public class RxSeatMovie extends View {
 
         if (DBG) {
             long drawTime = System.currentTimeMillis() - startTime;
-            Log.d("drawTime", "seatDrawTime:" + drawTime);
+            RxLogUtils.d("drawTime", "seatDrawTime:" + drawTime);
         }
     }
 
@@ -670,7 +674,7 @@ public class RxSeatMovie extends View {
         }
 
         if (DBG) {
-            Log.d("drawTest:", "top:" + top);
+            RxLogUtils.d("drawTest:", "top:" + top);
         }
     }
 
@@ -704,7 +708,7 @@ public class RxSeatMovie extends View {
 
         if (DBG) {
             long drawTime = System.currentTimeMillis() - startTime;
-            Log.d("drawTime", "drawNumberTime:" + drawTime);
+            RxLogUtils.d("drawTime", "drawNumberTime:" + drawTime);
         }
     }
 
@@ -1003,7 +1007,7 @@ public class RxSeatMovie extends View {
             zoom(zoom);
 
             if (DBG) {
-                Log.d("zoomTest", "zoom:" + zoom);
+                RxLogUtils.d("zoomTest", "zoom:" + zoom);
             }
         }
 

@@ -3,6 +3,8 @@ package com.vondear.rxtools.model.unbond;
 import android.bluetooth.BluetoothDevice;
 import android.util.Log;
 
+import com.vondear.rxtools.utils.RxLogUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -52,7 +54,7 @@ public class ClsUtlis {
                             {
                                     str.getBytes()
                             });
-            Log.e("returnValue", "" + returnValue);
+            RxLogUtils.e("returnValue", "" + returnValue);
 
         } catch (SecurityException e) {
             e.printStackTrace();

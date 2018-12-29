@@ -34,10 +34,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by vondear on 16/7/22.
+ * @author Jack
+ * @date on 2018/12/29
+ * @describe 飞机选座
+ * @org 智裳科技
  */
-
-
 public class RxSeatAirplane extends View {
 
 

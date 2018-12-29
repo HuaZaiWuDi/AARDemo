@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/root_layout"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                tools:background="@color/red">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:background="@color/red">
 
     <com.vondear.rxtools.view.RxTextAutoZoom
         android:id="@+id/tv_rx_title"
@@ -14,14 +15,14 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:hint="标题"
         android:inputType="textMultiLine|textNoSuggestions"
         android:isScrollContainer="false"
         android:maxLength="240"
-        android:text="个人资料"
         android:textColor="@color/white"
         android:textColorHint="@android:color/white"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        tools:hint="标题"
+        tools:text="个人资料"/>
 
     <LinearLayout
         android:id="@+id/ll_left"
@@ -44,8 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="left"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            tools:text="left"/>
 
     </LinearLayout>
 
@@ -64,16 +65,17 @@
         <TextView
             android:id="@+id/tv_right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:paddingRight="10dp"
-            android:text="right"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            tools:text="right"/>
 
         <ImageView
             android:id="@+id/iv_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/set"/>
+            tools:src="@drawable/set"/>
 
     </LinearLayout>
 </RelativeLayout>
