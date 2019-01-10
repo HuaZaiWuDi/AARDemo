@@ -3,7 +3,7 @@ package com.vondear.rxtools.utils.net;
 public class HttpResult<T> {
 
     private int code;
-    private String message;
+    private String msg;
     private T data;
 
     public T getData() {
@@ -23,11 +23,11 @@ public class HttpResult<T> {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
-    
+
 }

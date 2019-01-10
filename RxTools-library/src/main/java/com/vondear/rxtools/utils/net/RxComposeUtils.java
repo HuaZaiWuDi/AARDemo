@@ -1,7 +1,6 @@
 package com.vondear.rxtools.utils.net;
 
 import android.app.Dialog;
-import android.os.Looper;
 import android.text.TextUtils;
 
 import com.vondear.rxtools.model.lifecycyle.LifeCycleEvent;
@@ -85,16 +84,14 @@ public class RxComposeUtils {
                         .doOnSubscribe(new Consumer<Disposable>() {
                             @Override
                             public void accept(Disposable disposable) throws Exception {
-                                if (Looper.getMainLooper() == Looper.myLooper())
-                                    if (dialog != null)
-                                        dialog.show();
+                                if (dialog != null)
+                                    dialog.show();
                             }
                         }).doFinally(new Action() {
                             @Override
                             public void run() throws Exception {
-                                if (Looper.getMainLooper() == Looper.myLooper())
-                                    if (dialog != null)
-                                        dialog.dismiss();
+                                if (dialog != null)
+                                    dialog.dismiss();
                             }
                         });
             }
@@ -115,13 +112,13 @@ public class RxComposeUtils {
                         .doOnSubscribe(new Consumer<Disposable>() {
                             @Override
                             public void accept(Disposable disposable) throws Exception {
-                                if (Looper.getMainLooper() == Looper.myLooper() && dialog != null)
+                                if (dialog != null)
                                     dialog.show();
                             }
                         }).doFinally(new Action() {
                             @Override
                             public void run() throws Exception {
-                                if (Looper.getMainLooper() == Looper.myLooper() && dialog != null)
+                                if (dialog != null)
                                     dialog.dismiss();
                             }
                         });
