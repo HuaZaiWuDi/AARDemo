@@ -7,7 +7,7 @@ public class HttpResult<T> {
     private T data;
 
     public T getData() {
-        return data;
+        return data == null ? (T) "" : data;
     }
 
     public void setData(T data) {

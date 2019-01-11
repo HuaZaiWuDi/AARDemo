@@ -18,7 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.vondear.rxtools.model.Gps;
-import com.vondear.rxtools.view.RxToast;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -97,8 +96,8 @@ public class RxLocationUtils {
         }
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
-        if (!isLocationEnabled(context)) {
-            RxToast.showToast(context, "无法定位，请打开定位服务", 500);
+        if (!isLocationEnabled(context) || mLocationManager == null) {
+//            RxToast.showToast(context, "无法定位，请打开定位服务", 500);
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
@@ -106,6 +105,7 @@ public class RxLocationUtils {
         Location location = mLocationManager.getLastKnownLocation(provider);
         if (location != null) listener.getLastKnownLocation(location);
         if (myLocationListener == null) myLocationListener = new MyLocationListener();
+
         mLocationManager.requestLocationUpdates(provider, minTime, minDistance, myLocationListener);
         return true;
     }

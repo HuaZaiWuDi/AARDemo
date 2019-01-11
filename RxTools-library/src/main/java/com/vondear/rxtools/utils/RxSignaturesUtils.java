@@ -1,5 +1,6 @@
 package com.vondear.rxtools.utils;
 
+import android.app.Application;
 import android.content.pm.Signature;
 
 import java.io.ByteArrayInputStream;
@@ -54,10 +55,11 @@ public final class RxSignaturesUtils {
     /**
      * 返回MD5
      *
-     * @param signatures
+     * @param application
      * @return
      */
-    public static String signatureMD5(Signature[] signatures) {
+    public static String signatureMD5(Application application) {
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             if (signatures != null) {
@@ -74,7 +76,9 @@ public final class RxSignaturesUtils {
     /**
      * SHA1
      */
-    public static String signatureSHA1(Signature[] signatures) {
+    public static String signatureSHA1(Application application) {
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
+
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             if (signatures != null) {
@@ -91,7 +95,8 @@ public final class RxSignaturesUtils {
     /**
      * SHA256
      */
-    public static String signatureSHA256(Signature[] signatures) {
+    public static String signatureSHA256(Application application) {
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             if (signatures != null) {
@@ -110,7 +115,8 @@ public final class RxSignaturesUtils {
      *
      * @return true = 开发(debug.keystore)，false = 上线发布（非.android默认debug.keystore）
      */
-    public static boolean isDebuggable(Signature[] signatures) {
+    public static boolean isDebuggable(Application application) {
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
         // 判断是否默认key(默认是)
         boolean debuggable = true;
         try {
@@ -170,6 +176,13 @@ public final class RxSignaturesUtils {
             RxLogUtils.e(e);
         }
     }
+
+
+    public static File getAppAPKFile(Application application) {
+        String path = application.getPackageResourcePath();
+        return new File(path);
+    }
+
 
     // --
 
