@@ -230,6 +230,7 @@ public class RxComposeUtils {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
+                if (subject == null) return upstream;
                 return upstream.takeUntil(subject.skipWhile(new Predicate<LifeCycleEvent>() {
                     @Override
                     public boolean test(LifeCycleEvent activityLifeCycleEvent) throws Exception {
@@ -252,6 +253,7 @@ public class RxComposeUtils {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> upstream) {
+                if (subject == null) return upstream;
                 return upstream.takeUntil(subject.skipWhile(new Predicate<LifeCycleEvent>() {
                     @Override
                     public boolean test(LifeCycleEvent activityLifeCycleEvent) throws Exception {

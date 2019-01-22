@@ -1,7 +1,11 @@
 package com.vondear.rxtools.utils.aboutByte;
 
 import com.orhanobut.logger.Logger;
+import com.vondear.rxtools.utils.RxLogUtils;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -27,6 +31,7 @@ public class ByteUtil {
         src[3] = (byte) ((value >> 24) & 0xFF);
         return src;
     }
+
 
     /**
      * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用 小端模式
@@ -79,7 +84,39 @@ public class ByteUtil {
      * @param offset 从数组的第offset位开始
      * @return int数值
      */
+    public static int bytesToIntD4(int offset, byte... src) {
+        int value;
+        value = (int) ((src[offset] & 0xFF)
+                | ((src[offset + 1] & 0xFF) << 8)
+                | ((src[offset + 2] & 0xFF) << 16)
+                | ((src[offset + 3] & 0xFF) << 24));
+        return value;
+    }
+
+    /**
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param src    byte数组
+     * @param offset 从数组的第offset位开始
+     * @return int数值
+     */
     public static int bytesToLongD4(byte[] src, int offset) {
+        int value;
+        value = (int) ((src[offset] & 0xFF)
+                | ((src[offset + 1] & 0xFF) << 8)
+                | ((src[offset + 2] & 0xFF) << 16)
+                | ((src[offset + 3] & 0xFF) << 24));
+        return value;
+    }
+
+    /**
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param src    byte数组
+     * @param offset 从数组的第offset位开始
+     * @return int数值
+     */
+    public static int bytesToLongD4(int offset, byte... src) {
         int value;
         value = (int) ((src[offset] & 0xFF)
                 | ((src[offset + 1] & 0xFF) << 8)
@@ -105,6 +142,21 @@ public class ByteUtil {
         return value;
     }
 
+    /**
+     * byte数组中取int数值，本方法适用于(高位在前，低位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param src    byte数组
+     * @param offset 从数组的第offset位开始
+     * @return int数值
+     */
+    public static int bytesToIntG4(int offset, byte... src) {
+        int value;
+        value = (int) (((src[offset] & 0xFF) << 24)
+                | ((src[offset + 1] & 0xFF) << 16)
+                | ((src[offset + 2] & 0xFF) << 8)
+                | (src[offset + 3] & 0xFF));
+        return value;
+    }
 
     /**
      * int到byte[]
@@ -124,12 +176,28 @@ public class ByteUtil {
 
     /**
      * bytes到int
+     * * 小端模式
      * <p>
      * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，bytes2ToInt（）配套使用
      *
      * @return
      */
     public static int bytesToIntD2(byte[] bytes) {
+        int value = 0;
+        value = (int) ((bytes[0] & 0xFF)
+                | ((bytes[1] & 0xFF) << 8));
+        return value;
+    }
+
+    /**
+     * bytes到int
+     * 小端模式
+     * <p>
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，bytes2ToInt（）配套使用
+     *
+     * @return
+     */
+    public static int byteToIntD2(byte... bytes) {
         int value = 0;
         value = (int) ((bytes[0] & 0xFF)
                 | ((bytes[1] & 0xFF) << 8));
@@ -160,6 +228,20 @@ public class ByteUtil {
      * @return
      */
     public static int bytesToIntG2(byte[] bytes) {
+        int value = 0;
+        value = (int) ((bytes[1] & 0xFF)
+                | ((bytes[0] & 0xFF) << 8));
+        return value;
+    }
+
+    /**
+     * bytes到int
+     * <p>
+     * byte数组中取int数值，本方法适用于(高位在前，低位在后)的顺序，bytes2ToInt（）配套使用
+     *
+     * @return
+     */
+    public static int byteToIntG2(byte... bytes) {
         int value = 0;
         value = (int) ((bytes[1] & 0xFF)
                 | ((bytes[0] & 0xFF) << 8));
@@ -224,24 +306,6 @@ public class ByteUtil {
         return result;
     }
 
-    /**
-     * ASCII码字符串转数字字符串
-     *
-     * @param
-     * @return 字符串
-     */
-    public static String AsciiStringToString(String content) {
-        String result = "";
-        int length = content.length() / 2;
-        for (int i = 0; i < length; i++) {
-            String c = content.substring(i * 2, i * 2 + 2);
-            int a = hexStringToAlgorism(c);
-            char b = (char) a;
-            String d = String.valueOf(b);
-            result += d;
-        }
-        return result;
-    }
 
     /**
      * 十六进制字符串装十进制
@@ -307,5 +371,110 @@ public class ByteUtil {
         }
         return result;
     }
+
+
+    /**
+     * ASCII码字符串转数字字符串
+     *
+     * @param
+     * @return 字符串
+     */
+    public static String AsciiStringToString(String content) {
+        String result = "";
+        int length = content.length() / 2;
+        for (int i = 0; i < length; i++) {
+            String c = content.substring(i * 2, i * 2 + 2);
+            int a = hexStringToAlgorism(c);
+            char b = (char) a;
+            String d = String.valueOf(b);
+            result += d;
+        }
+        return result;
+    }
+
+
+    //将二进制字符串转换回字节
+    public static byte bit2byte(String bString) {
+        byte result = 0;
+        for (int i = bString.length() - 1, j = 0; i >= 0; i--, j++) {
+            result += (Byte.parseByte(bString.charAt(i) + "") * Math.pow(2, j));
+        }
+        return result;
+    }
+
+    /**
+     * 把byte数组转化成2进制字符串
+     *
+     * @param bArr
+     * @return
+     */
+    public String getBinaryStrFromByteArr(byte[] bArr) {
+        String result = "";
+        for (byte b : bArr) {
+            result += getBinaryStrFromByte(b);
+        }
+        return result;
+    }
+
+    /**
+     * 把byte转化成2进制字符串
+     *
+     * @param b
+     * @return
+     */
+    public String getBinaryStrFromByte(byte b) {
+        String result = "";
+        byte a = b;
+        for (int i = 0; i < 8; i++) {
+            byte c = a;
+            a = (byte) (a >> 1);//每移一位如同将10进制数除以2并去掉余数。
+            a = (byte) (a << 1);
+            if (a == c) {
+                result = "0" + result;
+            } else {
+                result = "1" + result;
+            }
+            a = (byte) (a >> 1);
+        }
+        return result;
+    }
+
+
+    /**
+     * 把byte转化成2进制字符串
+     *
+     * @param b
+     * @return
+     */
+    public static String getBinaryStrFromByte3(byte b) {
+        String result = "";
+        byte a = b;
+        for (int i = 0; i < 8; i++) {
+            result = (a % 2) + result;
+            a = (byte) (a / 2);
+        }
+        return result;
+    }
+
+    public static byte[] readFirmware(String fileName) {
+        RxLogUtils.d("fileName:" + fileName);
+        try {
+            if (fileName == null) {
+                RxLogUtils.d("fileName is null");
+                return new byte[]{};
+            }
+            InputStream stream = new FileInputStream(fileName);
+            int length = stream.available();
+            byte[] firmware = new byte[length];
+            stream.read(firmware);
+            stream.close();
+            return firmware;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 }
