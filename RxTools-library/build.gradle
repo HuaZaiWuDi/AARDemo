@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.1.4"
+        versionCode 8
+        versionName "1.1.5"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -24,6 +24,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    compileOptions { // JDK版本
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 def supportVersion = "28.0.0"
@@ -60,11 +65,13 @@ dependencies {
     //压缩与加密
     api files('src/main/libs/zip4j_1.3.2.jar')
 
-    //侧滑删除Recycler
-    api 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+//    //侧滑删除Recycler
+//    api 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 
-    //UI库 http://qmuiteam.com/android/get-started
-    api 'com.qmuiteam:qmui:1.1.3'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
+//    //UI库 http://qmuiteam.com/android/get-started
+    api 'com.qmuiteam:qmui:1.1.12'
 
     //上拉刷新框架
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5'

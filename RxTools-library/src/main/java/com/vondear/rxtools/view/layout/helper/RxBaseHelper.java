@@ -248,7 +248,6 @@ public class RxBaseHelper<T extends View> {
 
 
     private void setGradient() {
-
         if (mGradientCenterX != 0 && mGradientCenterY != 0) {
             mBackgroundNormal.setGradientCenter(mGradientCenterX, mGradientCenterY);
 
