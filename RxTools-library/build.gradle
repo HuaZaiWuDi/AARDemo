@@ -68,7 +68,7 @@ dependencies {
 //    //侧滑删除Recycler
 //    api 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 
-    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    api "com.daimajia.swipelayout:library:1.2.0@aar"
 
 //    //UI库 http://qmuiteam.com/android/get-started
     api 'com.qmuiteam:qmui:1.1.12'

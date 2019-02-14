@@ -74,6 +74,19 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.daimajia.swipelayout</groupId>
+      <artifactId>library</artifactId>
+      <version>1.2.0</version>
+      <type>aar</type>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>com.qmuiteam</groupId>
       <artifactId>qmui</artifactId>
       <version>1.1.12</version>
@@ -199,19 +212,6 @@
       <artifactId>dialog</artifactId>
       <version>2.2.6.3</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.daimajia.swipelayout</groupId>
-      <artifactId>library</artifactId>
-      <version>1.2.0</version>
-      <type>aar</type>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>*</artifactId>
-          <groupId>*</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 </project>
