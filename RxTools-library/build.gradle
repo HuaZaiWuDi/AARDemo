@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "1.1.5"
+        versionCode 9
+        versionName "1.1.6"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -23,6 +23,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 
 //    compileOptions { // JDK版本
@@ -65,13 +69,11 @@ dependencies {
     //压缩与加密
     api files('src/main/libs/zip4j_1.3.2.jar')
 
-//    //侧滑删除Recycler
-//    api 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 
     api "com.daimajia.swipelayout:library:1.2.0@aar"
 
 //    //UI库 http://qmuiteam.com/android/get-started
-    api 'com.qmuiteam:qmui:1.1.12'
+//    api 'com.qmuiteam:qmui:1.1.12'
 
     //上拉刷新框架
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5'
@@ -101,7 +103,7 @@ dependencies {
     api 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 
     //retrofit
-    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
 //    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     api 'com.squareup.retrofit2:converter-scalars:2.2.0'
@@ -113,7 +115,7 @@ dependencies {
     //Http日志库
     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     //缓存框架
-    api('com.zchu:rxcache:2.3.3') {
+    api('com.zchu:rxcache:2.3.5') {
         exclude group: 'com.android.support'
     }
     api 'com.kongzue.dialog:dialog:2.2.6.3'

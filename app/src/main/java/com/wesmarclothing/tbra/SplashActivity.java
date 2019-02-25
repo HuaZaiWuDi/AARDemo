@@ -13,6 +13,7 @@ import android.widget.Chronometer;
 import android.widget.QuickContactBadge;
 
 import com.vondear.rxtools.utils.RxUtils;
+import com.vondear.rxtools.view.RxTitle;
 import com.vondear.rxtools.view.RxToast;
 
 
@@ -27,6 +28,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         RxUtils.init(this.getApplication());
+
+
+        RxTitle mRxTitle = findViewById(R.id.rxTitle);
+        mRxTitle.setTitle("我是TITLE");
 
         RxToast.normal("开始");
 

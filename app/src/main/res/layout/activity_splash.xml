@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <com.vondear.rxtools.view.RxTitle
+            android:id="@+id/rxTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/red"
@@ -21,7 +22,7 @@
             app:rightIcon="@drawable/set"
             app:rightText="右边"
             app:rightTextColor="@color/white"
-            app:title="RxTitle">
+           >
 
 
         </com.vondear.rxtools.view.RxTitle>

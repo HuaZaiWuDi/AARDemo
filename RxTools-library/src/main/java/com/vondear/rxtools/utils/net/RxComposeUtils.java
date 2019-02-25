@@ -1,10 +1,11 @@
 package com.vondear.rxtools.utils.net;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.text.TextUtils;
 
+import com.kongzue.dialog.v2.WaitDialog;
 import com.vondear.rxtools.model.lifecycyle.LifeCycleEvent;
-import com.vondear.rxtools.view.TipDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,32 +71,12 @@ public class RxComposeUtils {
 
     }
 
-    /**
-     * 统一线程处理
-     *
-     * @param <T> 指定的泛型类型
-     * @return ObservableTransformer
-     */
-    public static <T> ObservableTransformer<T, T> showDialog(final TipDialog dialog) {
-        return new ObservableTransformer<T, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<T> observable) {
-                return observable
-                        .doOnSubscribe(new Consumer<Disposable>() {
-                            @Override
-                            public void accept(Disposable disposable) throws Exception {
-                                if (dialog != null)
-                                    dialog.show();
-                            }
-                        }).doFinally(new Action() {
-                            @Override
-                            public void run() throws Exception {
-                                if (dialog != null)
-                                    dialog.dismiss();
-                            }
-                        });
-            }
-        };
+    public static <T> ObservableTransformer<T, T> showDialog(final Context mContext) {
+        return observable -> observable.doOnSubscribe(disposable ->
+                WaitDialog.show(mContext, "正在加载"))
+                .doFinally((Action) () -> {
+                    WaitDialog.dismiss();
+                });
     }
 
 

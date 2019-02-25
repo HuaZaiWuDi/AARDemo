@@ -48,7 +48,6 @@ public class RxTitle extends FrameLayout {
 
     private int mTitleSize;//Title字体大小
 
-    private boolean mTitleVisibility;//Title是否显示
 
     private int mLeftIcon;//左边 ICON 引用的资源ID
 
@@ -104,6 +103,7 @@ public class RxTitle extends FrameLayout {
             //获得属性值
             //getColor(R.styleable.RxTitle_RxBackground, getResources().getColor(R.color.transparent))
             mTitle = a.getString(R.styleable.RxTitle_title);//标题
+            if (RxDataUtils.isNullString(mTitle)) mTitle = "";
             mTitleColor = a.getColor(R.styleable.RxTitle_titleColor, getResources().getColor(R.color.white));//标题颜色
             mTitleSize = a.getDimensionPixelSize(R.styleable.RxTitle_titleSize, 60);//标题字体大小
             //TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics())
@@ -113,10 +113,12 @@ public class RxTitle extends FrameLayout {
             mLeftIconVisibility = a.getBoolean(R.styleable.RxTitle_leftIconVisibility, true);//左边图标是否显示
 
             mLeftText = a.getString(R.styleable.RxTitle_leftText);
+            if (RxDataUtils.isNullString(mLeftText)) mLeftText = "";
             mLeftTextColor = a.getColor(R.styleable.RxTitle_leftTextColor, getResources().getColor(R.color.white));//左边字体颜色
             mLeftTextSize = a.getDimensionPixelSize(R.styleable.RxTitle_leftTextSize, 48);//标题字体大小
 
             mRightText = a.getString(R.styleable.RxTitle_rightText);
+            if (RxDataUtils.isNullString(mRightText)) mRightText = "";
             mRightTextColor = a.getColor(R.styleable.RxTitle_rightTextColor, getResources().getColor(R.color.white));//右边字体颜色
             mRightTextSize = a.getDimensionPixelSize(R.styleable.RxTitle_rightTextSize, 48);//标题字体大小
 
@@ -127,15 +129,10 @@ public class RxTitle extends FrameLayout {
 
         //******************************************************************************************以下属性初始化
 
-        //title
-        mTitleVisibility = !RxDataUtils.isNullString(mTitle);
 
-        if (mTitleVisibility) {
-            setTitle(mTitle);
-            setTitleColor(mTitleColor);
-            setTitleSize(mTitleSize);
-        }
-        setTitleVisibility(mTitleVisibility);
+        setTitle(mTitle);
+        setTitleColor(mTitleColor);
+        setTitleSize(mTitleSize);
 
 
 //        leftIcon
@@ -233,9 +230,6 @@ public class RxTitle extends FrameLayout {
         return mTvRight;
     }
 
-    public boolean isTitleVisibility() {
-        return mTitleVisibility;
-    }
 
     public String getLeftText() {
         return mLeftText;
@@ -361,15 +355,6 @@ public class RxTitle extends FrameLayout {
         return this;
     }
 
-    public RxTitle setTitleVisibility(boolean titleVisibility) {
-        mTitleVisibility = titleVisibility;
-        if (mTitleVisibility) {
-            mTvTitle.setVisibility(VISIBLE);
-        } else {
-            mTvTitle.setVisibility(GONE);
-        }
-        return this;
-    }
     //==============================================================================================以上为  Title  相关方法
 
 

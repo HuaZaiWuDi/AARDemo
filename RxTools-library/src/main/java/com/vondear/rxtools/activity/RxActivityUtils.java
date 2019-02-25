@@ -51,7 +51,10 @@ public class RxActivityUtils {
      * 获取当前的Activity（堆栈中最后一个压入的)
      */
     public static Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
+        Activity activity = null;
+        if (!activityStack.empty()) {
+            activity = activityStack.lastElement();
+        }
         return activity;
     }
 
@@ -222,7 +225,6 @@ public class RxActivityUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         activityAnim(context);
-        ((Activity) context).finish();
     }
 
     /**
@@ -238,7 +240,6 @@ public class RxActivityUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
         activityAnim(context);
-        ((Activity) context).finish();
     }
 
 
@@ -297,6 +298,14 @@ public class RxActivityUtils {
 
     /**
      * Activity 跳转
+     * 直接启动栈内实例，没有则正常启动
+     * <p>
+     * 如果在intent里设置交给 startActivity（）,
+     * 这个flag会把已经运行过的acivity带到task历史栈的顶端。
+     * 例如，一个task由A,B,C,D四个activity组成，
+     * 如果D携带这个flag的intent调用startActivity()打开B，
+     * 那么B就会被带到历史栈的前部，结果是:A,C,D,B.如果LAG_ACTIVITY_CLEAR_TOP 被设置，
+     * 那么FLAG_ACTIVITY_REORDER_TO_FRONT将被忽略。
      *
      * @param context
      * @param goal
@@ -321,6 +330,64 @@ public class RxActivityUtils {
         context.startActivity(intent);
         activityAnim(context);
     }
+
+    /**
+     * Activity 跳转
+     * 栈顶复用，没有则正常启动
+     *
+     * @param context
+     * @param goal
+     */
+    public static void skipActivitySingleTop(Context context, Class<?> goal) {
+        Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.startActivity(intent);
+        activityAnim(context);
+    }
+
+    /**
+     * Activity 跳转
+     *
+     * @param context
+     * @param goal
+     */
+    public static void skipActivitySingleTop(Context context, Class<?> goal, Bundle bundle) {
+        Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+        activityAnim(context);
+    }
+
+
+    /**
+     * Activity 跳转
+     * 非Activity实例启动，如Application，Dialog，广播等等启动
+     *
+     * @param context
+     * @param goal
+     */
+    public static void skipActivityNotActivity(Context context, Class<?> goal) {
+        Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        activityAnim(context);
+    }
+
+    /**
+     * Activity 跳转
+     *
+     * @param context
+     * @param goal
+     */
+    public static void skipActivityNotActivity(Context context, Class<?> goal, Bundle bundle) {
+        Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+        activityAnim(context);
+    }
+
 
     public static void skipActivityForResult(Activity context, Class<?> goal, int requestCode) {
         Intent intent = new Intent(context, goal);
