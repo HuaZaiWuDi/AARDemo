@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -94,12 +95,14 @@ public class RxLocationUtils {
                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
+            mListener.onLocationFail(true, false);
             return false;
         }
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
         if (!isLocationEnabled(context) || mLocationManager == null) {
 //            RxToast.showToast(context, "无法定位，请打开定位服务", 500);
+            mListener.onLocationFail(false, true);
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
@@ -155,7 +158,7 @@ public class RxLocationUtils {
      * @param longitude 经度
      * @return {@link Address}
      */
-    public static Address getAddress(Context context, double latitude, double longitude) {
+    public static @Nullable Address getAddress(Context context, double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -412,6 +415,8 @@ public class RxLocationUtils {
          * @param extras   provider可选包
          */
         void onStatusChanged(String provider, int status, Bundle extras);//位置状态发生改变
+
+        void onLocationFail(boolean hasPermissions, boolean hasGPRS);
     }
 
     private static class MyLocationListener

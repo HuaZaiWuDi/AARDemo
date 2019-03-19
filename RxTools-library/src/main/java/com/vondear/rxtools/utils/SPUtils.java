@@ -76,11 +76,12 @@ public final class SPUtils {
     public static void put(@NonNull final String key,
                            @NonNull final String value,
                            final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putString(key, value).commit();
-        } else {
-            sp.edit().putString(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putString(key, value).commit();
+            } else {
+                sp.edit().putString(key, value).apply();
+            }
     }
 
     /**
@@ -101,7 +102,10 @@ public final class SPUtils {
      * @return the string value if sp exists or {@code defaultValue} otherwise
      */
     public static String getString(@NonNull final String key, @NonNull final String defaultValue) {
-        return sp.getString(key, defaultValue);
+        if (sp != null)
+            return sp.getString(key, defaultValue);
+        else
+            return defaultValue;
     }
 
     /**
@@ -123,11 +127,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void put(@NonNull final String key, final int value, final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putInt(key, value).commit();
-        } else {
-            sp.edit().putInt(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putInt(key, value).commit();
+            } else {
+                sp.edit().putInt(key, value).apply();
+            }
     }
 
     /**
@@ -148,7 +153,9 @@ public final class SPUtils {
      * @return the int value if sp exists or {@code defaultValue} otherwise
      */
     public static int getInt(@NonNull final String key, final int defaultValue) {
-        return sp.getInt(key, defaultValue);
+        if (sp != null)
+            return sp.getInt(key, defaultValue);
+        return defaultValue;
     }
 
     /**
@@ -170,11 +177,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void put(@NonNull final String key, final long value, final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putLong(key, value).commit();
-        } else {
-            sp.edit().putLong(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putLong(key, value).commit();
+            } else {
+                sp.edit().putLong(key, value).apply();
+            }
     }
 
     /**
@@ -195,7 +203,9 @@ public final class SPUtils {
      * @return the long value if sp exists or {@code defaultValue} otherwise
      */
     public static long getLong(@NonNull final String key, final long defaultValue) {
-        return sp.getLong(key, defaultValue);
+        if (sp != null)
+            return sp.getLong(key, defaultValue);
+        return defaultValue;
     }
 
     /**
@@ -217,11 +227,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void put(@NonNull final String key, final float value, final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putFloat(key, value).commit();
-        } else {
-            sp.edit().putFloat(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putFloat(key, value).commit();
+            } else {
+                sp.edit().putFloat(key, value).apply();
+            }
     }
 
     /**
@@ -242,7 +253,9 @@ public final class SPUtils {
      * @return the float value if sp exists or {@code defaultValue} otherwise
      */
     public static float getFloat(@NonNull final String key, final float defaultValue) {
-        return sp.getFloat(key, defaultValue);
+        if (sp != null)
+            return sp.getFloat(key, defaultValue);
+        return defaultValue;
     }
 
     /**
@@ -264,11 +277,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void put(@NonNull final String key, final boolean value, final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putBoolean(key, value).commit();
-        } else {
-            sp.edit().putBoolean(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putBoolean(key, value).commit();
+            } else {
+                sp.edit().putBoolean(key, value).apply();
+            }
     }
 
     /**
@@ -289,7 +303,9 @@ public final class SPUtils {
      * @return the boolean value if sp exists or {@code defaultValue} otherwise
      */
     public static boolean getBoolean(@NonNull final String key, final boolean defaultValue) {
-        return sp.getBoolean(key, defaultValue);
+        if (sp != null)
+            return sp.getBoolean(key, defaultValue);
+        return defaultValue;
     }
 
     /**
@@ -313,11 +329,12 @@ public final class SPUtils {
     public static void put(@NonNull final String key,
                            @NonNull final Set<String> value,
                            final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().putStringSet(key, value).commit();
-        } else {
-            sp.edit().putStringSet(key, value).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().putStringSet(key, value).commit();
+            } else {
+                sp.edit().putStringSet(key, value).apply();
+            }
     }
 
     /**
@@ -339,7 +356,9 @@ public final class SPUtils {
      */
     public static Set<String> getStringSet(@NonNull final String key,
                                            @NonNull final Set<String> defaultValue) {
-        return sp.getStringSet(key, defaultValue);
+        if (sp != null)
+            return sp.getStringSet(key, defaultValue);
+        return defaultValue;
     }
 
     /**
@@ -358,7 +377,9 @@ public final class SPUtils {
      * @return {@code true}: yes<br>{@code false}: no
      */
     public static boolean contains(@NonNull final String key) {
-        return sp.contains(key);
+        if (sp != null)
+            return sp.contains(key);
+        return false;
     }
 
     /**
@@ -378,11 +399,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void remove(@NonNull final String key, final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().remove(key).commit();
-        } else {
-            sp.edit().remove(key).apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().remove(key).commit();
+            } else {
+                sp.edit().remove(key).apply();
+            }
     }
 
     /**
@@ -399,11 +421,12 @@ public final class SPUtils {
      *                 false to use {@link SharedPreferences.Editor#apply()}
      */
     public static void clear(final boolean isCommit) {
-        if (isCommit) {
-            sp.edit().clear().commit();
-        } else {
-            sp.edit().clear().apply();
-        }
+        if (sp != null)
+            if (isCommit) {
+                sp.edit().clear().commit();
+            } else {
+                sp.edit().clear().apply();
+            }
     }
 
     private static boolean isSpace(final String s) {

@@ -57,6 +57,11 @@ public class RxServiceLocation extends Service {
         public void onStatusChanged(String provider, int status, Bundle extras) {
 
         }
+
+        @Override
+        public void onLocationFail(boolean hasPermissions, boolean hasGPRS) {
+
+        }
     };
 
     @Override
