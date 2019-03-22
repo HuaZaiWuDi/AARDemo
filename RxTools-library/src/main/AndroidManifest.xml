@@ -15,7 +15,7 @@
     <!--8.0只有添加此权限才能在引用内安装APK-->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!--操作通知栏权限-->
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
     <!-- 外部存储 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -37,7 +37,7 @@
 
         <!-- android7.0适配 -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".utils.ToolsProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
