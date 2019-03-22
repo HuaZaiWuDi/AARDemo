@@ -144,7 +144,7 @@ public class RxShareUtlis {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-                data = FileProvider.getUriForFile(context, context.getPackageName(), file);
+                data = FileProvider.getUriForFile(context, ProviderUtil.getFileProviderName(context), file);
             } else {
                 data = Uri.fromFile(file);
             }
