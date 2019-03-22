@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+        <external-path
+            name="download"
+            path=""/>
+
+        <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
+        <external-path
+            name="beta_external_path"
+            path="Download/"/>
+        <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
+        <external-path
+            name="beta_external_files_path"
+            path="Android/data/"/>
+        <!--path：需要临时授权访问的路径（.代表所有路径）-->
+        <!--name：就是你给这个访问路径起个名字-->
+        <external-path
+            name="external_storage_root"
+            path="."/>
+
+    </paths>
+
+</resources>

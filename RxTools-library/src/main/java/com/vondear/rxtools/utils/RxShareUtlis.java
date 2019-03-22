@@ -26,7 +26,7 @@ public class RxShareUtlis {
 
 
     public RxShareUtlis() {
-         /* cannot be instantiated */
+        /* cannot be instantiated */
         throw new RuntimeException("cannot be instantiated");
     }
 
@@ -121,6 +121,19 @@ public class RxShareUtlis {
         context.startActivity(Intent.createChooser(intent2, "评价"));
     }
 
+    public static void smpleShareMultipleFile(@NonNull Context context, File... files) {
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+
+        //分享文件
+        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);//发送多个文件
+        for (File file : files) {
+            uris.add(File2UriByN(context, file, intent));
+        }
+        intent.setType("*/*");//多个文件格式
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);//Intent.EXTRA_STREAM同于传输文件流
+        context.startActivity(intent);
+    }
+
 
     public static Uri File2UriByN(Context context, File file, Intent intent) {
         Uri data = null;
@@ -131,7 +144,7 @@ public class RxShareUtlis {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-                data = FileProvider.getUriForFile(context, "com.vondear.rxtools", file);
+                data = FileProvider.getUriForFile(context, context.getPackageName(), file);
             } else {
                 data = Uri.fromFile(file);
             }
