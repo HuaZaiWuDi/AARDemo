@@ -1,5 +1,6 @@
 package com.vondear.rxtools.utils;
 
+import android.content.Context;
 import android.support.v4.content.FileProvider;
 
 /**
@@ -11,4 +12,10 @@ import android.support.v4.content.FileProvider;
  */
 
 public class ToolsProvider extends FileProvider {
+
+
+    public static String getFileProviderName(Context context){
+        return context.getPackageName()+".provider";
+    }
+
 }

@@ -2,20 +2,24 @@ package com.vondear.rxtools.utils;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Package com.vondear.rxtools.utils
  * @FileName RxTextDrawable
  * @Date 2018/12/7 15:18
  * @Author JACK
- * @Describe TODO
+ * @Describe TODO给TextView上下左右添加图片
  * @Project Android_WeFit_2.0
  */
 public class RxTextDrawable {
@@ -33,6 +37,68 @@ public class RxTextDrawable {
 
     }
 
+
+    /**
+     * 添加图片
+     *
+     * @param textView
+     * @param orientation
+     * @param imgId
+     */
+    public static void addTextDrawable(TextView textView, @Orientation final int orientation, @DrawableRes int imgId) {
+        Drawable drawable = ContextCompat.getDrawable(textView.getContext(), imgId);
+        if (drawable != null)
+            switch (orientation) {
+                case O_LEFT:
+                    textView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                    break;
+                case O_RIGHT:
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+                    break;
+                case O_TOP:
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
+                    break;
+                case O_BOTTOM:
+                    textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, drawable);
+                    break;
+            }
+    }
+
+    /**
+     * 添加图片
+     *
+     * @param textView
+     * @param left
+     * @param top
+     * @param right
+     * @param bottom
+     */
+    public static void addTextDrawables(TextView textView,
+                                        @DrawableRes int left,
+                                        @DrawableRes int top,
+                                        @DrawableRes int right,
+                                        @DrawableRes int bottom) {
+        List<Integer> integers = Arrays.asList(left, top, right, bottom);
+        for (int i = 0; i < integers.size(); i++) {
+            addTextDrawable(textView, i, integers.get(i));
+        }
+    }
+
+
+    /**
+     * 给drawable添加点击事件
+     *
+     * @param textView
+     * @param orientation
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    public static void addTextDrawableListener(final TextView textView,
+                                               @DrawableRes int imgId,
+                                               @Orientation final int orientation,
+                                               final View.OnClickListener mOnClickListener) {
+        addTextDrawable(textView, imgId, orientation);
+        addTextDrawableListener(textView, orientation, mOnClickListener);
+    }
 
     /**
      * 给drawable添加点击事件

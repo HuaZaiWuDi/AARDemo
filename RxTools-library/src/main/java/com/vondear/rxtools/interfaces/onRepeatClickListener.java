@@ -26,5 +26,4 @@ public abstract class onRepeatClickListener implements View.OnClickListener {
             return;
         }
     }
-
 }

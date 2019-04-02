@@ -37,17 +37,6 @@ public class RxDataUtils {
     }
 
 
-//    /**
-//     * 判断数字==0或者字符串是否空
-//     */
-//    public <T> String formartValue(T value) {
-//        if (value instanceof String) {
-//            if (isNullString((String) value)) {
-//
-//            }
-//        }
-//    }
-
     /**
      * 判断对象是否为空
      *

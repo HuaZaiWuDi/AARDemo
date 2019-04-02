@@ -31,7 +31,6 @@ import static android.Manifest.permission.WRITE_SETTINGS;
 public final class RxScreenUtils {
 
     private RxScreenUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
     /**

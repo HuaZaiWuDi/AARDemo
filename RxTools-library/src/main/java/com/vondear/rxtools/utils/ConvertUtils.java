@@ -40,7 +40,6 @@ import java.util.Locale;
 
 /**
  * 数据类型转换、单位转换
- *
  */
 public class ConvertUtils {
     public static final long GB = 1073741824;
@@ -420,8 +419,27 @@ public class ConvertUtils {
      * 参见：http://www.cnblogs.com/lee0oo0/p/3355468.html
      */
     public static Bitmap toBitmap(View view) {
-        int width = view.getWidth();
-        int height = view.getHeight();
+        return toBitmap(view, view.getWidth(), view.getHeight(), true);
+    }
+
+
+    /**
+     * 把view转化为bitmap（截图）
+     * 参见：http://www.cnblogs.com/lee0oo0/p/3355468.html
+     */
+    public static Bitmap toBitmap(View view, int width, int height, boolean hasLoad) {
+
+        if (!hasLoad) {
+            //测量使得view指定大小
+            int measuredWidth = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
+            int measuredHeight = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
+            view.measure(measuredWidth, measuredHeight);
+//        //调用layout方法布局后，可以得到view的尺寸大小
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+
+        width = view.getWidth();
+        height = view.getHeight();
         if (view instanceof ListView) {
             height = 0;
             // 获取listView实际高度

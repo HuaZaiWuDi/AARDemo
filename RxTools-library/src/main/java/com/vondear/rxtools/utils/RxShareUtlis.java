@@ -25,9 +25,7 @@ import java.util.Date;
 public class RxShareUtlis {
 
 
-    public RxShareUtlis() {
-        /* cannot be instantiated */
-        throw new RuntimeException("cannot be instantiated");
+    private RxShareUtlis() {
     }
 
 
@@ -144,7 +142,7 @@ public class RxShareUtlis {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-                data = FileProvider.getUriForFile(context, ProviderUtil.getFileProviderName(context), file);
+                data = FileProvider.getUriForFile(context, ToolsProvider.getFileProviderName(context), file);
             } else {
                 data = Uri.fromFile(file);
             }

@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.QuickContactBadge;
 
+import com.vondear.rxtools.utils.RxBus;
 import com.vondear.rxtools.utils.RxUtils;
 import com.vondear.rxtools.view.RxTitle;
 import com.vondear.rxtools.view.RxToast;
+
+import io.reactivex.functions.Consumer;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -123,13 +126,19 @@ public class SplashActivity extends AppCompatActivity {
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 //        break;
 
-
+        RxBus.getInstance().postSticky("1234");
     }
 
     BottomSheetDialog dialog;
 
     public void toggle(View view) {
-        dialog.show();
-
+//        dialog.show();
+        RxBus.getInstance().registerSticky(String.class)
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        RxToast.normal(s);
+                    }
+                });
     }
 }

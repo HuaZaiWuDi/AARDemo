@@ -37,6 +37,15 @@ public final class RxSignaturesUtils {
      */
     private final static X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
 
+
+    public static void logApkInfo(Application application) {
+        RxLogUtils.d("MD5:" + signatureMD5(application));
+        RxLogUtils.d("SHA1:" + signatureSHA1(application));
+        RxLogUtils.d("SHA256:" + signatureSHA256(application));
+        RxLogUtils.d("是否是DeBug版本:" + isDebuggable(application));
+        printSignatureName(application);
+    }
+
     /**
      * 进行转换
      *
@@ -138,7 +147,9 @@ public final class RxSignaturesUtils {
     /**
      * 获取App 证书对象
      */
-    public static X509Certificate getX509Certificate(Signature[] signatures) {
+    public static X509Certificate getX509Certificate(Application application) {
+
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             ByteArrayInputStream stream = new ByteArrayInputStream(signatures[0].toByteArray());
@@ -153,10 +164,12 @@ public final class RxSignaturesUtils {
     /**
      * 打印签名信息
      *
-     * @param signatures
+     * @param application
      * @return
      */
-    public static void printSignatureName(Signature[] signatures) {
+    public static void printSignatureName(Application application) {
+
+        Signature[] signatures = getSignaturesFromApk(getAppAPKFile(application));
         try {
             for (int i = 0, len = signatures.length; i < len; i++) {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -207,7 +220,7 @@ public final class RxSignaturesUtils {
     }
 
     /**
-     * 从APK中读取签名
+     * 从APK中读取证书
      *
      * @param file
      * @return
@@ -225,7 +238,7 @@ public final class RxSignaturesUtils {
     }
 
     /**
-     * 加载签名
+     * 加载证书
      *
      * @param jarFile
      * @param je

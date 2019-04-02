@@ -33,7 +33,7 @@ public final class RxUriUtils {
      */
     public static Uri file2Uri(@NonNull final File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            String authority = RxUtils.getContext().getPackageName() + ".utilcode.provider";
+            String authority = ToolsProvider.getFileProviderName(RxUtils.getContext());
             return FileProvider.getUriForFile(RxUtils.getContext(), authority, file);
         } else {
             return Uri.fromFile(file);

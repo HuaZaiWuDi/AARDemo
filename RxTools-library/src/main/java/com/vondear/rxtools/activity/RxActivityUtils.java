@@ -251,6 +251,7 @@ public class RxActivityUtils {
      */
     public static void skipActivityAndFinish(Context context, Class<?> goal, Bundle bundle) {
         Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtras(bundle);
         context.startActivity(intent);
         activityAnim(context);
@@ -265,6 +266,7 @@ public class RxActivityUtils {
      */
     public static void skipActivityAndFinish(Context context, Class<?> goal) {
         Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
         activityAnim(context);
         ((Activity) context).finish();
@@ -279,6 +281,7 @@ public class RxActivityUtils {
      */
     public static void skipActivity(Context context, Class<?> goal) {
         Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
         activityAnim(context);
     }
@@ -291,6 +294,7 @@ public class RxActivityUtils {
      */
     public static void skipActivity(Context context, Class<?> goal, Bundle bundle) {
         Intent intent = new Intent(context, goal);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtras(bundle);
         context.startActivity(intent);
         activityAnim(context);

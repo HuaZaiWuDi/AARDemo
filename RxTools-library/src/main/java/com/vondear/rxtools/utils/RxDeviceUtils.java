@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.KeyguardManager;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
@@ -53,10 +52,8 @@ import java.util.Map;
  * Created by vondear on 2016/1/24.
  */
 
-public class  RxDeviceUtils {
+public class RxDeviceUtils {
 
-
-    private static Context context = RxUtils.getContext();
 
     /**
      * 得到屏幕的高
@@ -64,7 +61,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static int getScreenHeight() {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) RxUtils.getContext().getSystemService(RxUtils.getContext().WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
         return height;
     }
@@ -75,7 +72,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static int getScreenWidth() {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) RxUtils.getContext().getSystemService(RxUtils.getContext().WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         return width;
     }
@@ -84,21 +81,21 @@ public class  RxDeviceUtils {
      * 得到设备屏幕的宽度
      */
     public static int getScreenWidths() {
-        return context.getResources().getDisplayMetrics().widthPixels;
+        return RxUtils.getContext().getResources().getDisplayMetrics().widthPixels;
     }
 
     /**
      * 得到设备屏幕的高度
      */
     public static int getScreenHeights() {
-        return context.getResources().getDisplayMetrics().heightPixels;
+        return RxUtils.getContext().getResources().getDisplayMetrics().heightPixels;
     }
 
     /**
      * 得到设备的密度
      */
     public static float getScreenDensity() {
-        return context.getResources().getDisplayMetrics().density;
+        return RxUtils.getContext().getResources().getDisplayMetrics().density;
     }
 
 
@@ -145,7 +142,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getDeviceIdIMEI() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getDeviceId();
     }
 
@@ -155,7 +152,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getDeviceSoftwareVersion() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getDeviceSoftwareVersion();
     }
 
@@ -165,7 +162,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getLine1Number() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getLine1Number();
     }
 
@@ -175,7 +172,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getNetworkCountryIso() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getNetworkCountryIso();
     }
 
@@ -185,7 +182,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getNetworkOperator() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getNetworkOperator();
     }
 
@@ -195,7 +192,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getNetworkOperatorName() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getNetworkOperatorName();
     }
 
@@ -205,7 +202,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static int getNetworkType() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getNetworkType();
     }
 
@@ -215,7 +212,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static int getPhoneType() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getPhoneType();
     }
 
@@ -225,7 +222,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getSimCountryIso() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimCountryIso();
     }
 
@@ -235,7 +232,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getSimOperator() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimOperator();
     }
 
@@ -245,7 +242,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getSimOperatorName() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimOperatorName();
     }
 
@@ -255,7 +252,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getSimSerialNumber() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimSerialNumber();
     }
 
@@ -265,7 +262,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static int getSimState() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimState();
     }
 
@@ -276,7 +273,7 @@ public class  RxDeviceUtils {
      */
     @SuppressLint("MissingPermission")
     public static String getSubscriberId() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSubscriberId();
     }
 
@@ -286,7 +283,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getVoiceMailNumber() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getVoiceMailNumber();
     }
 
@@ -296,7 +293,7 @@ public class  RxDeviceUtils {
      * @return
      */
     public static String getAndroidId() {
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(RxUtils.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
@@ -345,11 +342,11 @@ public class  RxDeviceUtils {
      */
     public static String getAppVersionName() {
         // 获取packagemanager的实例
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = RxUtils.getContext().getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = null;
         try {
-            packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            packInfo = packageManager.getPackageInfo(RxUtils.getContext().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -364,11 +361,11 @@ public class  RxDeviceUtils {
      */
     public static int getAppVersionNo() {
         // 获取packagemanager的实例
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = RxUtils.getContext().getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
         PackageInfo packInfo = null;
         try {
-            packInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            packInfo = packageManager.getPackageInfo(RxUtils.getContext().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -386,16 +383,16 @@ public class  RxDeviceUtils {
         boolean result = false;
         if (Build.VERSION.SDK_INT >= 23) {
             try {
-                Class clazz = Class.forName("android.content.Context");
+                Class clazz = Class.forName("android.content.RxUtils.getContext()");
                 Method method = clazz.getMethod("checkSelfPermission", String.class);
-                int rest = (Integer) method.invoke(context, permission);
+                int rest = (Integer) method.invoke(RxUtils.getContext(), permission);
                 result = rest == PackageManager.PERMISSION_GRANTED;
             } catch (Exception e) {
                 result = false;
             }
         } else {
-            PackageManager pm = context.getPackageManager();
-            if (pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+            PackageManager pm = RxUtils.getContext().getPackageManager();
+            if (pm.checkPermission(permission, RxUtils.getContext().getPackageName()) == PackageManager.PERMISSION_GRANTED) {
                 result = true;
             }
         }
@@ -410,8 +407,8 @@ public class  RxDeviceUtils {
     public static String getDeviceInfo() {
         try {
             org.json.JSONObject json = new org.json.JSONObject();
-            TelephonyManager tm = (TelephonyManager) context
-                    .getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = (TelephonyManager) RxUtils.getContext()
+                    .getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
             String device_id = null;
             if (checkPermission(Manifest.permission.READ_PHONE_STATE)) {
                 device_id = tm.getDeviceId();
@@ -451,7 +448,7 @@ public class  RxDeviceUtils {
                 device_id = mac;
             }
             if (TextUtils.isEmpty(device_id)) {
-                device_id = Settings.Secure.getString(context.getContentResolver(),
+                device_id = Settings.Secure.getString(RxUtils.getContext().getContentResolver(),
                         Settings.Secure.ANDROID_ID);
             }
             json.put("device_id", device_id);
@@ -480,14 +477,13 @@ public class  RxDeviceUtils {
 
 
     /**
-     * 获取设备MAC地址
+     * 获取WifiMAC地址
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>}</p>
      *
-     * @param context 上下文
      * @return MAC地址
      */
-    public static String getMacAddress(Context context) {
-        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    public static String getWifiMacAddress() {
+        WifiManager wifi = (WifiManager) RxUtils.getContext().getApplicationContext().getSystemService(RxUtils.getContext().WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
         if (info != null) {
             String macAddress = info.getMacAddress();
@@ -495,7 +491,7 @@ public class  RxDeviceUtils {
                 return macAddress.replace(":", "");
             }
         }
-        return null;
+        return "";
     }
 
     /**
@@ -531,7 +527,7 @@ public class  RxDeviceUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isPhone() {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
     }
 
@@ -557,8 +553,8 @@ public class  RxDeviceUtils {
      * VoiceMailNumber = *86<br>
      */
     public static String getPhoneStatus() {
-        TelephonyManager tm = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) RxUtils.getContext()
+                .getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         String str = "";
         str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
         str += "DeviceSoftwareVersion = " + tm.getDeviceSoftwareVersion() + "\n";
@@ -584,7 +580,7 @@ public class  RxDeviceUtils {
      * @param phoneNumber 电话号码
      */
     public static void dial(String phoneNumber) {
-        context.startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
+        RxUtils.getContext().startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
     }
 
     /**
@@ -599,7 +595,7 @@ public class  RxDeviceUtils {
             // 调用系统的拨号服务实现电话拨打功能
             // 封装一个拨打电话的intent，并且将电话号码包装成一个Uri对象传入
 
-            RxPermissionsUtils.requestCall(context, new onRequestPermissionsListener() {
+            RxPermissionsUtils.requestCall(RxUtils.getContext(), new onRequestPermissionsListener() {
                 @Override
                 public void onRequestBefore() {
 
@@ -608,10 +604,10 @@ public class  RxDeviceUtils {
                 @Override
                 public void onRequestLater() {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber1));
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(RxUtils.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
-                    context.startActivity(intent);// 内部类
+                    RxUtils.getContext().startActivity(intent);// 内部类
                 }
             });
 
@@ -629,7 +625,7 @@ public class  RxDeviceUtils {
         Uri uri = Uri.parse("smsto:" + (RxDataUtils.isNullString(phoneNumber) ? "" : phoneNumber));
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", RxDataUtils.isNullString(content) ? "" : content);
-        context.startActivity(intent);
+        RxUtils.getContext().startActivity(intent);
     }
 
     /**
@@ -643,7 +639,7 @@ public class  RxDeviceUtils {
         SystemClock.sleep(3000);
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
         // 1.获取内容解析者
-        ContentResolver resolver = context.getContentResolver();
+        ContentResolver resolver = RxUtils.getContext().getContentResolver();
         // 2.获取内容提供者的地址:com.android.contacts
         // raw_contacts表的地址 :raw_contacts
         // view_data表的地址 : data
@@ -736,7 +732,7 @@ public class  RxDeviceUtils {
     public static void getAllSMS() {
         // 1.获取短信
         // 1.1获取内容解析者
-        ContentResolver resolver = context.getContentResolver();
+        ContentResolver resolver = RxUtils.getContext().getContentResolver();
         // 1.2获取内容提供者地址   sms,sms表的地址:null  不写
         // 1.3获取查询路径
         Uri uri = Uri.parse("content://sms");
@@ -823,21 +819,19 @@ public class  RxDeviceUtils {
     /**
      * 判断是否横屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isLandscape(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    public static boolean isLandscape() {
+        return RxUtils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     /**
      * 判断是否竖屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isPortrait(Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    public static boolean isPortrait() {
+        return RxUtils.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -901,11 +895,10 @@ public class  RxDeviceUtils {
     /**
      * 获取DisplayMetrics对象
      *
-     * @param context 应用程序上下文
      * @return
      */
-    public static DisplayMetrics getDisplayMetrics(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    public static DisplayMetrics getDisplayMetrics() {
+        WindowManager windowManager = (WindowManager) RxUtils.getContext().getSystemService(RxUtils.getContext().WINDOW_SERVICE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics;
@@ -914,12 +907,11 @@ public class  RxDeviceUtils {
     /**
      * 判断是否锁屏
      *
-     * @param context 上下文
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isScreenLock(Context context) {
-        KeyguardManager km = (KeyguardManager) context
-                .getSystemService(Context.KEYGUARD_SERVICE);
+    public static boolean isScreenLock() {
+        KeyguardManager km = (KeyguardManager) RxUtils.getContext()
+                .getSystemService(RxUtils.getContext().KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }
 

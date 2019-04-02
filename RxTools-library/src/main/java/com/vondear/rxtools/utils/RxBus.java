@@ -2,8 +2,12 @@ package com.vondear.rxtools.utils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -22,20 +26,15 @@ import io.reactivex.subjects.Subject;
 public class RxBus {
     private final Subject<Object> mBus;
     private static volatile RxBus instance;
-//    private final FlowableProcessor<Object> mBus;//背压测试
+    private final Map<Class<?>, Object> mStickyEventMap;
 
     /**
      * 默认私有化构造函数
-     * 当前这个地方没有进行背压
-     * 背压：http://flyou.ren/2017/04/05/%E5%85%B3%E4%BA%8ERxJava%E8%83%8C%E5%8E%8B/?utm_source=tuicool&utm_medium=referral
      */
     private RxBus() {
         mBus = PublishSubject.create().toSerialized();
+        mStickyEventMap = new ConcurrentHashMap<>();
     }
-/**背压测试*/
-/*    private RxBus(){
-                mBus = PublishProcessor.create().toSerialized();
-    }*/
 
     /**
      * 单例模式
@@ -71,9 +70,20 @@ public class RxBus {
     }
 
     /**
-     * 注册，传递tClass的时候最好创建一个封装的类。这对数据的传递作用
-     * 新更改仅仅抛出生成类和解析
+     * 发送一个新Sticky事件
      */
+    public void postSticky(Object event) {
+        synchronized (mStickyEventMap) {
+            mStickyEventMap.put(event.getClass(), event);
+        }
+        mBus.onNext(event);
+    }
+
+    /**
+     * 注册，传递tClass的时候最好创建一个封装的类。这对数据的传递作用
+     * 新更改仅仅抛出生成类和解析,有会泄露的问题，
+     */
+    @Deprecated
     public <T> Disposable register(Class<T> tClass, Consumer<T> consumer) {
         return mBus.ofType(tClass)
                 .subscribeOn(Schedulers.io())
@@ -93,17 +103,32 @@ public class RxBus {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-
     /**
-     * 确定接收消息的类型
-     * @param aClass
-     * @param <T>
-     * @return
-     * 下面为背压使用方式
+     * 发送粘性事件
+     * 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
      */
-/*    public <T> Flowable<T> toFlowable(Class<T> aClass) {
-        return mBus.ofType(aClass);
-    }*/
+    public <T> Observable<T> registerSticky(final Class<T> tClass) {
+        synchronized (mStickyEventMap) {
+            Observable<T> observable = mBus.ofType(tClass);
+            final Object event = mStickyEventMap.get(tClass);
+
+            if (observable == null) {
+                throw new NullPointerException("Observable == null");
+            }
+
+            if (event != null) {
+                return observable.mergeWith(Observable.create(new ObservableOnSubscribe<T>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<T> emitter) throws Exception {
+                        emitter.onNext(tClass.cast(event));
+                    }
+                }));
+            } else {
+                return observable;
+            }
+        }
+    }
+
 
     /**
      * 保存订阅后的disposable
@@ -149,4 +174,34 @@ public class RxBus {
 
         mSubscriptionMap.remove(key);
     }
+
+
+    /**
+     * 根据eventType获取Sticky事件
+     */
+    public <T> T getStickyEvent(Class<T> eventType) {
+        synchronized (mStickyEventMap) {
+            return eventType.cast(mStickyEventMap.get(eventType));
+        }
+    }
+
+    /**
+     * 移除指定eventType的Sticky事件
+     */
+    public <T> T removeStickyEvent(Class<T> eventType) {
+        synchronized (mStickyEventMap) {
+            return eventType.cast(mStickyEventMap.remove(eventType));
+        }
+    }
+
+    /**
+     * 移除所有的Sticky事件
+     */
+    public void removeAllStickyEvents() {
+        synchronized (mStickyEventMap) {
+            mStickyEventMap.clear();
+        }
+    }
+
+
 }
