@@ -37,6 +37,7 @@ import static android.graphics.BlurMaskFilter.Blur;
 
 /**
  * Spn使用，
+ *
  * @author by vondear on 2016/12/23.
  */
 
@@ -442,14 +443,14 @@ public class RxTextUtils {
 
         public SpannableStringBuilder setLength(int start, int end) {
             mBuilder.append(this.text);
-            setSpan(start, end);
+            if (start >= 0 && start < end && end <= text.length()) {
+                setSpan(start, end);
+            }
             return mBuilder;
         }
 
         public SpannableStringBuilder setLength(int start) {
-            mBuilder.append(this.text);
-            setSpan(start, text.length());
-            return mBuilder;
+            return setLength(start, text.length());
         }
 
         /**

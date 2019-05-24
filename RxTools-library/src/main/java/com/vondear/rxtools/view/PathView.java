@@ -25,6 +25,8 @@ import java.util.concurrent.Semaphore;
 /**
  * Created by wuyr on 17-12-15 下午8:08.
  * GitHub: https://github.com/wuyr/PathView
+ *
+ * 一个Path路径动画的控件
  */
 
 public class PathView extends View {

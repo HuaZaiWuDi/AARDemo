@@ -7,19 +7,6 @@
         <attr name="loadingTextAppearance" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="RxRoundProgress">
-        <attr name="roundColor" format="color"/>
-        <attr name="roundProgressColor" format="color"/>
-        <attr name="roundWidth" format="dimension"/>
-        <attr name="textColor" format="color"/>
-        <attr name="textSize1" format="dimension"/>
-        <attr name="max" format="integer"/>
-        <attr name="textIsDisplayable" format="boolean"/>
-        <attr name="style">
-            <enum name="STROKE" value="0"/>
-            <enum name="FILL" value="1"/>
-        </attr>
-    </declare-styleable>
 
     <declare-styleable name="AbstractWheelView">
         <attr name="visibleItems" format="integer"/>
@@ -604,6 +591,7 @@
         <attr name="icon_src_normal"/>
         <attr name="icon_src_pressed"/>
         <attr name="icon_src_unable"/>
+        <attr name="icon_src_focus"/>
 
         <!--边框-->
         <attr name="border_width" format="dimension"/>
@@ -808,27 +796,32 @@
     </declare-styleable>
 
 
-    <attr name="cardViewStyle" format="reference" />
+    <attr name="cardViewStyle" format="reference"/>
 
     <declare-styleable name="CardView">
-        <attr name="cardBackgroundColor" format="color" />
-        <attr name="cardCornerRadius" format="dimension" />
-        <attr name="cardElevation" format="dimension" />
-        <attr name="cardMaxElevation" format="dimension" />
-        <attr name="cardUseCompatPadding" format="boolean" />
-        <attr name="cardPreventCornerOverlap" format="boolean" />
-        <attr name="contentPadding" format="dimension" />
-        <attr name="contentPaddingLeft" format="dimension" />
-        <attr name="contentPaddingRight" format="dimension" />
-        <attr name="contentPaddingTop" format="dimension" />
-        <attr name="contentPaddingBottom" format="dimension" />
+        <attr name="cardBackgroundColor" format="color"/>
+        <attr name="cardCornerRadius" format="dimension"/>
+        <attr name="cardElevation" format="dimension"/>
+        <attr name="cardMaxElevation" format="dimension"/>
+        <attr name="cardUseCompatPadding" format="boolean"/>
+        <attr name="cardPreventCornerOverlap" format="boolean"/>
+        <attr name="contentPadding" format="dimension"/>
+        <attr name="contentPaddingLeft" format="dimension"/>
+        <attr name="contentPaddingRight" format="dimension"/>
+        <attr name="contentPaddingTop" format="dimension"/>
+        <attr name="contentPaddingBottom" format="dimension"/>
 
-        <attr name="cardShadowColorStart" format="color" />
-        <attr name="cardShadowColorEnd" format="color" />
+        <attr name="cardShadowColorStart" format="color"/>
+        <attr name="cardShadowColorEnd" format="color"/>
 
         <!--<attr name="android:minWidth" />-->
         <!--<attr name="android:minHeight" />-->
     </declare-styleable>
 
+
+    <declare-styleable name="RxLoadingView">
+        <attr name="loading_view_size" format="dimension"/>
+        <attr name="view_color" format="color"/>
+    </declare-styleable>
 
 </resources>

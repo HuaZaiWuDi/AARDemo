@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by vondear on 2016/1/24.
+ * App 各种意图工具类
  */
 public class RxAppUtils {
 

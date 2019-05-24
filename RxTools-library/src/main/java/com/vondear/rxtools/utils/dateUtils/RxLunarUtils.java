@@ -5,7 +5,7 @@ package com.vondear.rxtools.utils.dateUtils;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/12/05
- *     desc  : 日历相关工具类
+ *     desc  : 公历、农历转换工具
  * </pre>
  */
 public final class RxLunarUtils {

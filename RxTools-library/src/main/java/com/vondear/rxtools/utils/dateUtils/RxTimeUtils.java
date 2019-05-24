@@ -27,131 +27,6 @@ public class RxTimeUtils {
      * <p>日期和时间格式由日期和时间模式字符串指定。在日期和时间模式字符串中，未加引号的字母 'A' 到 'Z' 和 'a' 到 'z'
      * 被解释为模式字母，用来表示日期或时间字符串元素。文本可以使用单引号 (') 引起来，以免进行解释。"''"
      * 表示单引号。所有其他字符均不解释；只是在格式化时将它们简单复制到输出字符串，或者在分析时与输入字符串进行匹配。
-     * </p>
-     * 定义了以下模式字母（所有其他字符 'A' 到 'Z' 和 'a' 到 'z' 都被保留）： <br>
-     * <table border="1" cellspacing="1" cellpadding="1" summary="Chart shows pattern letters, date/time component,
-     * presentation, and examples.">
-     * <tr>
-     * <th align="left">字母</th>
-     * <th align="left">日期或时间元素</th>
-     * <th align="left">表示</th>
-     * <th align="left">示例</th>
-     * </tr>
-     * <tr>
-     * <td><code>G</code></td>
-     * <td>Era 标志符</td>
-     * <td>Text</td>
-     * <td><code>AD</code></td>
-     * </tr>
-     * <tr>
-     * <td><code>y</code> </td>
-     * <td>年 </td>
-     * <td>Year </td>
-     * <td><code>1996</code>; <code>96</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>M</code> </td>
-     * <td>年中的月份 </td>
-     * <td>Month </td>
-     * <td><code>July</code>; <code>Jul</code>; <code>07</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>w</code> </td>
-     * <td>年中的周数 </td>
-     * <td>Number </td>
-     * <td><code>27</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>W</code> </td>
-     * <td>月份中的周数 </td>
-     * <td>Number </td>
-     * <td><code>2</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>D</code> </td>
-     * <td>年中的天数 </td>
-     * <td>Number </td>
-     * <td><code>189</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>d</code> </td>
-     * <td>月份中的天数 </td>
-     * <td>Number </td>
-     * <td><code>10</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>F</code> </td>
-     * <td>月份中的星期 </td>
-     * <td>Number </td>
-     * <td><code>2</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>E</code> </td>
-     * <td>星期中的天数 </td>
-     * <td>Text </td>
-     * <td><code>Tuesday</code>; <code>Tue</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>a</code> </td>
-     * <td>Am/pm 标记 </td>
-     * <td>Text </td>
-     * <td><code>PM</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>H</code> </td>
-     * <td>一天中的小时数（0-23） </td>
-     * <td>Number </td>
-     * <td><code>0</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>k</code> </td>
-     * <td>一天中的小时数（1-24） </td>
-     * <td>Number </td>
-     * <td><code>24</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>K</code> </td>
-     * <td>am/pm 中的小时数（0-11） </td>
-     * <td>Number </td>
-     * <td><code>0</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>h</code> </td>
-     * <td>am/pm 中的小时数（1-12） </td>
-     * <td>Number </td>
-     * <td><code>12</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>m</code> </td>
-     * <td>小时中的分钟数 </td>
-     * <td>Number </td>
-     * <td><code>30</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>s</code> </td>
-     * <td>分钟中的秒数 </td>
-     * <td>Number </td>
-     * <td><code>55</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>S</code> </td>
-     * <td>毫秒数 </td>
-     * <td>Number </td>
-     * <td><code>978</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>z</code> </td>
-     * <td>时区 </td>
-     * <td>General time zone </td>
-     * <td><code>Pacific Standard Time</code>; <code>PST</code>; <code>GMT-08:00</code> </td>
-     * </tr>
-     * <tr>
-     * <td><code>Z</code> </td>
-     * <td>时区 </td>
-     * <td>RFC 822 time zone </td>
-     * <td><code>-0800</code> </td>
-     * </tr>
-     * </table>
      * <pre>
      *                          HH:mm    15:44
      *                         h:mm a    3:44 下午
@@ -528,6 +403,17 @@ public class RxTimeUtils {
     }
 
     /**
+     * 判断是否是今天
+     *
+     * @param time 指定时间
+     * @return {@code true}: 今天<br>{@code false}: 不是今天年
+     */
+    public static boolean isToday(long time) {
+        return getCurrentDateTime("yyyy-MM-dd").equals(getDate(time, "yyyy-MM-dd"));
+    }
+
+
+    /**
      * 将date转换成format格式的日期
      *
      * @param format 格式
@@ -597,17 +483,18 @@ public class RxTimeUtils {
         return simpleDateFormat(format, new Date());
     }
 
+
     /**
      * 时间戳  转换成 指定格式的日期
      * 如果format为空，则默认格式为
      *
-     * @param times  时间戳
+     * @param time   时间戳
      * @param format 日期格式 yyyy-MM-dd HH:mm:ss
      * @return
      */
     @SuppressLint("SimpleDateFormat")
-    public static String getDate(String times, String format) {
-        return simpleDateFormat(format, new Date(RxDataUtils.stringToInt(times) * 1000L));
+    public static String getDate(long time, String format) {
+        return simpleDateFormat(format, new Date(time));
     }
 
     /**
@@ -690,6 +577,7 @@ public class RxTimeUtils {
         }
     }
 
+
     /**
      * 判断当前日期是星期几
      *
@@ -705,6 +593,96 @@ public class RxTimeUtils {
         } else {
             return c.get(Calendar.DAY_OF_WEEK) - 1;
         }
+    }
+
+    /**
+     * 按用户格式字符串距离今天的天数
+     *
+     * @param date   日期字符串
+     * @param format 日期格式
+     * @return 按用户格式字符串距离今天的天数
+     */
+    public static int countDays(String date, String format) {
+        long t = Calendar.getInstance().getTime().getTime();
+        Calendar c = Calendar.getInstance();
+        c.setTime(string2Date(date, format));
+        long t1 = c.getTime().getTime();
+
+        return (int) (t / 1000 - t1 / 1000) / 3600 / 24;
+    }
+
+    /**
+     * 返回秒钟
+     *
+     * @param date Date 日期
+     * @return 返回秒钟
+     */
+    public static int getSecond(Date date) {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+        return calendar.get(Calendar.SECOND);
+    }
+
+    /**
+     * 功能描述：返回分
+     *
+     * @param date 日期
+     * @return 返回分钟
+     */
+    public static int getMinute(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MINUTE);
+    }
+
+
+    /**
+     * 功能描述：返回小时
+     *
+     * @param date 日期
+     * @return 返回小时
+     */
+    public static int getHour(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    /**
+     * 功能描述：返回日
+     *
+     * @param date Date 日期
+     * @return 返回日份
+     */
+    public static int getDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 功能描述：返回月
+     *
+     * @param date Date 日期
+     * @return 返回月份
+     */
+    public static int getMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * 功能描述：返回月
+     *
+     * @param date Date 日期
+     * @return 返回月份
+     */
+    public static int getYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.YEAR);
     }
 
     // 获取当前时间所在周的开始日期
@@ -738,7 +716,6 @@ public class RxTimeUtils {
 
     // 获取指定月的每一天
     public static Date getEveryDayOfMonth(Date date, int day) {
-
         Calendar c = new GregorianCalendar();
         c.setTime(date);
         int daysCountOfMonth = c.getActualMaximum(Calendar.DATE);//获取指定年份中指定月份有几天

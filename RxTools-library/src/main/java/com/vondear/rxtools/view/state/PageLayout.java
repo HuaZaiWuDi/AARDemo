@@ -14,9 +14,11 @@ import android.widget.FrameLayout;
 
 
 /**
- * Created by ${Hankkin} on 2018/10/12.
+ * @author Jack
+ * @date on 2019/5/20
+ * @describe 一个界面各种状态展示的工具界面
+ * @org 智裳科技
  */
-
 public class PageLayout extends FrameLayout {
 
     enum State {

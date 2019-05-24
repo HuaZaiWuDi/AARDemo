@@ -40,6 +40,9 @@ public class RxEditText extends android.support.v7.widget.AppCompatEditText impl
         }
     }
 
+
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mHelper != null) {

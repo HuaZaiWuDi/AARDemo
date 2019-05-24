@@ -82,7 +82,6 @@ public class RxWebViewTool {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
                 if (url.startsWith("http:") || url.startsWith("https:")) {
                     view.loadUrl(url);
                     return false;

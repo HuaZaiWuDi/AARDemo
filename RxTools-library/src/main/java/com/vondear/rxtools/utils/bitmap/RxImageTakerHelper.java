@@ -227,7 +227,6 @@ public class RxImageTakerHelper {
     }
 
     /**
-     * 压缩裁剪旋转图片
      * <p>
      * 保存图片到指定文件夹，并保存缩略图
      *

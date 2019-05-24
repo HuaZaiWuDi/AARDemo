@@ -17,7 +17,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
 
 import com.vondear.rxtools.R;
@@ -185,12 +184,7 @@ public class RxTextViewHelper extends RxBaseHelper<TextView> {
         setGradient();
 
 
-        mView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                setTextGradient();
-            }
-        });
+        mView.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> setTextGradient());
     }
 
 
@@ -506,7 +500,7 @@ public class RxTextViewHelper extends RxBaseHelper<TextView> {
             }
         }
     }
-
+;
     /**
      * 触摸事件逻辑
      *

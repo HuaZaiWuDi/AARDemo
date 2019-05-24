@@ -35,6 +35,7 @@ public class RxImageViewHelper {
     private Drawable mIconNormal;
     private Drawable mIconPressed;
     private Drawable mIconUnable;
+    private Drawable mIconFocus;
 
     //圆角
     private float mCorner = -1;
@@ -92,10 +93,12 @@ public class RxImageViewHelper {
             mIconNormal = a.getDrawable(R.styleable.RxImageView_icon_src_normal);
             mIconPressed = a.getDrawable(R.styleable.RxImageView_icon_src_pressed);
             mIconUnable = a.getDrawable(R.styleable.RxImageView_icon_src_unable);
+            mIconFocus = a.getDrawable(R.styleable.RxImageView_icon_src_focus);
         } else {
             int normalId = a.getResourceId(R.styleable.RxImageView_icon_src_normal, -1);
             int pressedId = a.getResourceId(R.styleable.RxImageView_icon_src_pressed, -1);
             int unableId = a.getResourceId(R.styleable.RxImageView_icon_src_unable, -1);
+            int focusId = a.getResourceId(R.styleable.RxImageView_icon_src_focus, -1);
 
             if (normalId != -1)
                 mIconNormal = AppCompatResources.getDrawable(context, normalId);
@@ -103,6 +106,8 @@ public class RxImageViewHelper {
                 mIconPressed = AppCompatResources.getDrawable(context, pressedId);
             if (unableId != -1)
                 mIconUnable = AppCompatResources.getDrawable(context, unableId);
+            if (focusId != -1)
+                mIconFocus = AppCompatResources.getDrawable(context, focusId);
         }
         //基础属性
         mIsCircle = a.getBoolean(R.styleable.RxImageView_is_circle, false);
@@ -127,7 +132,6 @@ public class RxImageViewHelper {
      * 设置
      */
     private void setup() {
-
         mStateDrawable = new StateListDrawable();
 
         /**
@@ -139,6 +143,9 @@ public class RxImageViewHelper {
         if (mIconUnable == null) {
             mIconUnable = mIconNormal;
         }
+        if (mIconFocus == null) {
+            mIconFocus = mIconNormal;
+        }
 
         //pressed, focused, normal, unable
         states[0] = new int[]{android.R.attr.state_enabled, android.R.attr.state_pressed};
@@ -146,7 +153,7 @@ public class RxImageViewHelper {
         states[3] = new int[]{-android.R.attr.state_enabled};
         states[2] = new int[]{android.R.attr.state_enabled};
         mStateDrawable.addState(states[0], mIconPressed);
-        mStateDrawable.addState(states[1], mIconPressed);
+        mStateDrawable.addState(states[1], mIconFocus);
         mStateDrawable.addState(states[3], mIconUnable);
         mStateDrawable.addState(states[2], mIconNormal);
 
@@ -167,7 +174,6 @@ public class RxImageViewHelper {
             mIsNormal = false;
         }
 
-
         //border
         if (mBorderPaint == null) {
             mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -178,25 +184,6 @@ public class RxImageViewHelper {
             mBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
 
-        //圆形imageView强制设置类型
-        if (!mIsNormal) {
-            //border
-          /*  if (mBorderPaint == null) {
-                mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            }
-            mBorderPaint.setStyle(Paint.Style.STROKE);
-            //bitmap
-            if (mBitmapPaint == null) {
-                mBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            }*/
-
-            //setLayerType(View.LAYER_TYPE_SOFTWARE, mBitmapPaint);//禁止硬件加速
-            /*if (mIsCircle) {
-                super.setScaleType(ScaleType.CENTER_CROP);
-            } else {
-                super.setScaleType(getScaleType());
-            }*/
-        }
     }
 
     /**
@@ -344,11 +331,9 @@ public class RxImageViewHelper {
 
         float half = mBorderWidth / 2;
         if (mIsCircle) {//圆形
-
             mBorderRect.set(0, 0, getWidth(), getHeight());//边框Rect圆形
             mDrawableRect.set(mBorderWidth, mBorderWidth, mBorderRect.width() - mBorderWidth, mBorderRect.height() - mBorderWidth);//drawableRect
         } else {//圆角
-
             mBorderRect.set(half, half, getWidth() - half, getHeight() - half);//边框Rect圆角
             mDrawableRect.set(mBorderRect.left + half, mBorderRect.top + half, mBorderRect.right - half, mBorderRect.bottom - half);//drawableRect
         }
@@ -463,6 +448,28 @@ public class RxImageViewHelper {
 
     public Drawable getIconPressed() {
         return mIconPressed;
+    }
+
+    public RxImageViewHelper setIconFocus(Drawable icon) {
+        this.mIconFocus = icon;
+        setup();
+        return this;
+    }
+
+    public RxImageViewHelper setIconColorFocus(@ColorInt int color) {
+        this.mIconFocus = new ColorDrawable(color);
+        setup();
+        return this;
+    }
+
+    public RxImageViewHelper setIconResFocus(@DrawableRes int color) {
+        this.mIconFocus = ContextCompat.getDrawable(mContext, color);
+        setup();
+        return this;
+    }
+
+    public Drawable getIconFocus() {
+        return mIconFocus;
     }
 
     public RxImageViewHelper setIconUnable(Drawable icon) {

@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 /**
- * Created by vondear on 2016/12/21.
+ * 剪切板工具类
  */
 
 public class RxClipboardUtils {
@@ -16,7 +16,7 @@ public class RxClipboardUtils {
      *
      * @param text 文本
      */
-    public static void copyText(Context context,CharSequence text) {
+    public static void copyText(Context context, CharSequence text) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newPlainText("text", text));
     }
@@ -40,7 +40,7 @@ public class RxClipboardUtils {
      *
      * @param uri uri
      */
-    public static void copyUri(Context context,Uri uri) {
+    public static void copyUri(Context context, Uri uri) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newUri(context.getContentResolver(), "uri", uri));
     }
@@ -64,7 +64,7 @@ public class RxClipboardUtils {
      *
      * @param intent 意图
      */
-    public static void copyIntent(Context context,Intent intent) {
+    public static void copyIntent(Context context, Intent intent) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         clipboard.setPrimaryClip(ClipData.newIntent("intent", intent));
     }

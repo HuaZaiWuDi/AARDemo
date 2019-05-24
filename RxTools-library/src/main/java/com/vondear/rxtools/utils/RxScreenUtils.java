@@ -143,6 +143,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 将屏幕设置为竖屏。
      * Set the screen to portrait.
      *
      * @param activity The activity.
@@ -193,6 +194,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 返回屏幕位图
      * Return the bitmap of screen.
      *
      * @param activity The activity.
@@ -249,6 +251,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 设定睡眠时间。
      * Set the duration of sleep.
      * <p>Must hold {@code <uses-permission android:name="android.permission.WRITE_SETTINGS" />}</p>
      *
@@ -264,6 +267,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 返回睡眠时间。
      * Return the duration of sleep.
      *
      * @return the duration of sleep.
@@ -281,6 +285,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 返回设备是否是平板电脑。
      * Return whether device is tablet.
      *
      * @return {@code true}: yes<br>{@code false}: no

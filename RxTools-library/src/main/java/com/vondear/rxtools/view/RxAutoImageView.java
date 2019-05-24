@@ -12,6 +12,14 @@ import android.widget.ImageView;
 
 import com.vondear.rxtools.R;
 
+
+/**
+*@date on 2019/4/16
+*@author Jack
+*@version
+*@describe TODO一个背景自动移动的图片控件
+*@org 智裳科技
+*/
 public class RxAutoImageView extends FrameLayout {
 
     private ImageView mImageView;

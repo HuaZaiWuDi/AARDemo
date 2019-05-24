@@ -19,6 +19,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -117,6 +118,7 @@ public class RxDeviceUtils {
      *
      * @return IMEI
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getIMEI() {
         String deviceId;
         if (isPhone()) {
@@ -141,6 +143,7 @@ public class RxDeviceUtils {
      *
      * @return
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getDeviceIdIMEI() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getDeviceId();
@@ -151,6 +154,7 @@ public class RxDeviceUtils {
      *
      * @return
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getDeviceSoftwareVersion() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getDeviceSoftwareVersion();
@@ -161,6 +165,7 @@ public class RxDeviceUtils {
      *
      * @return
      */
+    @RequiresPermission(allOf = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.READ_PHONE_NUMBERS, Manifest.permission.READ_PHONE_STATE})
     public static String getLine1Number() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getLine1Number();
@@ -251,6 +256,7 @@ public class RxDeviceUtils {
      *
      * @return
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getSimSerialNumber() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getSimSerialNumber();
@@ -282,6 +288,7 @@ public class RxDeviceUtils {
      *
      * @return
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getVoiceMailNumber() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext().getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
         return tm.getVoiceMailNumber();
@@ -552,6 +559,7 @@ public class RxDeviceUtils {
      * SubscriberId(IMSI) = 460030419724900<br>
      * VoiceMailNumber = *86<br>
      */
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String getPhoneStatus() {
         TelephonyManager tm = (TelephonyManager) RxUtils.getContext()
                 .getSystemService(RxUtils.getContext().TELEPHONY_SERVICE);
@@ -589,6 +597,7 @@ public class RxDeviceUtils {
      *
      * @param phoneNumber 电话号码
      */
+    @RequiresPermission(Manifest.permission.CALL_PHONE)
     public static void callPhone(String phoneNumber) {
         if (!RxDataUtils.isNullString(phoneNumber)) {
             final String phoneNumber1 = phoneNumber.trim();// 删除字符串首部和尾部的空格

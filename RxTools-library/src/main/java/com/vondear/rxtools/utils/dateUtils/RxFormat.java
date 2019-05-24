@@ -130,31 +130,6 @@ public class RxFormat {
     }
 
 
-    public static long getDateMillis(String dateString, String pattern) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        long millionSeconds = 0;
-        try {
-            millionSeconds = sdf.parse(dateString).getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }// 毫秒
-
-        return millionSeconds;
-    }
-
-
-    public static Date setParseDate(String value, String format) {
-
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
-            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-            return dateFormat.parse(value);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date();
-    }
-
     public static Number setParseNumber(String value, String format) {
         try {
             return new DecimalFormat(format).parse(value);

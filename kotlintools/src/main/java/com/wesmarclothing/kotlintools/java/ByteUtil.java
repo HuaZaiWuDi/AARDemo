@@ -1,0 +1,293 @@
+package com.wesmarclothing.kotlintools.java;
+
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
+
+/**
+ * 项目名称：DXYBle_GM
+ * 类描述： 进制转换
+ * 创建人：Jack
+ * 创建时间：2017/6/23
+ */
+public class ByteUtil {
+
+
+    /**
+     * 小端模式
+     * 将int数值转换为占四个字节的byte数组，本方法适用于(低位在前，高位在后)的顺序。 和bytesToInt（）配套使用 小端模式
+     *
+     * @param value 要转换的int值
+     * @return byte数组
+     */
+    public static byte[] intToBytesLittle(int value) {
+        byte[] src = new byte[4];
+        src[0] = (byte) (value & 0xFF);
+        src[1] = (byte) ((value >> 8) & 0xFF);
+        src[2] = (byte) ((value >> 16) & 0xFF);
+        src[3] = (byte) ((value >> 24) & 0xFF);
+        return src;
+    }
+
+    /**
+     * 小端模式
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param bytes  byte数组
+     * @param offset 从数组的第offset位开始
+     * @return int数值
+     */
+    public static int bytesToIntLittle(int offset, @NonNull byte[] bytes) {
+        int value = -1;
+        if (bytes.length == 2) {
+            value = (int) ((bytes[0] & 0xFF)
+                    | ((bytes[1] & 0xFF) << 8));
+        } else if (bytes.length == 4) {
+            value = (int) ((bytes[offset] & 0xFF)
+                    | ((bytes[offset + 1] & 0xFF) << 8)
+                    | ((bytes[offset + 2] & 0xFF) << 16)
+                    | ((bytes[offset + 3] & 0xFF) << 24));
+            return value;
+        }
+        return value;
+    }
+
+    /**
+     * 小端模式
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param bytes byte数组
+     * @return int数值
+     */
+    public static int bytesToIntLittle(@NonNull byte... bytes) {
+        return bytesToIntLittle(0, bytes);
+    }
+
+
+    /**
+     * 小端模式
+     * int到byte[]
+     * <p>
+     * byte数组中取int数值，本方法适用于(低位在前，高位在后)的顺序，bytes2ToInt（）配套使用
+     *
+     * @param i
+     * @return
+     */
+    public static byte[] intToBytesLittle2(int i) {
+        byte[] result = new byte[2];
+        result[0] = (byte) (i & 0xFF);
+        result[1] = (byte) ((i >> 8) & 0xFF);
+        return result;
+    }
+
+
+    /**
+     * 大端模式
+     * 将int数值转换为占四个字节的byte数组，本方法适用于(高位在前，低位在后)的顺序。  和bytesToInt2（）配套使用 大端模式
+     */
+    public static byte[] intToBytesBig(int value) {
+        byte[] src = new byte[4];
+        src[0] = (byte) ((value >> 24) & 0xFF);
+        src[1] = (byte) ((value >> 16) & 0xFF);
+        src[2] = (byte) ((value >> 8) & 0xFF);
+        src[3] = (byte) (value & 0xFF);
+        return src;
+    }
+
+    /**
+     * 大端模式
+     * int到byte[]
+     * <p>
+     * byte数组中取int数值，本方法适用于(高位在前，低位在后)的顺序，bytes2ToInt（）配套使用
+     *
+     * @param i
+     * @return
+     */
+    public static byte[] intToBytesBig2(int i) {
+        byte[] result = new byte[2];
+        result[0] = (byte) ((i >> 8) & 0xFF);
+        result[1] = (byte) (i & 0xFF);
+        return result;
+    }
+
+    /**
+     * 大端模式
+     * byte数组中取int数值，本方法适用于(高位在前，低位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param bytes  byte数组
+     * @param offset 从数组的第offset位开始
+     * @return int数值
+     */
+    public static int bytesToIntBig(int offset, byte[] bytes) {
+        int value = -1;
+        if (bytes.length == 2) {
+            value = (int) ((bytes[1] & 0xFF)
+                    | ((bytes[0] & 0xFF) << 8));
+        } else if (bytes.length == 4) {
+            value = (int) (((bytes[offset] & 0xFF) << 24)
+                    | ((bytes[offset + 1] & 0xFF) << 16)
+                    | ((bytes[offset + 2] & 0xFF) << 8)
+                    | (bytes[offset + 3] & 0xFF));
+            return value;
+        }
+        return value;
+    }
+
+    /**
+     * 大端模式
+     * byte数组中取int数值，本方法适用于(高位在前，低位在后)的顺序，和和intToBytes（）配套使用
+     *
+     * @param src byte数组
+     * @return int数值
+     */
+    public static int bytesToIntBig(byte... src) {
+        return bytesToIntBig(0, src);
+    }
+
+
+    /**
+     * bytes到16进制String
+     * <p>
+     *
+     * @return
+     */
+    public static String bytesToHexString(byte[] data) {
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (data == null || data.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < data.length; i++) {
+            int v = data[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+
+
+    /**
+     * bytes到ascii对照表String
+     * <p>
+     *
+     * @return
+     */
+    public static String byteToString(byte[] data) throws UnsupportedEncodingException {
+        if (data == null || data.length <= 0) {
+            return null;
+        }
+        byte[] src = new byte[data[1] - 1];
+        System.arraycopy(data, 3, src, 0, src.length);
+        Log.d("ByteUtil", "byte[]src:" + src);
+
+        Log.d("ByteUtil", new String(src, "ascii"));
+        return new String(src, "ascii");
+
+    }
+
+
+    /**
+     * 数字字符串转ASCII码字符串
+     *
+     * @param
+     * @return ASCII字符串
+     */
+    public static String StringToAsciiString(String content) {
+        String result = "";
+        int max = content.length();
+        for (int i = 0; i < max; i++) {
+            char c = content.charAt(i);
+            String b = Integer.toHexString(c);
+            result = result + b;
+        }
+        return result;
+    }
+
+    /**
+     * ASCII码字符串转数字字符串
+     *
+     * @param
+     * @return 字符串
+     */
+    public static String AsciiStringToString(String content) {
+        String result = "";
+        int length = content.length() / 2;
+        for (int i = 0; i < length; i++) {
+            String c = content.substring(i * 2, i * 2 + 2);
+            int a = hexStringToAlgorism(c);
+            char b = (char) a;
+            String d = String.valueOf(b);
+            result += d;
+        }
+        return result;
+    }
+
+    /**
+     * 十六进制字符串装十进制
+     *
+     * @param hex 十六进制字符串
+     * @return 十进制数值
+     */
+    public static int hexStringToAlgorism(String hex) {
+        hex = hex.toUpperCase();
+        int max = hex.length();
+        int result = 0;
+        for (int i = max; i > 0; i--) {
+            char c = hex.charAt(i - 1);
+            int algorism = 0;
+            if (c >= '0' && c <= '9') {
+                algorism = c - '0';
+            } else {
+                algorism = c - 55;
+            }
+            result += Math.pow(16, max - i) * algorism;
+        }
+        return result;
+    }
+
+
+    /**
+     * 十六进制字符串到16进制字节
+     *
+     * @return hexString 十六进制数值
+     */
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return d;
+    }
+
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
+
+
+    /**
+     * 把byte转化成2进制字符串
+     *
+     * @param b
+     * @return
+     */
+    public static String getBinaryStrFromByte2(byte b) {
+        String result = "";
+        byte a = b;
+        for (int i = 0; i < 8; i++) {
+            result = (a % 2) + result;
+            a = (byte) (a >> 1);
+        }
+        return result;
+    }
+
+}

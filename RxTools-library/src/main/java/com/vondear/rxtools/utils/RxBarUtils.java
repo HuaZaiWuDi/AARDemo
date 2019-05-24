@@ -30,12 +30,9 @@ import java.lang.reflect.Method;
 import static android.Manifest.permission.EXPAND_STATUS_BAR;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/09/23
- *     desc  : utils about bar
- * </pre>
+ *
+ * 状态栏，底部菜单栏工具类
+ *
  */
 public final class RxBarUtils {
 

@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.vondear.rxtools.R;
 import com.vondear.rxtools.utils.RxDataUtils;
+import com.vondear.rxtools.utils.RxUtils;
 import com.vondear.rxtools.utils.bitmap.RxImageUtils;
 import com.vondear.rxtools.utils.RxKeyboardUtils;
+import com.vondear.rxtools.view.textview.RxTextAutoZoom;
 
 /**
  * @author by vondear on 2017/1/2.
@@ -183,7 +185,7 @@ public class RxTitle extends FrameLayout {
         //might cause crash on some devices
         mTvTitle.setMovementMethod(null);
         // can be added after layout inflation;
-        mTvTitle.setMaxHeight(RxImageUtils.dip2px(getContext(), 55f));
+        mTvTitle.setMaxHeight(RxUtils.dp2px(55));
         //don't forget to add min text size programmatically
         mTvTitle.setMinTextSize(37f);
 
@@ -299,7 +301,7 @@ public class RxTitle extends FrameLayout {
         mLlLeft.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.finish();
+                activity.onBackPressed();
             }
         });
         return this;

@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 波浪侧边栏
+ * 波浪侧边栏（联系人侧边栏）
  */
 public class WaveSideBarView extends View {
 
@@ -293,7 +293,7 @@ public class WaveSideBarView extends View {
 
         mBallPath.reset();
         mBallPath.addCircle(mBallCentreX, mCenterY, mBallRadius, Path.Direction.CW);
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mBallPath.op(mWavePath, Path.Op.DIFFERENCE);
         }
 

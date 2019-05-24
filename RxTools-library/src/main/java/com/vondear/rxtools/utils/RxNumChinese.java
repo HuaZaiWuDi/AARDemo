@@ -2,6 +2,7 @@ package com.vondear.rxtools.utils;
 
 public class RxNumChinese {
     static String[] HanDigiStr = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
+    static String[] HanDigiStr2 = {"〇", "一", "二", "三", "四", "五", "六", "七", "八", "久"};
     static String[] HanDiviStr = {"", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万", "拾", "佰", "仟"};
 
     /**
@@ -130,7 +131,29 @@ public class RxNumChinese {
         return RMBStr;
     }
 
+
+    /*
+     * 仅仅是把 0~9 转换为 "〇","一","二","三","四","五","六","七","八","九"
+     */
+    public static String changeCN(String szNum) {
+        StringBuilder sb = new StringBuilder();
+        String str = szNum.trim();
+        int sl = str.length();
+        int sp = 0;
+
+        if (sl < 1)
+            return HanDigiStr2[0];
+        for (; sp < sl; sp++)
+            if (str.charAt(sp) >= '0' && str.charAt(sp) <= '9')
+                sb.append(HanDigiStr2[str.charAt(sp) - '0']);
+            else
+                sb.append(str.charAt(sp));
+        return sb.toString();
+    }
+
+
     public static void main(String[] args) {
+        System.out.println("1.数字转换为数字大写：" + changeCN("818"));
         System.out.println("1.数字转换为人民币大写：" + numToRMBStr(818));
         System.out.println("2.字符串转换为人民币大写：" + digitToString("123456789012.45"));
     }

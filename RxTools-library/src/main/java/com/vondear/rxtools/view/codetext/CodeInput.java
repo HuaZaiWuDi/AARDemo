@@ -26,6 +26,9 @@ import java.util.regex.Pattern;
 
 /**
  * @author Adrián García Lomas
+ * <p>
+ * <p>
+ * 一个验证码出入框 ,  类似这种样子 _ _ _ _ _ _
  */
 public class CodeInput extends View {
 

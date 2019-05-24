@@ -1,6 +1,6 @@
 package com.vondear.rxtools.utils.net;
 
-import com.vondear.rxtools.model.JavaBean;
+import com.vondear.rxtools.utils.JavaBean;
 
 public class HttpResult<T> extends JavaBean {
 

@@ -17,8 +17,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 /**
  * 项目名称：Ali_Sophix
- * 类描述：
- * 创建人：oden
+ * 类描述：一个圆环的进度控件
+ * 创建人：jack
  * 创建时间：2017/12/25
  */
 public class RoundDisPlayView extends View {
@@ -28,8 +28,8 @@ public class RoundDisPlayView extends View {
     private Paint paint1;
     private Paint paint2;
     private Paint paint_4;
-    private String unit="";
-    private String hitText="";
+    private String unit = "";
+    private String hitText = "";
     private int radius;
     private int lineWidth;//线的宽度
     private int ProgressWidth;//进度的宽度

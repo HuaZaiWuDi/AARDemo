@@ -29,7 +29,10 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * @author vondear
+ * @author Jack
+ * @date on 2019/5/20
+ * @describe 水波浪控件
+ * @org 智裳科技
  */
 public class RxWaveView extends View {
     /**

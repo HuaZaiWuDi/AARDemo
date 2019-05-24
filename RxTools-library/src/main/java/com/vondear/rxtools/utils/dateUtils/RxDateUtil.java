@@ -248,7 +248,6 @@ public class RxDateUtil {
         cal.setTime(date);
         cal.add(Calendar.DATE, n);
         return cal.getTime();
-
     }
 
 
@@ -338,7 +337,6 @@ public class RxDateUtil {
      * @return 默认的格式
      */
     public static String getDatePattern() {
-
         return FORMAT_YMDHMS;
     }
 

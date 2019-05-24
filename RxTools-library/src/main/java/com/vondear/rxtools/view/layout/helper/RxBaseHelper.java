@@ -10,6 +10,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.IntRange;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -69,9 +71,6 @@ public class RxBaseHelper<T extends View> {
     int mGradientSatrtColor = 0;
     int mGradientRadius = 0;
     int mGradientType = GRADIENT_TYPE_LINEAR;
-
-
-    private GradientDrawable mGradient;
 
     protected int[][] states = new int[4][];
     private StateListDrawable mStateBackground;
@@ -148,7 +147,6 @@ public class RxBaseHelper<T extends View> {
         mGradientSatrtColor = a.getColor(R.styleable.RBaseView_gradient_startColor, 0);
         mGradientRadius = a.getDimensionPixelSize(R.styleable.RBaseView_gradient_gradientRadius, 0);
         mGradientType = a.getInt(R.styleable.RBaseView_gradient_type, GRADIENT_TYPE_LINEAR);
-
         a.recycle();
 
         mHasPressedBgColor = mBackgroundColorPressed < 0;
@@ -250,7 +248,6 @@ public class RxBaseHelper<T extends View> {
     private void setGradient() {
         if (mGradientCenterX != 0 && mGradientCenterY != 0) {
             mBackgroundNormal.setGradientCenter(mGradientCenterX, mGradientCenterY);
-
         }
         if (mGradientSatrtColor != 0 && mGradientEndColor != 0) {
             int[] colors;
@@ -303,6 +300,41 @@ public class RxBaseHelper<T extends View> {
         }
         mBackgroundNormal.setOrientation(mOrientation);
     }
+
+
+    public RxBaseHelper setGradientOrientation(@IntRange(from = 0, to = 1) int orientation) {
+        this.mGradientAngle = orientation;
+        gradientOrientation();
+        return this;
+    }
+
+
+    public RxBaseHelper setGradientColorList(@ColorInt int... colors) {
+        mBackgroundNormal.setColors(colors);
+        return this;
+    }
+
+    public RxBaseHelper setGradientCenter(float mGradientCenterX, float mGradientCenterY) {
+        this.mGradientCenterX = mGradientCenterX;
+        this.mGradientCenterY = mGradientCenterY;
+        mBackgroundNormal.setGradientCenter(mGradientCenterX, mGradientCenterY);
+        return this;
+    }
+
+    public RxBaseHelper setGradientRadius(int mGradientRadius) {
+        this.mGradientRadius = mGradientRadius;
+        mBackgroundNormal.setGradientRadius(mGradientRadius);
+        return this;
+    }
+
+    public RxBaseHelper setGradientType(int mGradientType) {
+        this.mGradientType = mGradientType;
+        if (mGradientType != 0) {
+            mBackgroundNormal.setGradientType(mGradientType);
+        }
+        return this;
+    }
+
 
     /************************
      * Ripple

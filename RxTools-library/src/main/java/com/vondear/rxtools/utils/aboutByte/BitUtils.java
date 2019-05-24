@@ -64,7 +64,6 @@ public final class BitUtils {
     public static byte reverseBitValue(byte source, int pos) {
         byte mask = (byte) (1 << pos);
         return (byte) (source ^ mask);
-
     }
 
 
@@ -76,11 +75,8 @@ public final class BitUtils {
      * @return true 表示指定位置值为1, false 表示指定位置值为 0
      */
     public static boolean checkBitValue(byte source, int pos) {
-
         source = (byte) (source >>> pos);
-
         return (source & 1) == 1;
-
     }
 
     /**

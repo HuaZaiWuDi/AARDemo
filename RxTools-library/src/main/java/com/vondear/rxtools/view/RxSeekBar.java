@@ -27,7 +27,13 @@ import android.view.View;
 
 import com.vondear.rxtools.R;
 
-
+/**
+*@date on 2019/4/16
+*@author Jack
+*@version
+*@describe TODO一个可以单点多点的SeekBar,继承自View
+*@org 智裳科技
+*/
 public class RxSeekBar extends View {
 
 

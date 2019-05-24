@@ -9,7 +9,7 @@ import android.net.ConnectivityManager;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by Vondear on 2017/3/15.
+ * 网络广播工具类
  */
 
 public class RxBroadcastUtils {

@@ -11,6 +11,12 @@ import com.vondear.rxtools.R;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * @author Jack
+ * @date on 2019/5/20
+ * @describe 按钮上的提示弹窗
+ * @org 智裳科技
+ */
 public class RxToolTip {
 
     public static final int POSITION_ABOVE = 0;
@@ -27,18 +33,22 @@ public class RxToolTip {
     private View mAnchorView;
     private ViewGroup mRootViewGroup;
     private String mMessage;
-    private @Position int mPosition;
-    private @Align int mAlign;
+    private @Position
+    int mPosition;
+    private @Align
+    int mAlign;
     private int mOffsetX;
     private int mOffsetY;
     private boolean mArrow;
     private int mBackgroundColor;
     private int mTextColor;
     private float mElevation;
-    private @Gravity int mTextGravity;
+    private @Gravity
+    int mTextGravity;
     private Spannable mSpannableMessage;
     private int mTextSize;
-    public RxToolTip(Builder builder){
+
+    public RxToolTip(Builder builder) {
         mContext = builder.mContext;
         mAnchorView = builder.mAnchorView;
         mRootViewGroup = builder.mRootViewGroup;
@@ -105,31 +115,31 @@ public class RxToolTip {
         return mTextColor;
     }
 
-    public boolean positionedLeftTo(){
+    public boolean positionedLeftTo() {
         return POSITION_LEFT_TO == mPosition;
     }
 
-    public boolean positionedRightTo(){
+    public boolean positionedRightTo() {
         return POSITION_RIGHT_TO == mPosition;
     }
 
-    public boolean positionedAbove(){
+    public boolean positionedAbove() {
         return POSITION_ABOVE == mPosition;
     }
 
-    public boolean positionedBelow(){
+    public boolean positionedBelow() {
         return POSITION_BELOW == mPosition;
     }
 
-    public boolean alignedCenter(){
+    public boolean alignedCenter() {
         return ALIGN_CENTER == mAlign;
     }
 
-    public boolean alignedLeft(){
+    public boolean alignedLeft() {
         return ALIGN_LEFT == mAlign;
     }
 
-    public boolean alignedRight(){
+    public boolean alignedRight() {
         return ALIGN_RIGHT == mAlign;
     }
 
@@ -141,9 +151,9 @@ public class RxToolTip {
         return mTextSize;
     }
 
-    public int getTextGravity(){
+    public int getTextGravity() {
         int gravity;
-        switch (mTextGravity){
+        switch (mTextGravity) {
             case GRAVITY_CENTER:
                 gravity = android.view.Gravity.CENTER;
                 break;
@@ -183,28 +193,30 @@ public class RxToolTip {
         private View mAnchorView;
         private ViewGroup mRootViewGroup;
         private String mMessage;
-        private @Position int mPosition;
-        private @Align int mAlign;
+        private @Position
+        int mPosition;
+        private @Align
+        int mAlign;
         private int mOffsetX;
         private int mOffsetY;
         private boolean mArrow;
         private int mBackgroundColor;
         private int mTextColor;
         private float mElevation;
-        private @Gravity int mTextGravity;
+        private @Gravity
+        int mTextGravity;
         private Spannable mSpannableMessage;
         private int mTextSize;
 
 
         /**
-         *
-         * @param context context
+         * @param context    context
          * @param anchorView the view which near it we want to put the tip
-         * @param root a class extends ViewGroup which the created tip view will be added to
-         * @param message message to show
-         * @param position  put the tip above / below / left to / right to
+         * @param root       a class extends ViewGroup which the created tip view will be added to
+         * @param message    message to show
+         * @param position   put the tip above / below / left to / right to
          */
-        public Builder(Context context, View anchorView, ViewGroup root, String message, @Position int position){
+        public Builder(Context context, View anchorView, ViewGroup root, String message, @Position int position) {
             mContext = context;
             mAnchorView = anchorView;
             mRootViewGroup = root;
@@ -245,12 +257,12 @@ public class RxToolTip {
             mTextSize = 14;
         }
 
-        public Builder setPosition(@Position int position){
+        public Builder setPosition(@Position int position) {
             mPosition = position;
             return this;
         }
 
-        public Builder setAlign(@Align int align){
+        public Builder setAlign(@Align int align) {
             mAlign = align;
             return this;
         }
@@ -259,7 +271,7 @@ public class RxToolTip {
          * @param offset offset to move the tip on x axis after tip was positioned
          * @return offset
          */
-        public Builder setOffsetX(int offset){
+        public Builder setOffsetX(int offset) {
             mOffsetX = offset;
             return this;
         }
@@ -268,32 +280,32 @@ public class RxToolTip {
          * @param offset offset to move the tip on y axis after tip was positioned
          * @return offset
          */
-        public Builder setOffsetY(int offset){
+        public Builder setOffsetY(int offset) {
             mOffsetY = offset;
             return this;
         }
 
-        public Builder withArrow(boolean value){
+        public Builder withArrow(boolean value) {
             mArrow = value;
             return this;
         }
 
-        public Builder setBackgroundColor(int color){
+        public Builder setBackgroundColor(int color) {
             mBackgroundColor = color;
             return this;
         }
 
-        public Builder setTextColor(int color){
+        public Builder setTextColor(int color) {
             mTextColor = color;
             return this;
         }
 
-        public Builder setElevation(float elevation){
+        public Builder setElevation(float elevation) {
             mElevation = elevation;
             return this;
         }
 
-        public Builder setGravity(@Gravity int gravity){
+        public Builder setGravity(@Gravity int gravity) {
             mTextGravity = gravity;
             return this;
         }
@@ -303,7 +315,7 @@ public class RxToolTip {
             return this;
         }
 
-        public RxToolTip build(){
+        public RxToolTip build() {
             return new RxToolTip(this);
         }
 

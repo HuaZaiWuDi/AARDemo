@@ -24,6 +24,7 @@ import java.util.Collection;
 
 /**
  * @author  Vondear on 16/7/10 17:59
+ * 一个修改购物车数量的控件
  */
 public class RxShoppingView extends View {
 

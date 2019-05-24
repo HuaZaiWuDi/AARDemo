@@ -11,10 +11,12 @@ import com.google.zxing.common.BitMatrix;
 
 
 /**
- * @author vondear
- * @date 2017/2/17
- */
-
+*@date on 2019/5/20
+*@author Jack
+*@version
+*@describe 条形码生成器
+*@org 智裳科技
+*/
 public class RxBarCode {
 
     /**

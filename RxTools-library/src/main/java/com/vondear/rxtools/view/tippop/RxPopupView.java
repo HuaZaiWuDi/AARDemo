@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.vondear.rxtools.R;
 import com.vondear.rxtools.utils.RxDeviceUtils;
-import com.vondear.rxtools.utils.bitmap.RxImageUtils;
+import com.vondear.rxtools.utils.RxUtils;
 
 import java.util.ArrayList;
 
@@ -151,7 +151,7 @@ public class RxPopupView extends PopupWindow {
         }
 
         // 显示弹窗的位置
-        showAtLocation(view, popupGravity, mScreenWidth - LIST_PADDING - (getWidth() / 2), mRect.bottom + RxImageUtils.dp2px(mContext, 7.5f));
+        showAtLocation(view, popupGravity, mScreenWidth - LIST_PADDING - (getWidth() / 2), mRect.bottom + RxUtils.dp2px(7.5f));
     }
 
     /**

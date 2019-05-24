@@ -32,8 +32,6 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
-import com.vondear.rxtools.utils.bitmap.RxPhotoUtils;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -1843,7 +1841,7 @@ public class RxFileUtils {
      * @return
      */
     public static File getFileFromUri(Activity context, Uri uri) {
-        return new File(RxPhotoUtils.getImageAbsolutePath(context, uri));
+        return new File(getPathFromUri(context, uri));
     }
 
     @TargetApi(19)

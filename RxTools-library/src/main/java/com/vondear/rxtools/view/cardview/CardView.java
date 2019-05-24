@@ -72,6 +72,9 @@ import com.vondear.rxtools.R;
  * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingTop
  * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingRight
  * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingBottom
+ * <p>
+ * <p>
+ * 修改系统CardView 修改阴影颜色的Card
  */
 public class CardView extends FrameLayout {
 
@@ -236,7 +239,6 @@ public class CardView extends FrameLayout {
      *
      * @param useCompatPadding <code>true></code> if CardView should add padding for the shadows on
      *                         platforms Lollipop and above.
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardUseCompatPadding
      */
     public void setUseCompatPadding(boolean useCompatPadding) {
@@ -256,7 +258,6 @@ public class CardView extends FrameLayout {
      * @param top    The top padding in pixels
      * @param right  The right padding in pixels
      * @param bottom The bottom padding in pixels
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPadding
      * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingLeft
      * @attr ref android.support.v7.cardview.R.styleable#CardView_contentPaddingTop
@@ -322,7 +323,6 @@ public class CardView extends FrameLayout {
      * Updates the background color of the CardView
      *
      * @param color The new color to set for the card background
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardBackgroundColor
      */
     public void setCardBackgroundColor(@ColorInt int color) {
@@ -343,7 +343,6 @@ public class CardView extends FrameLayout {
      * Updates the background ColorStateList of the CardView
      *
      * @param color The new ColorStateList to set for the card background
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardBackgroundColor
      */
     public void setCardBackgroundColor(@Nullable ColorStateList color) {
@@ -390,7 +389,6 @@ public class CardView extends FrameLayout {
      * Returns the corner radius of the CardView.
      *
      * @return Corner radius of the CardView
-     *
      * @see #getRadius()
      */
     public float getRadius() {
@@ -401,7 +399,6 @@ public class CardView extends FrameLayout {
      * Updates the corner radius of the CardView.
      *
      * @param radius The radius in pixels of the corners of the rectangle shape
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardCornerRadius
      * @see #setRadius(float)
      */
@@ -413,7 +410,6 @@ public class CardView extends FrameLayout {
      * Returns the backward compatible elevation of the CardView.
      *
      * @return Elevation of the CardView
-     *
      * @see #setCardElevation(float)
      * @see #getMaxCardElevation()
      */
@@ -425,7 +421,6 @@ public class CardView extends FrameLayout {
      * Updates the backward compatible elevation of the CardView.
      *
      * @param elevation The backward compatible elevation in pixels.
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardElevation
      * @see #getCardElevation()
      * @see #setMaxCardElevation(float)
@@ -438,7 +433,6 @@ public class CardView extends FrameLayout {
      * Returns the backward compatible maximum elevation of the CardView.
      *
      * @return Maximum elevation of the CardView
-     *
      * @see #setMaxCardElevation(float)
      * @see #getCardElevation()
      */
@@ -454,7 +448,6 @@ public class CardView extends FrameLayout {
      * <code>false</code>.
      *
      * @param maxElevation The backward compatible maximum elevation in pixels.
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardMaxElevation
      * @see #setCardElevation(float)
      * @see #getMaxCardElevation()
@@ -483,7 +476,6 @@ public class CardView extends FrameLayout {
      *
      * @param preventCornerOverlap Whether CardView should add extra padding to content to avoid overlaps with the
      *                             CardView corners.
-     *
      * @attr ref android.support.v7.cardview.R.styleable#CardView_cardPreventCornerOverlap
      * @see #setUseCompatPadding(boolean)
      */

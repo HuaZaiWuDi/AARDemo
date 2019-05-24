@@ -15,6 +15,13 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+/**
+*@date on 2019/4/16
+*@author Jack
+*@version
+*@describe TODO一个圆形ImageView
+*@org 智裳科技
+*/
 public class CircleImageView extends ImageView {  
   
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;  

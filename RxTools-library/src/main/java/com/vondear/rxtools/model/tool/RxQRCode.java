@@ -18,10 +18,12 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.util.Hashtable;
 
 /**
- * @author vondear
- * @date 2017/2/17.
- */
-
+*@date on 2019/5/20
+*@author Jack
+*@version
+*@describe 二维码生成器
+*@org 智裳科技
+*/
 public class RxQRCode {
 
     /**

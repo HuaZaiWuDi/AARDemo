@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 /**
  * 项目名称：CheckInOut
- * 类描述：
+ * 类描述： 一个图片可以跟着列表一起滑动的ImageView
  * 创建人：oden
  * 创建时间：2017/12/5
  * <p>
@@ -32,6 +32,8 @@ import android.util.AttributeSet;
  * }
  * });
  */
+
+
 public class AutoImageView extends AppCompatImageView {
 
     private int mMinDy;//最小y轴距离，也就是图片控件高度

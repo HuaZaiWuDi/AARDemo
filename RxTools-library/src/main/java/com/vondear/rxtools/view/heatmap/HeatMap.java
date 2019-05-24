@@ -6,7 +6,7 @@ import android.graphics.Color;
 import java.util.Collection;
 
 /**
- * 热力图
+ * 热力图：生成一个bitmap的图片，通过ImageView展示
  */
 public class HeatMap {
 

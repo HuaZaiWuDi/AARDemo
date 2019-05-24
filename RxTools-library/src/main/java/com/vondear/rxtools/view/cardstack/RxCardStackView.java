@@ -20,6 +20,12 @@ import com.vondear.rxtools.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Jack
+ * @date on 2019/5/20
+ * @describe 一个可堆叠的银行卡的控件
+ * @org 智裳科技
+ */
 public class RxCardStackView extends ViewGroup implements RxScrollDelegate {
 
     private static final int INVALID_POINTER = -1;
@@ -274,7 +280,8 @@ public class RxCardStackView extends ViewGroup implements RxScrollDelegate {
     }
 
     public void next() {
-        if (mSelectPosition == DEFAULT_SELECT_POSITION || mSelectPosition == mViewHolders.size() - 1) return;
+        if (mSelectPosition == DEFAULT_SELECT_POSITION || mSelectPosition == mViewHolders.size() - 1)
+            return;
         performItemClick(mViewHolders.get(mSelectPosition + 1));
     }
 
@@ -821,7 +828,7 @@ public class RxCardStackView extends ViewGroup implements RxScrollDelegate {
         mItemExpendListener = itemExpendListener;
     }
 
-    public interface ItemExpendListener{
+    public interface ItemExpendListener {
         void onItemExpend(boolean expend);
     }
 }
