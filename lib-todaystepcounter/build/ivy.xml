@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
-  <info organisation="WeiMiBra" module="lib-todaystepcounter" revision="unspecified" status="integration" publication="20190611102602"/>
+  <info organisation="WeiMiBra" module="lib-todaystepcounter" revision="unspecified" status="integration" publication="20190611110622"/>
   <configurations>
     <conf name="_internal_aapt2_binary" visibility="private" transitive="false"/>
     <conf name="androidApis" visibility="public"/>
@@ -109,7 +109,6 @@
       <artifact name="aapt2" type="jar" ext="jar" m:classifier="windows" conf="_internal_aapt2_binary"/>
     </dependency>
     <dependency org="com.android.support" name="appcompat-v7" rev="28.0.0" conf="implementation-&gt;default"/>
-    <dependency org="WeiMiBra" name="base-lib-notification" rev="unspecified" conf="implementation-&gt;default"/>
     <dependency org="com.android.tools.lint" name="lint-gradle" rev="26.2.1" conf="lintClassPath-&gt;default"/>
   </dependencies>
 </ivy-module>

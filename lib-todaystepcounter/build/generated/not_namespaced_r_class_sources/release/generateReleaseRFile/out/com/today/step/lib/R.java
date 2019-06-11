@@ -825,11 +825,10 @@ public final class R {
         public static int abc_shareactionprovider_share_with_application = 0x7f150026;
         public static int abc_toolbar_collapse_description = 0x7f150027;
         public static int app_name = 0x7f150028;
-        public static int notification_app_name = 0x7f150029;
-        public static int search_menu_title = 0x7f15002a;
-        public static int status_bar_notification_info_overflow = 0x7f15002b;
-        public static int step_channel_name = 0x7f15002c;
-        public static int title_notification_bar = 0x7f15002d;
+        public static int search_menu_title = 0x7f150029;
+        public static int status_bar_notification_info_overflow = 0x7f15002a;
+        public static int step_channel_name = 0x7f15002b;
+        public static int title_notification_bar = 0x7f15002c;
     }
     public static final class style {
         private style() {}

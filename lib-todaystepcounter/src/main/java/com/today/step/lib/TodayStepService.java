@@ -21,8 +21,8 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 
 import com.andrjhf.lib.jlogger.JLoggerConstant;
-import com.andrjhf.notification.api.compat.NotificationApiCompat;
 import com.today.step.lib.util.JLoggerWraper;
+import com.today.step.lib.util.NotificationApiCompat;
 
 import org.json.JSONArray;
 
