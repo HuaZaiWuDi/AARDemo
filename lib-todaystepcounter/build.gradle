@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.1"
+
+    }
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "TODAY_STEP_DEBUG", "true"
+        }
+        release {
+            buildConfigField "boolean", "TODAY_STEP_DEBUG", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation project(':base-lib-notification')
+
+}
+
+
+apply plugin: 'maven'
+
+ext {
+    PUBLISH_GROUP_ID = 'com.jackUtil'
+    PUBLISH_ARTIFACT_ID = 'todayStep'
+    PUBLISH_VERSION = android.defaultConfig.versionName
+}
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        def deployPath = file(getProperty('aar.deployPath'))
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId project.PUBLISH_GROUP_ID
+            artifactId project.PUBLISH_ARTIFACT_ID
+            version project.PUBLISH_VERSION
+        }
+    }
+}

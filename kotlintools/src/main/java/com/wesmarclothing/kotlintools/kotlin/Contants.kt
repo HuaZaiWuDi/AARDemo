@@ -9,9 +9,9 @@ package com.wesmarclothing.kotlintools.kotlin
  * @Project TbraKotlin
  */
 
-val SHARE_PRE_NAME: String = "Tbra"
+val SHARE_PRE_NAME: String = "KotlinTools"
 
-var DEFAULT_LOG_TAG: String = "【威觅】"
+var DEFAULT_LOG_TAG: String = "【KotlinTools】"
 
 var isDebug = false
 
