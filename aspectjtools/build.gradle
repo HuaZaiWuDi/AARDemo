@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+
+dependencies {
+    implementation gradleApi()//gradle sdk
+    implementation localGroovy()//groovy sdk
+//    implementation 'org.javassist:javassist:3.24.1-GA'
+    implementation 'org.aspectj:aspectjtools:1.9.2'
+}
+//  解决build警告：编码GBK的不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+repositories {
+    jcenter()
+    google()
+}
+
+
+
+//ext {
+//    PUBLISH_GROUP_ID = 'com.jackUtil'
+//    PUBLISH_ARTIFACT_ID = 'aspeckJ'
+//    PUBLISH_VERSION = "1.0.1"
+//}
+//
+//////打包上传到Girhub的命令
+////gradlew uploadArchives
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        def deployPath = file(getProperty('aar.deployPath'))
+//        repository(url: "file://${deployPath.absolutePath}")
+//        pom.project {
+//            groupId project.PUBLISH_GROUP_ID
+//            artifactId project.PUBLISH_ARTIFACT_ID
+//            version project.PUBLISH_VERSION
+//        }
+//    }
+//}

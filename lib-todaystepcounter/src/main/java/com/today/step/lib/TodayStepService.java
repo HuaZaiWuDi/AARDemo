@@ -85,6 +85,7 @@ public class TodayStepService extends Service implements Handler.Callback {
     public static final String INTENT_NAME_0_SEPARATE = "intent_name_0_separate";
     public static final String INTENT_NAME_BOOT = "intent_name_boot";
     public static final String INTENT_STEP_INIT = "intent_step_init";
+    public static final String INTENT_SHOW_SUBTITLE = "intent_show_subtitle";
 
     /**
      * 当前步数
@@ -108,6 +109,7 @@ public class TodayStepService extends Service implements Handler.Callback {
 
     private boolean mSeparate = false;
     private boolean mBoot = false;
+    private boolean showSubtitle = false;
 
     /**
      * 保存数据库计数器
@@ -170,6 +172,7 @@ public class TodayStepService extends Service implements Handler.Callback {
         if (null != intent) {
             mSeparate = intent.getBooleanExtra(INTENT_NAME_0_SEPARATE, false);
             mBoot = intent.getBooleanExtra(INTENT_NAME_BOOT, false);
+            showSubtitle = intent.getBooleanExtra(INTENT_SHOW_SUBTITLE, false);
             String setStep = intent.getStringExtra(INTENT_STEP_INIT);
             if (!TextUtils.isEmpty(setStep)) {
                 try {
@@ -216,9 +219,7 @@ public class TodayStepService extends Service implements Handler.Callback {
                 contentIntent = PendingIntent.getBroadcast(this, BROADCAST_REQUEST_CODE, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
             }
         }
-        String km = getDistanceByStep(currentStep);
-        String calorie = getCalorieByStep(currentStep);
-        String contentText = calorie + " 千卡  " + km + " 公里";
+        String contentText = 0 + " 千卡  " + 0 + " 公里";
         int largeIcon = getResources().getIdentifier("ic_launcher", "mipmap", getPackageName());
         Bitmap largeIconBitmap = null;
         if (0 != largeIcon) {
@@ -232,7 +233,7 @@ public class TodayStepService extends Service implements Handler.Callback {
                 getString(R.string.step_channel_name),
                 smallIcon)
                 .setContentIntent(contentIntent)
-                .setContentText(contentText)
+                .setContentText(showSubtitle ? contentText : "")
                 .setContentTitle(getString(R.string.title_notification_bar, String.valueOf(currentStep)))
                 .setTicker(getString(R.string.app_name))
                 .setOngoing(true)
@@ -408,7 +409,7 @@ public class TodayStepService extends Service implements Handler.Callback {
             String km = getDistanceByStep(stepCount);
             String calorie = getCalorieByStep(stepCount);
             String contentText = calorie + " 千卡  " + km + " 公里";
-            mNotificationApiCompat.updateNotification(NOTIFY_ID, getString(R.string.title_notification_bar, String.valueOf(stepCount)), contentText);
+            mNotificationApiCompat.updateNotification(NOTIFY_ID, getString(R.string.title_notification_bar, String.valueOf(stepCount)), showSubtitle ? contentText : "");
         }
     }
 

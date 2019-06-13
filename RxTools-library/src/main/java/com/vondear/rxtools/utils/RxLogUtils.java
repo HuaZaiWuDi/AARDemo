@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import com.vondear.rxtools.interfaces.ILog;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,12 +15,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
-*@date on 2018/12/29
-*@author Jack
-*@version
-*@describe TODO日志工具类
-*@org 智裳科技
-*/
+ * @author Jack
+ * @date on 2018/12/29
+ * @describe TODO日志工具类
+ * @org 智裳科技
+ */
 public class RxLogUtils {
 
     private static Boolean LOG_SWITCH = true; // 日志文件总开关
@@ -31,10 +32,14 @@ public class RxLogUtils {
     private final static SimpleDateFormat FILE_SUFFIX = new SimpleDateFormat("yyyy-MM-dd");// 日志文件格式
     private static String LOG_FILE_PATH; // 日志文件保存路径
     private static String LOG_FILE_NAME;// 日志文件保存名称
-
+    private static ILog log;
 
     public static void setLogSwitch(Boolean logSwitch) {
         LOG_SWITCH = logSwitch;
+    }
+
+    public static void setLog(ILog log) {
+        RxLogUtils.log = log;
     }
 
     public static void init(Context context) { // 在Application中初始化
@@ -117,6 +122,7 @@ public class RxLogUtils {
         log(tag, msg.toString(), tr, 'v');
     }
 
+
     /**
      * 根据tag, msg和等级，输出日志
      *
@@ -139,6 +145,9 @@ public class RxLogUtils {
             }
             if (LOG_TO_FILE)
                 log2File(String.valueOf(level), tag, msg + tr == null ? "" : "\n" + Log.getStackTraceString(tr));
+        }
+        if (log != null) {
+            log.log(level, tag, msg, tr);
         }
     }
 
@@ -191,4 +200,6 @@ public class RxLogUtils {
         now.set(Calendar.DATE, now.get(Calendar.DATE) - LOG_SAVE_DAYS);
         return now.getTime();
     }
+
+
 }

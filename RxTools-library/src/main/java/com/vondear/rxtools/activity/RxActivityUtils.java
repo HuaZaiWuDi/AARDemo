@@ -9,6 +9,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -28,44 +29,47 @@ public class RxActivityUtils {
 
     private static Stack<Activity> activityStack;
 
+    public static Stack<Activity> getStack() {
+        if (activityStack == null) {
+            synchronized (RxActivityUtils.class) {
+                if (activityStack == null)
+                    activityStack = new Stack<>();
+            }
+        }
+        return activityStack;
+    }
+
     /**
      * 添加Activity 到栈
      *
      * @param activity
      */
     public static void addActivity(Activity activity) {
-        if (activityStack == null) {
-            activityStack = new Stack<>();
-        }
-        activityStack.add(activity);
+        getStack().push(activity);
     }
 
 
     public static void removeActivity(Activity activity) {
-        if (activityStack != null && activity != null) {
-            activityStack.remove(activity);
+        if (activity != null) {
+            getStack().remove(activity);
         }
     }
 
     /**
      * 获取当前的Activity（堆栈中最后一个压入的)
      */
+    @Nullable
     public static Activity currentActivity() {
-        Activity activity = null;
-        if (!activityStack.empty()) {
-            activity = activityStack.lastElement();
-        }
-        return activity;
+        if (getStack().empty())
+            return null;
+        return getStack().peek();
     }
 
     /**
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     public static void finishActivity() {
-        if (!activityStack.empty()) {
-            Activity activity = activityStack.lastElement();
-            finishActivity(activity);
-        }
+        finishActivity(currentActivity());
     }
 
 
@@ -75,8 +79,8 @@ public class RxActivityUtils {
      * @param activity
      */
     public static void finishActivity(Activity activity) {
-        if (activity != null) {
-            activityStack.remove(activity);
+        if (activity != null && !getStack().empty()) {
+            getStack().remove(activity);
             activity.finish();
             activityAnim(activity);
             activity = null;
@@ -89,7 +93,7 @@ public class RxActivityUtils {
      */
     public static void finishActivity(Class<?> cls) {
         //防止并发异常，使用迭代器遍历
-        Iterator<Activity> activitys = activityStack.iterator();
+        Iterator<Activity> activitys = getStack().iterator();
         while (activitys.hasNext()) {
             Activity activity = activitys.next();
             if (activity.getClass().equals(cls)) {
@@ -106,7 +110,7 @@ public class RxActivityUtils {
      */
     public static void finishMultiAvtivity(Class<?>... cls) {
         //防止并发异常，使用迭代器遍历
-        Iterator<Activity> activitys = activityStack.iterator();
+        Iterator<Activity> activitys = getStack().iterator();
         while (activitys.hasNext()) {
             Activity activity = activitys.next();
             for (Class<?> finishAc : cls) {
@@ -121,16 +125,15 @@ public class RxActivityUtils {
      * 结束所有的Activity、
      */
     public static void finishAllActivity() {
-        int size = activityStack.size();
+        int size = getStack().size();
         for (int i = 0; i < size; i++) {
-            if (null != activityStack.get(i)) {
-                activityStack.get(i).finish();
-            }
+            finishActivity(getStack().get(i));
         }
-        activityStack.clear();
+        getStack().clear();
     }
 
     public static void AppExit(Context context) {
+        if (context == null) return;
         try {
             finishAllActivity();
             ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -141,10 +144,6 @@ public class RxActivityUtils {
         }
     }
 
-    public static Stack<Activity> getActivityStack() {
-        return activityStack;
-    }
-
     /**
      * 判断是否存在指定Activity
      *
@@ -153,6 +152,7 @@ public class RxActivityUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isExistActivity(Context context, String className) {
+        if (context == null) return false;
         Intent intent = new Intent();
         intent.setClassName(context.getPackageName(), className);
         return !(context.getPackageManager().resolveActivity(intent, 0) == null ||
@@ -166,7 +166,7 @@ public class RxActivityUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isExistActivity(Class<?> cls) {
-        for (Activity activity : activityStack) {
+        for (Activity activity : getStack()) {
             if (activity.getClass().equals(cls)) {
                 return true;
             }
@@ -181,7 +181,8 @@ public class RxActivityUtils {
      * @return
      */
     public static boolean isTopActivity(Class<?> cls) {
-        if (currentActivity().getClass().equals(cls)) {
+        Activity activity = currentActivity();
+        if (activity != null && activity.getClass().equals(cls)) {
             return true;
         }
         return false;
@@ -196,6 +197,7 @@ public class RxActivityUtils {
      * @param className   全类名
      */
     public static void launchActivity(Context context, String packageName, String className) {
+        if (context == null) return;
         launchActivity(context, packageName, className, null);
     }
 
@@ -208,6 +210,7 @@ public class RxActivityUtils {
      * @param bundle      bundle
      */
     public static void launchActivity(Context context, String packageName, String className, Bundle bundle) {
+        if (context == null) return;
         context.startActivity(RxIntentUtils.getComponentNameIntent(packageName, className, bundle));
     }
 
@@ -220,6 +223,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityAndFinishAll(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -236,6 +240,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityAndFinishAll(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
@@ -250,6 +255,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityAndFinish(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtras(bundle);
@@ -265,6 +271,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityAndFinish(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
@@ -280,6 +287,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivity(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
@@ -293,6 +301,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivity(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtras(bundle);
@@ -315,6 +324,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityTop(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
@@ -328,6 +338,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityTop(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtras(bundle);
@@ -343,6 +354,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivitySingleTop(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
@@ -356,6 +368,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivitySingleTop(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtras(bundle);
@@ -372,6 +385,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityNotActivity(Context context, Class<?> goal) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
@@ -385,6 +399,7 @@ public class RxActivityUtils {
      * @param goal
      */
     public static void skipActivityNotActivity(Context context, Class<?> goal, Bundle bundle) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(bundle);
@@ -394,12 +409,14 @@ public class RxActivityUtils {
 
 
     public static void skipActivityForResult(Activity context, Class<?> goal, int requestCode) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         context.startActivityForResult(intent, requestCode);
         activityAnim(context);
     }
 
     public static void skipActivityForResult(Activity context, Class<?> goal, Bundle bundle, int requestCode) {
+        if (context == null) return;
         Intent intent = new Intent(context, goal);
         intent.putExtras(bundle);
         context.startActivityForResult(intent, requestCode);

@@ -37,6 +37,7 @@ public class NotificationApiCompat {
 
     }
 
+
     public void stopForeground(Service service) {
         service.stopForeground(true);
     }

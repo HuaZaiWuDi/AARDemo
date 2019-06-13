@@ -16,8 +16,8 @@
             <option value="$PROJECT_DIR$/imagepicker" />
             <option value="$PROJECT_DIR$/instantapp" />
             <option value="$PROJECT_DIR$/kotlintools" />
+            <option value="$PROJECT_DIR$/lib-net" />
             <option value="$PROJECT_DIR$/lib-todaystepcounter" />
-            <option value="$PROJECT_DIR$/mylibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
