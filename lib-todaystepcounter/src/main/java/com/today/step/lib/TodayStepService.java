@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.andrjhf.lib.jlogger.JLoggerConstant;
 import com.today.step.lib.util.JLoggerWraper;
@@ -81,6 +82,13 @@ public class TodayStepService extends Service implements Handler.Callback {
      * 点击通知栏广播requestCode
      */
     private static final int BROADCAST_REQUEST_CODE = 100;
+
+    /**
+     * 点击通知栏广播requestCode
+     */
+    private static final String BROADCAST_STEP_RESET = "BROADCAST_STEP_RESET";
+    private static final String BROADCAST_STEP_UPDATE = "BROADCAST_STEP_UPDATE";
+    private static final String EXTRA_STEP_CURRENT = "EXTRA_STEP_CURRENT";
 
     public static final String INTENT_NAME_0_SEPARATE = "intent_name_0_separate";
     public static final String INTENT_NAME_BOOT = "intent_name_boot";
@@ -410,6 +418,10 @@ public class TodayStepService extends Service implements Handler.Callback {
             String calorie = getCalorieByStep(stepCount);
             String contentText = calorie + " 千卡  " + km + " 公里";
             mNotificationApiCompat.updateNotification(NOTIFY_ID, getString(R.string.title_notification_bar, String.valueOf(stepCount)), showSubtitle ? contentText : "");
+            //发送广播通知步数结束
+            Intent intent = new Intent(BROADCAST_STEP_UPDATE);
+            intent.putExtra(EXTRA_STEP_CURRENT, CURRENT_STEP);
+            TodayStepService.this.sendBroadcast(intent);
         }
     }
 
@@ -424,7 +436,7 @@ public class TodayStepService extends Service implements Handler.Callback {
     private OnStepCounterListener mOnStepCounterListener = new OnStepCounterListener() {
         @Override
         public void onChangeStepCounter(int step) {
-
+            Log.d("onChangeStepCounter", "步数：" + step);
             if (StepUtil.isUploadStep()) {
                 CURRENT_STEP = step;
             }
@@ -432,34 +444,14 @@ public class TodayStepService extends Service implements Handler.Callback {
 
         @Override
         public void onStepCounterClean() {
-
+            Log.d("onStepCounterClean", "步数：" + CURRENT_STEP);
+            //发送广播通知步数结束
+            Intent intent = new Intent(BROADCAST_STEP_RESET);
+            intent.putExtra(EXTRA_STEP_CURRENT, CURRENT_STEP);
+            TodayStepService.this.sendBroadcast(intent);
             CURRENT_STEP = 0;
             updateNotification(CURRENT_STEP);
-
             cleanDb();
-        }
-
-    };
-
-    private final ISportStepInterface.Stub mIBinder = new ISportStepInterface.Stub() {
-
-        private JSONArray getSportStepJsonArray(List<TodayStepData> todayStepDataArrayList) {
-            return SportStepJsonUtils.getSportStepJsonArray(todayStepDataArrayList);
-        }
-
-        @Override
-        public int getCurrentTimeSportStep() throws RemoteException {
-            return CURRENT_STEP;
-        }
-
-        @Override
-        public String getTodaySportStepArray() throws RemoteException {
-            if (null != mTodayStepDBHelper) {
-                List<TodayStepData> todayStepDataArrayList = mTodayStepDBHelper.getQueryAll();
-                JSONArray jsonArray = getSportStepJsonArray(todayStepDataArrayList);
-                return jsonArray.toString();
-            }
-            return null;
         }
     };
 
@@ -494,6 +486,28 @@ public class TodayStepService extends Service implements Handler.Callback {
         }
         return null;
     }
+
+    private final ISportStepInterface.Stub mIBinder = new ISportStepInterface.Stub() {
+
+        private JSONArray getSportStepJsonArray(List<TodayStepData> todayStepDataArrayList) {
+            return SportStepJsonUtils.getSportStepJsonArray(todayStepDataArrayList);
+        }
+
+        @Override
+        public int getCurrentTimeSportStep() throws RemoteException {
+            return CURRENT_STEP;
+        }
+
+        @Override
+        public String getTodaySportStepArray() throws RemoteException {
+            if (null != mTodayStepDBHelper) {
+                List<TodayStepData> todayStepDataArrayList = mTodayStepDBHelper.getQueryAll();
+                JSONArray jsonArray = getSportStepJsonArray(todayStepDataArrayList);
+                return jsonArray.toString();
+            }
+            return null;
+        }
+    };
 
     /**
      * 获取传感器速率

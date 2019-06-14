@@ -23,7 +23,7 @@ import static com.today.step.lib.ConstantDef.WHAT_TEST_JLOGGER_DURATION;
  * Sensor.TYPE_ACCELEROMETER
  * 加速度传感器计算当天步数，需要保持后台Service
  */
-public class TodayStepDetector implements SensorEventListener{
+public class TodayStepDetector implements SensorEventListener {
 
     private final String TAG = "TodayStepDetector";
 
@@ -78,19 +78,19 @@ public class TodayStepDetector implements SensorEventListener{
     private final Handler sHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            switch (msg.what){
-                case HANDLER_WHAT_TEST_JLOGGER:{
-                    Map<String,String> map = new HashMap<>();
-                    map.put("mCount",String.valueOf(mCount));
-                    map.put("count",String.valueOf(count));
-                    map.put("mJLoggerSensorCount",String.valueOf(mJLoggerSensorCount));
-                    JLoggerWraper.onEventInfo(mContext,JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_TIMER,map);
+            switch (msg.what) {
+                case HANDLER_WHAT_TEST_JLOGGER: {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("mCount", String.valueOf(mCount));
+                    map.put("count", String.valueOf(count));
+                    map.put("mJLoggerSensorCount", String.valueOf(mJLoggerSensorCount));
+                    JLoggerWraper.onEventInfo(mContext, JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_TIMER, map);
 //                    JLogger.i(TAG,"onSensorChanged mCount : " +  mCount +
 //                            "   this.count :" + count +
 //                            "   SensorCount : " + mJLoggerSensorCount);
 
                     sHandler.removeMessages(HANDLER_WHAT_TEST_JLOGGER);
-                    sHandler.sendEmptyMessageDelayed(HANDLER_WHAT_TEST_JLOGGER,WHAT_TEST_JLOGGER_DURATION);
+                    sHandler.sendEmptyMessageDelayed(HANDLER_WHAT_TEST_JLOGGER, WHAT_TEST_JLOGGER_DURATION);
                     break;
                 }
             }
@@ -98,7 +98,7 @@ public class TodayStepDetector implements SensorEventListener{
         }
     });
 
-    public TodayStepDetector(Context context, OnStepCounterListener onStepCounterListener){
+    public TodayStepDetector(Context context, OnStepCounterListener onStepCounterListener) {
         super();
         mContext = context;
         this.mOnStepCounterListener = onStepCounterListener;
@@ -107,10 +107,10 @@ public class TodayStepDetector implements SensorEventListener{
 
         mCount = (int) PreferencesHelper.getCurrentStep(mContext);
         mTodayDate = PreferencesHelper.getStepToday(mContext);
-        Map<String,String> map = new HashMap<>();
-        map.put("mCount",String.valueOf(mCount));
-        map.put("mTodayDate",String.valueOf(mTodayDate));
-        JLoggerWraper.onEventInfo(mContext,JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_CONSTRUCTOR,map);
+        Map<String, String> map = new HashMap<>();
+        map.put("mCount", String.valueOf(mCount));
+        map.put("mTodayDate", String.valueOf(mTodayDate));
+        JLoggerWraper.onEventInfo(mContext, JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_CONSTRUCTOR, map);
 //        JLogger.i(TAG, "TodayStepDetector mCount : " + mCount +
 //                "   mTodayDate:" + mTodayDate);
 
@@ -120,7 +120,7 @@ public class TodayStepDetector implements SensorEventListener{
         updateStepCounter();
 
         sHandler.removeMessages(HANDLER_WHAT_TEST_JLOGGER);
-        sHandler.sendEmptyMessageDelayed(HANDLER_WHAT_TEST_JLOGGER,WHAT_TEST_JLOGGER_DURATION);
+        sHandler.sendEmptyMessageDelayed(HANDLER_WHAT_TEST_JLOGGER, WHAT_TEST_JLOGGER_DURATION);
     }
 
     private void initBroadcastReceiver() {
@@ -154,10 +154,10 @@ public class TodayStepDetector implements SensorEventListener{
             PreferencesHelper.setStepToday(mContext, mTodayDate);
 
             setSteps(0);
-            JLoggerWraper.onEventInfo(mContext,JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_DATECHANGECLEANSTEP);
+            JLoggerWraper.onEventInfo(mContext, JLoggerConstant.JLOGGER_TYPE_ACCELEROMETER_DATECHANGECLEANSTEP);
             mJLoggerSensorCount = 0;
 
-            if(null != mOnStepCounterListener){
+            if (null != mOnStepCounterListener) {
                 mOnStepCounterListener.onStepCounterClean();
             }
         }
@@ -167,7 +167,7 @@ public class TodayStepDetector implements SensorEventListener{
         return DateUtils.getCurrentDate("yyyy-MM-dd");
     }
 
-    private void updateStepCounter(){
+    private void updateStepCounter() {
 
         //每次回调都判断一下是否跨天
         dateChangeCleanStep();
@@ -179,7 +179,7 @@ public class TodayStepDetector implements SensorEventListener{
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(Sensor.TYPE_ACCELEROMETER == event.sensor.getType()) {
+        if (Sensor.TYPE_ACCELEROMETER == event.sensor.getType()) {
             for (int i = 0; i < 3; i++) {
                 oriValues[i] = event.values[i];
             }
@@ -195,11 +195,11 @@ public class TodayStepDetector implements SensorEventListener{
     }
 
     /*
-    * 检测步子，并开始计步
-    * 1.传入sersor中的数据
-    * 2.如果检测到了波峰，并且符合时间差以及阈值的条件，则判定为1步
-    * 3.符合时间差条件，波峰波谷差值大于initialValue，则将该差值纳入阈值的计算中
-    * */
+     * 检测步子，并开始计步
+     * 1.传入sersor中的数据
+     * 2.如果检测到了波峰，并且符合时间差以及阈值的条件，则判定为1步
+     * 3.符合时间差条件，波峰波谷差值大于initialValue，则将该差值纳入阈值的计算中
+     * */
     private void detectorNewStep(float values) {
         if (gravityOld == 0) {
             gravityOld = values;
@@ -311,29 +311,27 @@ public class TodayStepDetector implements SensorEventListener{
     }
 
 
-
-
     /*
-    * 连续走十步才会开始计步
-    * 连续走了9步以下,停留超过3秒,则计数清空
-    * */
+     * 连续走十步才会开始计步
+     * 连续走了9步以下,停留超过3秒,则计数清空
+     * */
     private void countStep() {
         this.timeOfLastPeak1 = this.timeOfThisPeak1;
         this.timeOfThisPeak1 = System.currentTimeMillis();
-        if (this.timeOfThisPeak1 - this.timeOfLastPeak1 <= 3000L){
-            if(this.count<9){
+        if (this.timeOfThisPeak1 - this.timeOfLastPeak1 <= 3000L) {
+            if (this.count < 9) {
                 this.count++;
-            }else if(this.count == 9){
+            } else if (this.count == 9) {
                 this.count++;
                 this.mCount += this.count;
                 PreferencesHelper.setCurrentStep(mContext, mCount);
                 updateStepCounter();
-            }else{
+            } else {
                 this.mCount++;
                 PreferencesHelper.setCurrentStep(mContext, mCount);
                 updateStepCounter();
             }
-        }else{//超时
+        } else {//超时
             this.count = 1;//为1,不是0
         }
         //测试传感器是否回调
@@ -352,7 +350,7 @@ public class TodayStepDetector implements SensorEventListener{
         return mCount;
     }
 
-    public void setCurrentStep(int initStep){
+    public void setCurrentStep(int initStep) {
 
         setSteps(initStep);
 
@@ -362,7 +360,7 @@ public class TodayStepDetector implements SensorEventListener{
         mTodayDate = getTodayDate();
         PreferencesHelper.setStepToday(mContext, mTodayDate);
 
-        if(null != mOnStepCounterListener){
+        if (null != mOnStepCounterListener) {
             mOnStepCounterListener.onChangeStepCounter(mCount);
         }
     }

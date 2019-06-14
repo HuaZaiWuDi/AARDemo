@@ -46,7 +46,7 @@ public class NotificationApiCompat {
         manager.notify(id, mNotification);
     }
 
-    public void updateNotification( int id, String title, String text) {
+    public void updateNotification(int id, String title, String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (!TextUtils.isEmpty(text)) {
                 mBuilder26.setContentText(text);
