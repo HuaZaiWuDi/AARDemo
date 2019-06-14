@@ -86,9 +86,9 @@ public class TodayStepService extends Service implements Handler.Callback {
     /**
      * 点击通知栏广播requestCode
      */
-    private static final String BROADCAST_STEP_RESET = "BROADCAST_STEP_RESET";
-    private static final String BROADCAST_STEP_UPDATE = "BROADCAST_STEP_UPDATE";
-    private static final String EXTRA_STEP_CURRENT = "EXTRA_STEP_CURRENT";
+    public static final String BROADCAST_STEP_RESET = "BROADCAST_STEP_RESET";
+    public static final String BROADCAST_STEP_UPDATE = "BROADCAST_STEP_UPDATE";
+    public static final String EXTRA_STEP_CURRENT = "EXTRA_STEP_CURRENT";
 
     public static final String INTENT_NAME_0_SEPARATE = "intent_name_0_separate";
     public static final String INTENT_NAME_BOOT = "intent_name_boot";
