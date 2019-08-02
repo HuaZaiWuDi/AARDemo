@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/kotlintools" />
             <option value="$PROJECT_DIR$/lib-net" />
             <option value="$PROJECT_DIR$/lib-todaystepcounter" />
+            <option value="$PROJECT_DIR$/monitorlib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

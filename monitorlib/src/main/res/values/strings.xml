@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MonitorLib</string>
+    <string name="leak_canary_display_activity_label">LeakCanary</string>
+    <string name="block_canary_display_activity_label">BlockCanary</string>
+</resources>

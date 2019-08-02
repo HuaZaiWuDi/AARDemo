@@ -33,9 +33,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-import com.vondear.rxtools.utils.bitmap.RxImageUtils;
 import com.vondear.rxtools.interfaces.onUpdateListener;
+import com.vondear.rxtools.utils.bitmap.RxImageUtils;
 
 /**
  * Created by Administrator on 2017/3/15.
@@ -308,7 +307,7 @@ public class RxAnimationUtils {
                 }
             }
         } catch (Exception e) {
-            Logger.e("only ViewGroups : likes RelativeLayout, LinearLayout, etc could doAction");
+            RxLogUtils.e("only ViewGroups : likes RelativeLayout, LinearLayout, etc could doAction");
         }
     }
 
@@ -341,7 +340,7 @@ public class RxAnimationUtils {
                         }).withLayer().start();
             }
         } catch (Exception e) {
-            Logger.e("only ViewGroups : likes RelativeLayout, LinearLayout, etc could doAction");
+            RxLogUtils.e("only ViewGroups : likes RelativeLayout, LinearLayout, etc could doAction");
         }
     }
 
@@ -367,7 +366,7 @@ public class RxAnimationUtils {
                 @Override
                 public void onAnimationRepeat(Animator animation) {
                     super.onAnimationRepeat(animation);
-                    Logger.d("重复");
+                    RxLogUtils.d("重复");
 
                     int i = Integer.parseInt(text_countDown.getText().toString());
                     i--;

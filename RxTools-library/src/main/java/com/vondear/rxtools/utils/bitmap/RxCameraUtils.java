@@ -1,14 +1,15 @@
 package com.vondear.rxtools.utils.bitmap;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresPermission;
 
 import com.vondear.rxtools.utils.RxDataUtils;
 
@@ -24,6 +25,7 @@ public class RxCameraUtils {
     /**
      * 获取打开照程序界面的Intent
      */
+    @RequiresPermission(Manifest.permission.CAMERA)
     public static Intent getOpenCameraIntent() {
         return new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     }
@@ -31,6 +33,7 @@ public class RxCameraUtils {
     /**
      * 获取跳转至相册选择界面的Intent
      */
+    @RequiresPermission(anyOf = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public static Intent getImagePickerIntent() {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         return intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -207,17 +210,6 @@ public class RxCameraUtils {
     }
 
 
-    /**
-     * 拍照保存本地之后发生广播通知更新系统相册
-     *
-     * @param context 上下文
-     * @param imgPath 图片路径
-     */
-    public static void NotifyAlbum(Context context, String imgPath) {
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(new File(imgPath));
-        intent.setData(uri);
-        context.sendBroadcast(intent);
-    }
+
 
 }

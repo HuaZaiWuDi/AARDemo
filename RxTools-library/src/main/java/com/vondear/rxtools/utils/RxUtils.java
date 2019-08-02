@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.vondear.rxtools.BuildConfig;
 import com.vondear.rxtools.view.wheelhorizontal.utils.DrawUtil;
 
 import java.security.MessageDigest;
@@ -40,18 +39,19 @@ public class RxUtils {
      *
      * @param context 上下文
      */
-    public static void init(Application context) {
+    public static void init(Application context, boolean isDebug) {
         RxUtils.context = context.getApplicationContext();
 //        RxCrashUtils.getInstance(context).init();
         SPUtils.getInstance(context);
         DrawUtil.resetDensity(context);
-        RxLogUtils.setLogSwitch(BuildConfig.DEBUG);
+        RxLogUtils.setLogSwitch(isDebug);
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BuildConfig.DEBUG;
+                return isDebug;
             }
         });
+        RxSignaturesUtils.logApkInfo(context);
     }
 
     /**
@@ -89,7 +89,7 @@ public class RxUtils {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                textView.setText((millisUntilFinished / 1000) + " s");
+                textView.setText((millisUntilFinished / 1000 + 1) + " s");
             }
 
             @Override
@@ -184,7 +184,7 @@ public class RxUtils {
      * @return
      */
     public static final int getResIdByName(Context context, String name, String defType) {
-        return context.getResources().getIdentifier("ic_launcher", "drawable", context.getPackageName());
+        return context.getResources().getIdentifier(name, defType, context.getPackageName());
     }
     //============================================MD5加密============================================
 
@@ -300,10 +300,7 @@ public class RxUtils {
                 bounds.right += right;
 
                 TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
-
-                if (View.class.isInstance(view.getParent())) {
-                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
-                }
+                ((View) view.getParent()).setTouchDelegate(touchDelegate);
             }
         });
     }
@@ -333,10 +330,7 @@ public class RxUtils {
                 bounds.right += bounds.right * p;
 
                 TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
-
-                if (View.class.isInstance(view.getParent())) {
-                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
-                }
+                ((View) view.getParent()).setTouchDelegate(touchDelegate);
             }
         });
     }
@@ -354,10 +348,7 @@ public class RxUtils {
                 Rect bounds = new Rect();
                 bounds.setEmpty();
                 TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
-
-                if (View.class.isInstance(view.getParent())) {
-                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
-                }
+                ((View) view.getParent()).setTouchDelegate(touchDelegate);
             }
         });
     }
@@ -374,8 +365,6 @@ public class RxUtils {
         int h_screen = dm.heightPixels;
         return new Point(w_screen, h_screen);
     }
-
-
 
 
 }

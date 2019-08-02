@@ -53,7 +53,7 @@ public abstract class FileDownLoadObserver<T> extends DefaultObserver<T> {
      * @return 写入完成的文件
      * @throws IOException IO异常
      */
-    public File saveFile(ResponseBody responseBody, String destFileDir, String destFileName) throws IOException {
+    public  File saveFile(ResponseBody responseBody, String destFileDir, String destFileName) throws IOException {
         final String dirName = Environment.getExternalStorageDirectory() + destFileDir;
         InputStream is = null;
         byte[] buf = new byte[1024];

@@ -3,8 +3,6 @@ package com.vondear.rxtools.utils;
 import android.location.Location;
 import android.media.ExifInterface;
 
-import com.orhanobut.logger.Logger;
-
 import java.io.File;
 
 /**
@@ -35,7 +33,7 @@ public class RxExifTool {
                 }
                 exif.saveAttributes();
 
-                Logger.d(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE) + "\n"
+                RxLogUtils.d(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE) + "\n"
                         + exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE) + "\n"
                         + exif.getAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD) + "\n"
                         + exif.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "\n"

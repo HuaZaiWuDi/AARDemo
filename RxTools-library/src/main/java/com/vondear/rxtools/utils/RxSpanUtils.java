@@ -251,6 +251,7 @@ public final class RxSpanUtils {
     }
 
     /**
+     * 设置报价的颜色范围。
      * Set the span of quote's color.
      *
      * @param color The color of quote
@@ -305,6 +306,7 @@ public final class RxSpanUtils {
     }
 
     /**
+     * ：设置子弹的跨度。
      * Set the span of bullet.
      *
      * @param color    The color of bullet.

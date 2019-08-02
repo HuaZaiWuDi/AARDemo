@@ -98,6 +98,9 @@ public final class RxFormatValue {
      */
     public static BigDecimal fromatValue(double i, int scale, int type) {
         BigDecimal bigDecimal = new BigDecimal(i);
+
+        BigDecimal bigDecimal2 = new BigDecimal("1234");
+
         BigDecimal decimal = bigDecimal.setScale(scale, type);//保留小数点后2位，直接去掉值。
         return decimal;
     }

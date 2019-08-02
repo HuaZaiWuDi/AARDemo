@@ -26,7 +26,6 @@ public final class BitUtils {
      */
     public static byte getBitValue(byte source, int pos) {
         return (byte) ((source >> pos) & 1);
-
     }
 
 

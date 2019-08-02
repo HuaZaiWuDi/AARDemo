@@ -1,5 +1,8 @@
 package com.wesmarclothing.mylibrary.net;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +88,8 @@ public class RxBus {
      */
     @Deprecated
     public <T> Disposable register(Class<T> tClass, Consumer<T> consumer) {
+        Type type = new TypeToken<T>() {
+        }.getType();
         return mBus.ofType(tClass)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

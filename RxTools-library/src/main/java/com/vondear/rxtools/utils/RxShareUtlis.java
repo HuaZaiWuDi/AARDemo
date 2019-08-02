@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.orhanobut.logger.Logger;
 import com.vondear.rxtools.utils.bitmap.RxImageUtils;
 
 import java.io.File;
@@ -51,7 +50,7 @@ public class RxShareUtlis {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-        Logger.d("图片地址：" + path);
+        RxLogUtils.d("图片地址：" + path);
 
         Uri data = File2UriByN(context, new File(path), intent);
 

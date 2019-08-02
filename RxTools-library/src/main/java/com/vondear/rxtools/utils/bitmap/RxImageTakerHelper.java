@@ -1,5 +1,6 @@
 package com.vondear.rxtools.utils.bitmap;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +12,15 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.vondear.rxtools.utils.ToolsProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -55,6 +59,7 @@ public class RxImageTakerHelper {
 
     public static final int REQUEST_CAMERA = 0x10;
     public static final int REQUEST_ALBUM = 0x11;
+    public static final int REQUEST_CROP = 0x12;
 
     /**
      * 图片临时保存格式
@@ -97,6 +102,7 @@ public class RxImageTakerHelper {
     /**
      * 打开相册获取图片 调用onActivityResult()获取图片
      */
+    @RequiresPermission(anyOf = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public static void openAlbum(Activity activity) {
         Intent intentAlbum = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intentAlbum.setType("image/*");
@@ -106,6 +112,7 @@ public class RxImageTakerHelper {
     /**
      * 打开相册获取图片 调用onActivityResult()获取图片
      */
+    @RequiresPermission(anyOf = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public static void openAlbum(Fragment fragment) {
         Intent intentAlbum = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intentAlbum.setType(MEDIA_TYPE_IMAGE);
@@ -117,11 +124,69 @@ public class RxImageTakerHelper {
      * <p>
      * 调用onActivityResult()获取图片
      */
-    public static void openCamera(Activity activity, String authority) {
+    @RequiresPermission(Manifest.permission.CAMERA)
+    public static void openCamera(Activity activity) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, getOutputPictureUri(activity.getApplicationContext(), authority));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getOutputPictureUri(activity.getApplicationContext()));
         activity.startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+
+    public static void getImagePickerIntent(Activity context, int aspectX, int aspectY, int outputX, int outputY, boolean canScale,
+                                            Uri fromFileURI, Uri saveFileURI) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(fromFileURI, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", aspectX <= 0 ? 1 : aspectX);
+        intent.putExtra("aspectY", aspectY <= 0 ? 1 : aspectY);
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
+        intent.putExtra("scale", canScale);
+        // 图片剪裁不足黑边解决
+        intent.putExtra("scaleUpIfNeeded", true);
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, saveFileURI);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //前置摄像头
+        intent.putExtra("noFaceDetection", true);
+        context.startActivityForResult(intent, REQUEST_CROP);
+    }
+
+
+    /**
+     * 获取[跳转至裁剪界面，可以指定是否缩放裁剪区域]的Intent
+     *
+     * @param aspectX     裁剪框尺寸比例X
+     * @param aspectY     裁剪框尺寸比例Y
+     * @param outputX     输出尺寸宽度
+     * @param outputY     输出尺寸高度
+     * @param canScale    是否可缩放
+     * @param fromFileURI 文件来源路径URI
+     * @param saveFileURI 输出文件路径URI
+     */
+    public static void getCropImageIntent(Activity context, int aspectX, int aspectY, int outputX, int outputY, boolean canScale,
+                                          Uri fromFileURI, Uri saveFileURI) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(fromFileURI, "image/*");
+        intent.putExtra("crop", "true");
+        // X方向上的比例
+        intent.putExtra("aspectX", aspectX <= 0 ? 1 : aspectX);
+        // Y方向上的比例
+        intent.putExtra("aspectY", aspectY <= 0 ? 1 : aspectY);
+        intent.putExtra("outputX", outputX);
+        intent.putExtra("outputY", outputY);
+        intent.putExtra("scale", canScale);
+        // 图片剪裁不足黑边解决
+        intent.putExtra("scaleUpIfNeeded", true);
+        intent.putExtra("return-data", false);
+        // 需要将读取的文件路径和裁剪写入的路径区分，否则会造成文件0byte
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, saveFileURI);
+        // true-->返回数据类型可以设置为Bitmap，但是不能传输太大，截大图用URI，小图用Bitmap或者全部使用URI
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        // 取消人脸识别功能
+        intent.putExtra("noFaceDetection", true);
+        context.startActivityForResult(intent, REQUEST_CROP);
     }
 
 
@@ -144,21 +209,12 @@ public class RxImageTakerHelper {
      * 获取相机拍照存储的图片位置Uri
      *
      * @param context
-     * @param authority fileProvider 名字
      * @return
      */
-    public static Uri getOutputPictureUri(Context context, String authority) {
-//        String authority = context.getString(R.string.provider_authority);
+    public static Uri getOutputPictureUri(Context context) {
+        String authority = ToolsProvider.getFileProviderName(context.getApplicationContext());
         File saveFile = getTmpSaveFilePath(context);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            try {
-                return FileProvider.getUriForFile(context, authority, saveFile);
-            } catch (Exception e) {
-                return Uri.fromFile(saveFile);
-            }
-        } else {
-            return Uri.fromFile(saveFile);
-        }
+        return getOutputPictureUri(context, saveFile);
     }
 
     /**
@@ -166,11 +222,10 @@ public class RxImageTakerHelper {
      *
      * @param context
      * @param file
-     * @param authority fileProvider name
      * @return
      */
-    public static Uri getOutputPictureUri(Context context, File file, String authority) {
-//        String authority = context.getString(R.string.provider_authority);
+    public static Uri getOutputPictureUri(Context context, File file) {
+        String authority = ToolsProvider.getFileProviderName(context.getApplicationContext());
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             try {
                 return FileProvider.getUriForFile(context, authority, file);
@@ -223,7 +278,7 @@ public class RxImageTakerHelper {
      * @param data 相机返回结果
      */
     public static String readBitmapFromCameraResult(Context context, Intent data) {
-        return String.valueOf(getTmpSaveFilePath(context).getPath());
+        return getTmpSaveFilePath(context).getPath();
     }
 
     /**
@@ -351,6 +406,19 @@ public class RxImageTakerHelper {
                 // null
             }
         }
+    }
+
+    /**
+     * 拍照保存本地之后发生广播通知更新系统相册
+     *
+     * @param context 上下文
+     * @param imgPath 图片路径
+     */
+    public static void NotifyAlbum(Context context, String imgPath) {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(new File(imgPath));
+        intent.setData(uri);
+        context.sendBroadcast(intent);
     }
 
 }

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -43,5 +45,6 @@ dependencies {
     //        transitive = true
     //    }
     implementation project(':RxTools-Library')
+//    compile project(path: ':kotlintools')
 //    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha01'
 }

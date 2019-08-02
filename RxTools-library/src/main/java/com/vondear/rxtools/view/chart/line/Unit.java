@@ -128,19 +128,19 @@ public class Unit implements Comparable<Unit>, Cloneable {
         return value;
     }
 
-    void setXY(PointF xy) {
+    public void setXY(PointF xy) {
         this.xy = xy;
     }
 
-    PointF getXY() {
+   public PointF getXY() {
         return xy;
     }
 
-    void setPercent(float percent) {
+    public  void setPercent(float percent) {
         this.percent = percent;
     }
 
-    float getPercent() {
+    public float getPercent() {
         return percent;
     }
 
@@ -148,19 +148,19 @@ public class Unit implements Comparable<Unit>, Cloneable {
         this.extX = extX;
     }
 
-    String getExtX() {
+    public String getExtX() {
         return extX;
     }
 
 
-    void cancelToEndAnim() {
+    public void cancelToEndAnim() {
         if (VALUEANIMATOR.isRunning()) {
             VALUEANIMATOR.cancel();
         }
         percent = 1f;
     }
 
-    void startAnim(TimeInterpolator value) {
+    public void startAnim(TimeInterpolator value) {
         if (percent > 0 || VALUEANIMATOR.isRunning()) {
             return;
         }

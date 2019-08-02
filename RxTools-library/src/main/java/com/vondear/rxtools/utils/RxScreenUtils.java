@@ -153,6 +153,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 返回屏幕是否为横屏。
      * Return whether screen is landscape.
      *
      * @return {@code true}: yes<br>{@code false}: no
@@ -239,6 +240,7 @@ public final class RxScreenUtils {
     }
 
     /**
+     * 返回是否锁定屏幕。
      * Return whether screen is locked.
      *
      * @return {@code true}: yes<br>{@code false}: no

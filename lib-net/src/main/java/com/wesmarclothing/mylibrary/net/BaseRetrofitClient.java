@@ -1,7 +1,6 @@
 package com.wesmarclothing.mylibrary.net;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @Project WeiMiBra
  */
 public abstract class BaseRetrofitClient {
-
+    public static final String TAG = "【NetManager】";
 
     public OkHttpClient mClient;
     public OkHttpClient.Builder builder;
@@ -36,9 +35,22 @@ public abstract class BaseRetrofitClient {
         if (showLog) {
             //日志显示级别
             HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.BODY;
+
+            StringBuilder mMessage = new StringBuilder();
             //新建log拦截器
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message ->
-                    Logger.w("【NetManager】", message));
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+                if (message.startsWith("--> POST")) {
+                    mMessage.setLength(0);
+                }
+                if ((message.startsWith("{") && message.endsWith("}"))
+                        || (message.startsWith("[") && message.endsWith("]"))) {
+                    message = Logger.formatJson(message);
+                }
+                mMessage.append(message.concat("\n"));
+                if (message.startsWith("<-- END HTTP")) {
+                    Logger.e(TAG, mMessage.toString());
+                }
+            });
             loggingInterceptor.setLevel(level);
             //OkHttp进行添加拦截器loggingInterceptor
             builder.addNetworkInterceptor(loggingInterceptor);

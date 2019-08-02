@@ -1,8 +1,6 @@
 package com.wesmarclothing.mylibrary.net;
 
 import android.app.Dialog;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
 import android.text.TextUtils;
 
 import com.wesmarclothing.mylibrary.net.lifecycyle.LifeCycleEvent;
@@ -208,18 +206,6 @@ public class RxComposeUtils {
         };
     }
 
-    /**
-     * 绑定生命周期，在AC和Fragment在销毁时结束网络请求
-     *
-     * @param <T> 指定的泛型类型
-     * @return Observable
-     * <p>
-     * takeUtil，很显然，observable.takeUtil(condition)，当condition == true时终止，且包含临界条件的item
-     * </T>
-     */
-    public static <T> ObservableTransformer<T, T> bindLife(LifecycleOwner owner) {
-        return upstream -> upstream.takeUntil(t -> owner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED);
-    }
 
 
     /**

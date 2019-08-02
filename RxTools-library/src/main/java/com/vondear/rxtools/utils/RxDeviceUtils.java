@@ -3,7 +3,6 @@ package com.vondear.rxtools.utils;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.app.KeyguardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -28,8 +27,6 @@ import android.util.Xml;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
-
-import com.vondear.rxtools.interfaces.onRequestPermissionsListener;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -604,23 +601,11 @@ public class RxDeviceUtils {
             // 调用系统的拨号服务实现电话拨打功能
             // 封装一个拨打电话的intent，并且将电话号码包装成一个Uri对象传入
 
-            RxPermissionsUtils.requestCall(RxUtils.getContext(), new onRequestPermissionsListener() {
-                @Override
-                public void onRequestBefore() {
-
-                }
-
-                @Override
-                public void onRequestLater() {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber1));
-                    if (ActivityCompat.checkSelfPermission(RxUtils.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    RxUtils.getContext().startActivity(intent);// 内部类
-                }
-            });
-
-
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber1));
+            if (ActivityCompat.checkSelfPermission(RxUtils.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            RxUtils.getContext().startActivity(intent);// 内部类
         }
     }
 

@@ -1,1 +1,1 @@
-include ':app', ':dynamic_feature', ':base', ':base', ':instantapp', ':lib-net', ':RxTools-Library', ':imagepicker', ':kotlintools',  ':base-lib-notification', ':lib-todaystepcounter'
+include ':app', ':dynamic_feature', ':base', ':base', ':instantapp', ':lib-net', ':RxTools-Library', ':imagepicker', ':kotlintools',  ':base-lib-notification', ':lib-todaystepcounter', ':monitorlib'

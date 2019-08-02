@@ -7,13 +7,9 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.vondear.rxtools.model.timer.MyTimer;
 import com.vondear.rxtools.model.timer.MyTimerListener;
-
-import java.util.Timer;
 
 
 /**
@@ -22,7 +18,7 @@ import java.util.Timer;
  * 创建人：oden
  * 创建时间：2017/12/28
  */
-public class CountDownTextView extends TextView {
+public class CountDownTextView extends android.support.v7.widget.AppCompatTextView {
 
 
     public CountDownTextView(Context context) {
@@ -55,7 +51,6 @@ public class CountDownTextView extends TextView {
         this.content = content;
         char[] chars = content.toCharArray();
         maxLen = chars.length;
-        Logger.d("maxLen:" + maxLen);
         if (maxLen != 0)
             animTime = TotalTime / maxLen;
         postInvalidate();
