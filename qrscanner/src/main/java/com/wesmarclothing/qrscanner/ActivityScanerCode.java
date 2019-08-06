@@ -428,7 +428,7 @@ public class ActivityScanerCode extends AppCompatActivity {
         intent.putExtra(BUNDLE_RESULT_DATA, realContent);
 
         setResult(BUNDLE_RESULT_CODE, intent);
-
+        finish();
     }
 
     public void handleDecode(Result result) {

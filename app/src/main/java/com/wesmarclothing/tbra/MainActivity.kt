@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFail(type: String?, message: String?) {
                 Log.d("扫描结果：", message)
             }
-
         })
+
     }
 }
