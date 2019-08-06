@@ -147,7 +147,7 @@ public class ActivityScanerCode extends AppCompatActivity {
     public static void start(Context context, int scanType) {
         Intent starter = new Intent(context, ActivityScanerCode.class);
         starter.putExtra(BUNDLE_RESULT_TYPE, scanType);
-        context.startActivity(starter);
+        ((Activity) context).startActivityForResult(starter, BUNDLE_RESULT_CODE);
     }
 
 
