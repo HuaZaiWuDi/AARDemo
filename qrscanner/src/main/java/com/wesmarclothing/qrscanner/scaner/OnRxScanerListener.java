@@ -1,6 +1,8 @@
 package com.wesmarclothing.qrscanner.scaner;
 
 
+import android.app.Activity;
+
 import com.google.zxing.Result;
 
 /**
@@ -9,7 +11,7 @@ import com.google.zxing.Result;
  */
 
 public interface OnRxScanerListener {
-    void onSuccess(String type, Result result);
+    void onSuccess(String type, Result result, Activity activity);
 
     void onFail(String type, String message);
 }

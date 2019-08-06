@@ -393,7 +393,7 @@ public class ActivityScanerCode extends AppCompatActivity {
                     if (mScanerListener == null) {
                         initDialogResult(rawResult);
                     } else {
-                        mScanerListener.onSuccess("From to Picture", rawResult);
+                        mScanerListener.onSuccess("From to Picture", rawResult, this);
                     }
                 } else {
                     if (mScanerListener == null) {
@@ -452,7 +452,7 @@ public class ActivityScanerCode extends AppCompatActivity {
         if (mScanerListener == null) {
             initDialogResult(result);
         } else {
-            mScanerListener.onSuccess("From to Camera", result);
+            mScanerListener.onSuccess("From to Camera", result, this);
         }
     }
     //==============================================================================================解析结果 及 后续处理 end
