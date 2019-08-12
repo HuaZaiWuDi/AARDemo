@@ -1,6 +1,7 @@
 package com.wesmarclothing.kotlintools.kotlin.utils
 
 import android.os.Looper
+import androidx.annotation.NonNull
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -31,7 +32,7 @@ fun <T> LifecycleOwner.async(loader: () -> T): Deferred<T> {
     ) {
         loader()
     }
-    lifecycle.addObserver(CoroutinesLifecycleListener(deferred))
+    lifecycle.addObserver(CoroutinesLifecycleListener(deferred, this))
     return deferred
 }
 
@@ -41,9 +42,11 @@ infix fun <T> Deferred<T>.main(block: (T) -> Unit): Job {
     }
 }
 
-class CoroutinesLifecycleListener(val deferred: Deferred<*>) : LifecycleObserver {
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+class CoroutinesLifecycleListener(private val deferred: Deferred<*>, @NonNull val owner: LifecycleOwner) : LifecycleObserver {
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun cancelCoroutine() {
+        owner.lifecycle.removeObserver(this)
         if (!deferred.isCancelled) {
             deferred.cancel()
         }
